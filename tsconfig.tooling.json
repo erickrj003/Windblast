@@ -1,5 +1,5 @@
 {
-	"extends": "../../tsconfig.base.json",
+	"extends": "./tsconfig.base.json",
 	"compilerOptions": {
 		"target": "es2025",
 		"lib": ["es2025"],
@@ -7,7 +7,10 @@
 		"moduleResolution": "bundler",
 		"types": ["node"],
 		"noEmit": true,
+		"allowJs": true,
+		"checkJs": true,
+		"allowImportingTsExtensions": true,
 		"skipLibCheck": true
 	},
-	"include": ["vite.config.ts"]
+	"include": ["*.js", "scripts/*.ts", "apps/web/vite.config.ts"]
 }

@@ -8,7 +8,7 @@ const isRootRelative = (value: string): value is `/${string}` => value.startsWit
 /** GitHub Pages serves the site under /<repo>; the deploy workflow sets BASE_PATH. */
 function basePath(): '' | `/${string}` {
 	if (process.argv.includes('dev')) return '';
-	const value = process.env['BASE_PATH'] ?? '';
+	const value = process.env.BASE_PATH ?? '';
 	if (value === '') return '';
 	if (isRootRelative(value)) return value;
 	throw new Error(`BASE_PATH must be empty or start with "/", got "${value}"`);

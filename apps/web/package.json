@@ -8,13 +8,12 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
-		"typecheck": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings && tsc -p tsconfig.node.json"
+		"typecheck": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-static": "^4.0.0",
 		"@sveltejs/kit": "^3.0.1",
 		"@sveltejs/vite-plugin-svelte": "^7.3.1",
-		"@types/node": "^24.19.1",
 		"svelte": "^5.57.2",
 		"svelte-check": "^4.7.6",
 		"typescript": "~6.0.3",

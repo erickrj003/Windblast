@@ -1,0 +1,7 @@
+pnpm-lock.yaml
+packages/data/vendor/
+apps/web/static/
+
+# Markdown is left as written: the plan, docs and agent rules are hand-edited prose,
+# and reformatting .claude/rules would also put .cursor/rules out of sync.
+*.md

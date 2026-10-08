@@ -19,8 +19,6 @@ _(none)_
 
 ## Next up
 
-- [ ] P0-04 ESLint 10 flat config (typescript-eslint strict-type-checked + stylistic-type-checked, eslint-plugin-svelte recommended) with project bans; Prettier + prettier-plugin-svelte.
-  - Acceptance: adding `Math.random()` or `import 'pixi.js'` in `packages/engine` fails lint; `any` fails lint everywhere.
 - [ ] P0-05 Vitest 5 (workspace projects per package, coverage thresholds from `testing.md`) and fast-check; Playwright configured against `vite preview`.
   - Acceptance: one sample unit test, one property test and one e2e test pass.
 - [ ] P0-06 Lefthook pre-commit: Prettier check, ESLint on staged files, fast unit tests.
@@ -48,6 +46,10 @@ _(none)_
   - Acceptance: `pnpm --filter web build` emits static files; no `svelte.config.js`; `#lib` import alias configured.
   - Result: `sv@1.1.1 create --template minimal --types ts --add sveltekit-adapter=adapter:static` · `pnpm --filter web build` ✅ (`index.html`, `404.html`, `_app/`) · `pnpm typecheck` ✅ (`tsc -b`, `svelte-check --fail-on-warnings` 0/0, `tsc -p tsconfig.node.json`) · `svelte-autofixer` clean on `+page.svelte` and `+layout.svelte` · `BASE_PATH=/Windblast` builds; `BASE_PATH=Windblast` fails with a clear error · branch `feat/p0-03-web-app`
   - Notes: `tsconfig.base.json` now holds only the locked strict flags so the app can extend `["$app/tsconfig", "../../tsconfig.base.json"]`; library build settings moved to `tsconfig.package.json`. `vite.config.ts` is checked in its own `tsconfig.node.json` so Node globals stay out of browser code. Added `@types/node` ^24 under proposed decision record 0002. Removed template leftovers (`.npmrc`, `README.md`, the empty `#lib` barrel). pnpm 12 enforces a one-day `minimumReleaseAge`: asking for a version published today made pnpm write a silent `minimumReleaseAgeExclude` into `pnpm-workspace.yaml`. Reverted it and used `vite ^8.3.3` instead; never commit such an exclusion without a decision record.
+- [x] P0-04 ESLint 10 flat config (typescript-eslint strict-type-checked + stylistic-type-checked, eslint-plugin-svelte recommended) with project bans; Prettier + prettier-plugin-svelte.
+  - Acceptance: adding `Math.random()` or `import 'pixi.js'` in `packages/engine` fails lint; `any` fails lint everywhere.
+  - Result: `pnpm check` ✅ (format, typecheck, lint, data:check placeholder, rules:check) · probes (removed) all failed lint: in `engine` `pixi.js`, `svelte`, `Math.random`, `Date.now`, `new Date`, `document`, `enum`, `any`, default export; `data` importing `@inazria/engine`; in `web` `$app/stores`, `svelte/store`, `any` in `.ts` and `.svelte`, `console.log` · branch `chore/p0-04-lint-format`
+  - Notes: per-package `no-restricted-imports` enforce `data` ← `engine` ← `sim` and `engine` ← `render`; engine and data also ban clocks, `Math.random` and host globals. The web app bans `$app/stores`, `$app/environment`, `$service-worker`, `$lib`, `$env/*`, `svelte/store`, `pixi.js` and deep `@inazria/*/src` imports. `@typescript-eslint/array-type` is set to `readonly: 'generic'` so the stylistic preset matches the `ReadonlyArray<T>` convention in `typescript.md`. Config files, `scripts/*.ts` and `apps/web/vite.config.ts` are typed through `tsconfig.tooling.json` (replaces `apps/web/tsconfig.node.json`; `@types/node` moved to the root). Markdown is excluded from Prettier so it does not rewrite the plan, docs and rules. Not added: `globals` and `eslint-config-prettier` (the `sv` defaults); neither is needed with typescript-eslint and current presets. `@eslint/js` is ESLint's own preset package. Fixed two lint findings in `scripts/sync-agent-rules.ts` (useless assignment; formatting).
 
 ## Phase reports
 

@@ -1,9 +1,9 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./packages/data" },
-    { "path": "./packages/engine" },
-    { "path": "./packages/sim" },
-    { "path": "./packages/render" }
-  ]
+	"files": [],
+	"references": [
+		{ "path": "./packages/data" },
+		{ "path": "./packages/engine" },
+		{ "path": "./packages/sim" },
+		{ "path": "./packages/render" }
+	]
 }

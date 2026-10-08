@@ -1,22 +1,33 @@
 {
-  "name": "inazria-simulator",
-  "private": true,
-  "type": "module",
-  "packageManager": "pnpm@12.10.1",
-  "engines": {
-    "node": "^24"
-  },
-  "scripts": {
-    "typecheck": "tsc -b && pnpm --filter web typecheck",
-    "check": "node -e \"console.info('check: placeholder until P0-04 (lint) and P0-05 (tests)')\"",
-    "verify": "node -e \"console.info('verify: placeholder until P0-05 (build and e2e)')\"",
-    "bench": "node -e \"console.info('bench: placeholder until P5-04')\"",
-    "data:pull": "node -e \"console.info('data:pull: placeholder until P1-02')\"",
-    "data:check": "node -e \"console.info('data:check: placeholder until P1-01')\"",
-    "rules:sync": "node scripts/sync-agent-rules.ts",
-    "rules:check": "node scripts/sync-agent-rules.ts --check"
-  },
-  "devDependencies": {
-    "typescript": "~6.0.3"
-  }
+	"name": "inazria-simulator",
+	"private": true,
+	"type": "module",
+	"packageManager": "pnpm@12.10.1",
+	"engines": {
+		"node": "^24"
+	},
+	"scripts": {
+		"format": "prettier --write .",
+		"format:check": "prettier --check .",
+		"lint": "eslint .",
+		"typecheck": "tsc -b && tsc -p tsconfig.tooling.json && pnpm --filter web typecheck",
+		"check": "pnpm format:check && pnpm typecheck && pnpm lint && pnpm data:check && pnpm rules:check",
+		"verify": "node -e \"console.info('verify: placeholder until P0-05 (build and e2e)')\"",
+		"bench": "node -e \"console.info('bench: placeholder until P5-04')\"",
+		"data:pull": "node -e \"console.info('data:pull: placeholder until P1-02')\"",
+		"data:check": "node -e \"console.info('data:check: placeholder until P1-01')\"",
+		"rules:sync": "node scripts/sync-agent-rules.ts",
+		"rules:check": "node scripts/sync-agent-rules.ts --check"
+	},
+	"devDependencies": {
+		"@eslint/js": "^10.0.1",
+		"@types/node": "^24.19.1",
+		"eslint": "^10.12.0",
+		"eslint-plugin-svelte": "^3.23.0",
+		"prettier": "^3.9.9",
+		"prettier-plugin-svelte": "^4.1.1",
+		"svelte": "^5.57.2",
+		"typescript": "~6.0.3",
+		"typescript-eslint": "^8.71.1"
+	}
 }
