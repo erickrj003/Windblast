@@ -19,8 +19,6 @@ _(none)_
 
 ## Next up
 
-- [ ] P0-05 Vitest 5 (workspace projects per package, coverage thresholds from `testing.md`) and fast-check; Playwright configured against `vite preview`.
-  - Acceptance: one sample unit test, one property test and one e2e test pass.
 - [ ] P0-06 Lefthook pre-commit: Prettier check, ESLint on staged files, fast unit tests.
   - Acceptance: a commit with a lint error is rejected locally.
 - [ ] P0-08 `.github/workflows/ci.yml` (frozen install, `pnpm verify`, Playwright report artifact on failure); `docs/PLAN.md`, `docs/OPEN_QUESTIONS.md`, `docs/decisions/0001-locked-stack.md`, `docs/CHANGELOG.md`.
@@ -50,6 +48,10 @@ _(none)_
   - Acceptance: adding `Math.random()` or `import 'pixi.js'` in `packages/engine` fails lint; `any` fails lint everywhere.
   - Result: `pnpm check` ✅ (format, typecheck, lint, data:check placeholder, rules:check) · probes (removed) all failed lint: in `engine` `pixi.js`, `svelte`, `Math.random`, `Date.now`, `new Date`, `document`, `enum`, `any`, default export; `data` importing `@inazria/engine`; in `web` `$app/stores`, `svelte/store`, `any` in `.ts` and `.svelte`, `console.log` · branch `chore/p0-04-lint-format`
   - Notes: per-package `no-restricted-imports` enforce `data` ← `engine` ← `sim` and `engine` ← `render`; engine and data also ban clocks, `Math.random` and host globals. The web app bans `$app/stores`, `$app/environment`, `$service-worker`, `$lib`, `$env/*`, `svelte/store`, `pixi.js` and deep `@inazria/*/src` imports. `@typescript-eslint/array-type` is set to `readonly: 'generic'` so the stylistic preset matches the `ReadonlyArray<T>` convention in `typescript.md`. Config files, `scripts/*.ts` and `apps/web/vite.config.ts` are typed through `tsconfig.tooling.json` (replaces `apps/web/tsconfig.node.json`; `@types/node` moved to the root). Markdown is excluded from Prettier so it does not rewrite the plan, docs and rules. Not added: `globals` and `eslint-config-prettier` (the `sv` defaults); neither is needed with typescript-eslint and current presets. `@eslint/js` is ESLint's own preset package. Fixed two lint findings in `scripts/sync-agent-rules.ts` (useless assignment; formatting).
+- [x] P0-05 Vitest 5 (workspace projects per package, coverage thresholds from `testing.md`) and fast-check; Playwright configured against `vite preview`.
+  - Acceptance: one sample unit test, one property test and one e2e test pass.
+  - Result: `pnpm verify` ✅ · Vitest 5.0.3: 3 tests (2 unit, 1 fast-check property) in `packages/data`, 100% coverage · Playwright 1.64.0 (Chromium): 1 e2e test against `vite preview` of the production build · bundle size 31.5 KB gzipped (budget 200 KB) · probes (removed): an uncovered branch in `packages/engine` fails the 90% lines / 85% branches threshold; `it.only` fails the run · branch `chore/p0-05-tests`
+  - Notes: the sample code is a real helper, `assertNever` in `@inazria/data`, which the exhaustive-switch rule in `typescript.md` needs anyway. Vitest projects are inline (one per package) because directory-glob projects do not inherit root options such as `allowOnly: false`. Coverage thresholds are per-package globs at the root (engine 90/85, data and sim 85 lines; `testing.md` sets no minimum for render). `pnpm check` now ends with `pnpm test` (Vitest with coverage); `pnpm verify` adds `test:e2e` (builds, then runs Playwright) and `pnpm size`. Added `scripts/check-bundle-size.ts`, since `verify` needs a bundle-size check and no task owned it: it follows `index.html` and static imports, but not dynamic `import()`, so lazy-loaded PixiJS is excluded. Playwright never reuses a running server so the size check always sees a fresh build. E2E files have their own `apps/web/e2e/tsconfig.json`. Locally, run `pnpm --filter web exec playwright install chromium` once.
 
 ## Phase reports
 

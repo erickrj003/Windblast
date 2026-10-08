@@ -12,5 +12,5 @@
 		"allowImportingTsExtensions": true,
 		"skipLibCheck": true
 	},
-	"include": ["*.js", "scripts/*.ts", "apps/web/vite.config.ts"]
+	"include": ["*.js", "*.config.ts", "scripts/*.ts", "apps/web/*.config.ts"]
 }

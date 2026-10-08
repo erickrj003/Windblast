@@ -3,6 +3,7 @@ build/
 dist/
 .svelte-kit/
 coverage/
+.vitest/
 playwright-report/
 test-results/
 *.tsbuildinfo

@@ -10,9 +10,12 @@
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
 		"lint": "eslint .",
-		"typecheck": "tsc -b && tsc -p tsconfig.tooling.json && pnpm --filter web typecheck",
-		"check": "pnpm format:check && pnpm typecheck && pnpm lint && pnpm data:check && pnpm rules:check",
-		"verify": "node -e \"console.info('verify: placeholder until P0-05 (build and e2e)')\"",
+		"typecheck": "tsc -b && tsc -p tsconfig.tooling.json && tsc -p apps/web/e2e && pnpm --filter web typecheck",
+		"test": "vitest run --coverage",
+		"test:e2e": "pnpm --filter web test:e2e",
+		"check": "pnpm format:check && pnpm typecheck && pnpm lint && pnpm data:check && pnpm rules:check && pnpm test",
+		"verify": "pnpm check && pnpm test:e2e && pnpm size",
+		"size": "node scripts/check-bundle-size.ts",
 		"bench": "node -e \"console.info('bench: placeholder until P5-04')\"",
 		"data:pull": "node -e \"console.info('data:pull: placeholder until P1-02')\"",
 		"data:check": "node -e \"console.info('data:check: placeholder until P1-01')\"",
@@ -22,12 +25,15 @@
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
 		"@types/node": "^24.19.1",
+		"@vitest/coverage-v8": "^5.0.3",
 		"eslint": "^10.12.0",
 		"eslint-plugin-svelte": "^3.23.0",
+		"fast-check": "^4.10.2",
 		"prettier": "^3.9.9",
 		"prettier-plugin-svelte": "^4.1.1",
 		"svelte": "^5.57.2",
 		"typescript": "~6.0.3",
-		"typescript-eslint": "^8.71.1"
+		"typescript-eslint": "^8.71.1",
+		"vitest": "^5.0.3"
 	}
 }
