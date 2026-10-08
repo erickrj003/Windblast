@@ -1,0 +1,20 @@
+---
+paths:
+  - "packages/sim/**"
+  - "**/*.worker.ts"
+  - "apps/web/src/lib/sim/**"
+---
+
+# Simulation and Web Workers (`@inazria/sim`)
+
+- Create workers only with Vite's module syntax: `new Worker(new URL('./sim.worker.ts', import.meta.url), { type: 'module' })`. Confirm the current form in the Vite 8 docs before changing it.
+- Wrap workers with Comlink. Every exposed function has typed arguments and return values; no `any` crosses the boundary.
+- Pool size: `Math.min(8, Math.max(1, navigator.hardwareConcurrency - 1))`.
+- Send compiled rules data to each worker **once per session**, not per batch.
+- Dispatch work as chunks of trial indices (default 250). Each chunk returns a partial aggregate (counts, sums, sums of squares, fixed-bin histograms).
+- **Merge partial aggregates in chunk-index order, never arrival order.** Results must be identical with 1, 2 or 8 workers.
+- Cancellation: a flag checked between trials; a cancelled batch stops within one chunk and reports partial results as cancelled.
+- Never keep raw per-trial rows in memory unless the user requested an export.
+- **No `SharedArrayBuffer` or `Atomics`.** GitHub Pages cannot send cross-origin isolation headers. Use structured clone for small objects and transferable `ArrayBuffer`s for bulk numeric data.
+- Workers must terminate cleanly: the pool exposes `dispose()`, and the web app calls it when the simulation page unmounts.
+- Unit-test aggregation logic in Node without workers; test the worker wiring with one Vitest browser-mode or Playwright test.

@@ -1,0 +1,38 @@
+---
+paths:
+  - "**/*.test.ts"
+  - "**/*.bench.ts"
+  - "**/test/**"
+  - "**/tests/**"
+  - "apps/web/e2e/**"
+  - "vitest.config.ts"
+  - "playwright.config.ts"
+---
+
+# Testing
+
+Vitest 5 for unit, property and benchmark tests; fast-check for property tests; Playwright for end-to-end tests against the production build. Check the Vitest 5 docs before using any configuration or API you are unsure of; Vitest 5 is newer than most training data.
+
+## What every change needs
+
+- **Engine and data:** a failing test first, then the code. Rules tests include a source tag in the test name: `it('opportunity attack uses the reaction [srd51:combat#opportunity-attacks]', …)`.
+- **Bug fixes:** a regression test that fails before the fix.
+- **Svelte components with logic:** move the logic into a `.svelte.ts` or `.ts` module and unit-test that; cover the page in an end-to-end test.
+
+## Kinds of tests
+
+- **Property tests (fast-check):** HP within bounds; resources never negative; one action per budget per turn; trials end within the round cap; results independent of input order once IDs are assigned. Use a fixed `seed` in fast-check runs that fail, and save the counterexample as a unit test.
+- **Statistical tests:** compare simulated rates with closed-form math (hit chance, advantage, average damage) over ≥100,000 seeded rolls, using a tolerance stated in the test.
+- **Golden replays:** seeded fights saved as event streams in `packages/engine/test/golden/`. Update them only with `pnpm test:golden --update` and explain the change in the commit message. An unexplained golden change is a bug.
+- **Determinism:** the same batch with 1, 2 and 8 workers must give identical aggregates.
+- **Explain-mode invariance:** every golden replay, plus a fast-check property over random encounters and seeds, must produce identical events (ignoring `AiDecision`) with `explain` on and off, and the chosen option must equal the top of `rankChoices` for that state.
+- **Storage migrations:** one fixture per old schema version.
+- **End-to-end:** run against `vite preview` of the production build, never the dev server.
+
+## Rules
+
+- No `.only` and no `.skip` in committed code. A flaky test is fixed or deleted with an issue in the status file, never retried into passing.
+- No real timers or `Date.now` in engine tests; the engine has no clock.
+- Tests do not depend on each other or on execution order.
+- Coverage minimums (enforced in config, never lowered): `engine` 90% lines / 85% branches; `data` and `sim` 85% lines.
+- Benchmarks live next to the code as `*.bench.ts` and use fixtures in `packages/sim/bench/fixtures/`. Record baseline numbers in `bench/baseline.json` only when Erick approves.

@@ -1,0 +1,30 @@
+---
+paths:
+  - "docs/**"
+  - "AGENTS.md"
+  - "CLAUDE.md"
+  - ".claude/rules/**"
+---
+
+# Project docs, status tracking and agent rules
+
+## `docs/PROJECT_STATUS.md`
+
+- The single task board. Sections: **Current phase**, **In progress**, **Next up**, **Blocked**, **Done (this phase)**, **Phase reports**.
+- Each task: `- [ ] P2-07 Opportunity attacks — acceptance: … — status: in progress (branch feat/p2-07-opportunity-attacks)`.
+- When done: tick it, then add the commands you ran and their results in one line, e.g. `verify ✅ · bench +2% · golden unchanged`.
+- Keep it short: move completed phases into a collapsed `<details>` block in the phase report.
+
+## `docs/OPEN_QUESTIONS.md`
+
+Numbered `Q-NNN` entries with source, exact quote, possible readings, what they block and status (`open`, `answered`, `withdrawn`). Never delete an entry; mark it answered and link the commit that applied the answer.
+
+## Decision records
+
+`docs/decisions/NNNN-short-title.md` with: Context · Options considered · Decision · Consequences · Status (`proposed` / `accepted` / `superseded by NNNN`). The agent may write `proposed` records; only Erick marks them `accepted`.
+
+## Agent rule files
+
+- `.claude/rules/*.md` are the source of truth for topic rules. **Edit them, never `.cursor/rules/*.mdc` directly**, then run `pnpm rules:sync`. CI runs `pnpm rules:check` and fails if the two differ.
+- Keep `AGENTS.md` under ~200 lines; put topic detail in a rule file scoped with `paths`.
+- If you find yourself repeating a correction, propose a rule change in the status file rather than editing rules unprompted.

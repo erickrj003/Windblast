@@ -1,0 +1,42 @@
+---
+paths:
+  - "**/*.svelte"
+  - "**/*.svelte.ts"
+  - "**/*.svelte.js"
+---
+
+# Svelte 5 — runes mode only
+
+This project uses **Svelte 5 with runes**. Svelte 4 syntax is banned, even where Svelte 5 still accepts it for backward compatibility. Before writing or changing any component, look up the current docs with the Svelte MCP server (`list-sections`, then `get-documentation`). After writing it, run `svelte-autofixer` on the file and repeat until it reports nothing.
+
+## Banned → required
+
+| Banned (Svelte 4) | Use instead (Svelte 5) |
+| --- | --- |
+| `let count = 0` relying on implicit reactivity | `let count = $state(0)` |
+| `$: doubled = count * 2` | `const doubled = $derived(count * 2)` (or `$derived.by(() => …)` for multi-line) |
+| `$: { sideEffect() }` | `$effect(() => { … })`, and only when no `$derived` can do the job |
+| `export let name` | `let { name } = $props()` with a typed `Props` interface |
+| `export let value` with `bind:value` from the parent | `let { value = $bindable() } = $props()` |
+| `$$props`, `$$restProps` | `let props = $props()` or `let { a, ...rest } = $props()` |
+| `on:click={fn}` | `onclick={fn}` |
+| Event modifiers (`on:click\|preventDefault`) | Call `event.preventDefault()` inside the handler |
+| `createEventDispatcher` | Callback props (`onsave`, `onchange`) |
+| `<slot />`, named slots, `let:` | `children` snippet and `{@render children()}`; named snippet props; snippet parameters |
+| `<svelte:fragment slot="x">` | `{#snippet x()}…{/snippet}` |
+| `<svelte:component this={C} />` | `<C />` (components are dynamic) |
+| `beforeUpdate` / `afterUpdate` | `$effect.pre` / `$effect` |
+| `new Component({ target })` | `mount(Component, { target })`; `unmount(…)` |
+| Svelte stores (`writable`, `readable`) for app state | A class with `$state` fields in a `.svelte.ts` module |
+| `import { page } from '$app/stores'` | `import { page } from '$app/state'` (no `$` prefix) |
+
+## Conventions
+
+- Every component declares a `Props` interface and destructures `$props()` with it: `let { party, onsave }: Props = $props();`.
+- Prefer `$derived` over `$effect`. Effects are for syncing with the outside world (canvas, storage, timers), and each one returns a cleanup function when it creates anything.
+- Use `$state.raw` for large arrays or objects that are replaced wholesale rather than mutated (simulation results, event logs).
+- Shared state: `export class EncounterState { creatures = $state<Creature[]>([]); … }` in `src/lib/state/*.svelte.ts`, created once and passed via context (`setContext`/`getContext` with a typed key).
+- Keep components small: if a `<script>` block passes ~150 lines, extract logic into a `.svelte.ts` module or a plain `.ts` function.
+- `$inspect` is for local debugging only; never commit it.
+- Components never import from `packages/engine` internals; they call the public API of `@inazria/engine`, `@inazria/sim` and `@inazria/render`.
+- Accessibility warnings from the Svelte compiler are errors here. Fix them; never suppress them with `svelte-ignore`.

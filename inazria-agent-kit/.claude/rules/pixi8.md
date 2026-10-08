@@ -1,0 +1,36 @@
+---
+paths:
+  - "packages/render/**"
+  - "apps/web/src/lib/components/grid/**"
+---
+
+# PixiJS v8 grid renderer (`@inazria/render`)
+
+Most PixiJS code in training data is v7 or older. **Use v8 APIs only**, and check the guides indexed at https://pixijs.com/llms.txt (especially https://pixijs.com/8.x/guides/migrations/v8.md) before writing renderer code.
+
+## v7 → v8 traps
+
+| Banned (v7 and older) | Use (v8) |
+| --- | --- |
+| `import { Sprite } from '@pixi/sprite'` (scoped packages) | `import { Sprite } from 'pixi.js'` |
+| `new Application({ width, height })` used immediately | `const app = new Application(); await app.init({ … })` |
+| `app.view` | `app.canvas` (verify in the Application guide) |
+| `g.beginFill(c).drawRect(x, y, w, h).endFill()` | `g.rect(x, y, w, h).fill(c)` |
+| `g.lineStyle(2, color)` | `g.stroke({ width: 2, color })` after drawing the shape |
+| `BaseTexture` | `Texture` built from a `TextureSource`; load images through `Assets` |
+| Adding children to leaf objects (Sprite, Graphics, Text) | Only `Container`s have children; wrap leaves in a `Container` |
+| `cacheAsBitmap` | Check the "Cache As Texture" guide for the v8 equivalent |
+
+## Architecture
+
+- The package exports `createGridRenderer(host: HTMLElement, opts)` returning `{ setMode(mode), loadSetup(encounter), highlight(cells, kind), onCellAction(handler), load(events), seek(index), play(), pause(), setSpeed(x), destroy() }`. Svelte components only call this controller.
+- Highlight kinds are a closed union: `move`, `target`, `area`, `cursor`, and `candidate` (an option shown in the AI reasoning view). Each kind differs by shape or pattern as well as color.
+- One grid serves every workspace mode (`build`, `play`, `simulate`, `review`). Switching mode calls `setMode`; it never destroys and recreates the renderer.
+- The renderer reads `@inazria/engine` **types, setups and events only**. It never runs rules, computes legal moves or changes trial state. Legal moves and valid targets come from the engine's `legalActions()`; the renderer only draws the highlights it is given and reports which cell the user picked.
+- Input: pointer and keyboard. Arrow keys move a cell cursor, Enter selects, Escape cancels. The grid must be fully usable without a mouse.
+- One `Application` for the workspace grid. `destroy()` removes the canvas, destroys the application with its textures and stops the ticker. The Svelte wrapper (`Grid.svelte`) calls it in its effect cleanup, which only runs when the whole workspace unmounts.
+- Grid and terrain: draw once with `Graphics`, then cache as a texture. Tokens: sprites from a single texture atlas. Damage numbers: `BitmapText`.
+- Animation is a function of the event stream and a playback clock. Seeking to event *i* must give the same picture as playing up to *i*.
+- Respect `prefers-reduced-motion` and the app's reduced-motion setting: step without tweens.
+- Target 60 fps with 20 creatures on a mid-range laptop; profile with the browser's performance panel on a production build.
+- Keep the renderer swappable: nothing outside `packages/render` imports `pixi.js`.
