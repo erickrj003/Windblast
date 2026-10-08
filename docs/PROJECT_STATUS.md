@@ -15,8 +15,7 @@ Notes:
 
 ## In progress
 
-- [ ] P0-08 `.github/workflows/ci.yml` (frozen install, `pnpm verify`, Playwright report artifact on failure); `docs/PLAN.md`, `docs/OPEN_QUESTIONS.md`, `docs/decisions/0001-locked-stack.md`, `docs/CHANGELOG.md`.
-  - Acceptance: CI is green on the default branch.
+_(none)_
 
 ## Next up
 
@@ -54,7 +53,30 @@ _(none)_
   - Acceptance: a commit with a lint error is rejected locally.
   - Result: Lefthook 2.2.0, `lefthook validate` ✅ · probes (reverted, nothing committed): staged `Math.random()` in `packages/engine` → lint job ✗, commit rejected; broken `assertNever` message → unit-tests job ✗ (2 related tests failed); misformatted `vitest.config.ts` → format job ✗ · `pnpm verify` ✅ · branch `chore/p0-06-lefthook`
   - Notes: `lefthook.yml` runs three parallel jobs on staged files: `prettier --check`, `eslint --max-warnings 0`, and `vitest related --run` for staged `packages/**/*.ts` files (only tests that import the staged files, without coverage; the full suite runs in `pnpm check` and CI). Uses `glob_matcher: doublestar` because Lefthook's default `**` needs at least one directory. pnpm 12 fails installs on unapproved dependency build scripts, so Lefthook's `postinstall` is denied (`allowBuilds: { lefthook: false }` in `pnpm-workspace.yaml`, written by `pnpm approve-builds '!lefthook'`), and the root `prepare` script runs `lefthook install` instead. Lefthook 2.2.1 was published today, inside pnpm's one-day `minimumReleaseAge`, so 2.2.0 was used.
+- [x] P0-08 `.github/workflows/ci.yml` (frozen install, `pnpm verify`, Playwright report artifact on failure); `docs/PLAN.md`, `docs/OPEN_QUESTIONS.md`, `docs/decisions/0001-locked-stack.md`, `docs/CHANGELOG.md`.
+  - Acceptance: CI is green on the default branch.
+  - Result: [CI run 37861477407](https://github.com/erickrj003/Windblast/actions/runs/37861477407) ✅ on `main` in 50 s (frozen install with supply-chain policy check, Lefthook installed through `prepare`, 3 unit/property tests, 1 e2e test, 31.5 KB first-page JS) · plan moved to `docs/PLAN.md` with `git mv` · branch `ci/p0-08-workflow`
+  - Notes: Actions pinned to commit SHAs: `actions/checkout` v7.0.1, `pnpm/action-setup` v6.1.0 (pnpm version from `packageManager`), `actions/setup-node` v7.0.0 (Node from `.nvmrc`, pnpm store cache), `actions/upload-artifact` v7.0.2. `setup-node` v7.1.0 was published today, so v7.0.0 is used under the same one-day rule as npm packages. Permissions are `contents: read`; checkout does not keep credentials. Runs on pushes to `main` and on pull requests; a newer push cancels an older run on the same ref. `OPEN_QUESTIONS.md`, decision record 0001 and `CHANGELOG.md` came with the agent kit (P0-07); the changelog now has its first entry.
 
 ## Phase reports
 
-_(Phase 0 report goes here: what was built, test and bench results, open questions, risks. Then stop and wait for Erick's approval.)_
+### Phase 0 report (2026-10-08): awaiting Erick's approval
+
+**Built.** A pnpm 12 monorepo on Node 24 with four empty library packages (`data` ← `engine` ← `sim`, `engine` ← `render`) and a SvelteKit 3 static app showing one placeholder page. The guardrails:
+- TypeScript 6.0.3 in strict mode with project references. `data` and `engine` get no DOM types.
+- ESLint 10 bans, enforced per package: imports that break the dependency direction, clocks and `Math.random` in `data` and `engine`, host globals, `enum`, default exports, `any`, and the deprecated SvelteKit modules.
+- Prettier, Vitest 5 with coverage minimums, fast-check, Playwright against the production build, and a first-page bundle budget.
+- A Lefthook pre-commit hook and GitHub Actions CI running `pnpm verify`.
+- Agent rules synced to Cursor with a drift check.
+
+**Tests.** `pnpm verify` ✅ locally and in CI. Three unit and property tests (100% coverage of the one helper) and one end-to-end test. The first page loads 31.5 KB of gzipped JavaScript against a 200 KB budget. Each guard was checked with a probe that had to fail; the probes are listed under each task above. No benchmarks yet (P5-04).
+
+**Open questions.**
+- Q-001: which repo holds the Player's Guide source. Blocks P1-02 (`data:pull`), the second task of Phase 1.
+- Q-003: the GitHub Pages base path for the Windblast repo. Blocks P9-01 only.
+- Decision record 0002 (`@types/node` for tooling files only) is proposed and needs your acceptance.
+
+**Risks.**
+- The stack is newer than most documentation and training data: pnpm 12 (a Rust rewrite), SvelteKit 3, Vitest 5 and TypeScript 6. Each task looks up current docs first. Two behaviors have already caused surprises: pnpm 12 writes a silent `minimumReleaseAgeExclude` when you ask for a version less than a day old, and it fails installs on unapproved build scripts.
+- GitHub moves `ubuntu-latest` to Ubuntu 26 on 2026-10-19. CI may change underneath us; pinning `ubuntu-24.04` would avoid that if you prefer.
+- Each local machine needs `pnpm --filter web exec playwright install chromium` once.
