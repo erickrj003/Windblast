@@ -35,7 +35,7 @@ Your training data probably predates SvelteKit 3 (released October 2026), Vite 8
 6. **Verify:** `pnpm verify`. For `.svelte` files, run the Svelte MCP `svelte-autofixer` until clean. For engine/sim changes, also `pnpm bench`.
 7. **Self-review** (checklist below).
 8. **Record:** mark `done` with the commands you ran and their results; add a `docs/CHANGELOG.md` line if users would notice.
-9. **Commit** on a task branch with Conventional Commits (`feat(engine): …`, `fix(web): …`, `test(sim): …`, `docs: …`, `chore: …`). Open a PR to `main`. Erick merges.
+9. **Commit** on a task branch with Conventional Commits (`feat(engine): …`, `fix(web): …`, `test(sim): …`, `docs: …`, `chore: …`). Once `pnpm verify` passes, fast-forward `main` to the task branch and push `main`. (Erick allowed direct pushes to `main` on 2026-10-08; he may withdraw this, after which tasks go back to a PR that he merges.)
 
 Keep tasks to one concern and roughly ≤300 changed lines excluding data and tests; split bigger tasks in the status file first.
 
@@ -63,7 +63,7 @@ Keep tasks to one concern and roughly ≤300 changed lines excluding data and te
 - Edit anything under `packages/data/vendor/`.
 - Add a server, API route that runs at request time, analytics, tracking, or remote calls at runtime.
 - Use `SharedArrayBuffer` (GitHub Pages cannot send the required isolation headers).
-- Commit secrets or push to `main`.
+- Commit secrets, force-push `main`, or push to `main` with a failing check.
 - Mark a task done with a failing, skipped or unrun check.
 
 ## Documentation lookup
