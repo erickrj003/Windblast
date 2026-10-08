@@ -27,8 +27,6 @@ _(none)_
   - Acceptance: one sample unit test, one property test and one e2e test pass.
 - [ ] P0-06 Lefthook pre-commit: Prettier check, ESLint on staged files, fast unit tests.
   - Acceptance: a commit with a lint error is rejected locally.
-- [ ] P0-07 Install the agent kit (this folder's `AGENTS.md`, `CLAUDE.md`, `.claude/rules/`, `.cursor/`, `.mcp.json`, `scripts/sync-agent-rules.ts`).
-  - Acceptance: `pnpm rules:check` passes; hand-editing a `.cursor/rules/*.mdc` file makes it fail.
 - [ ] P0-08 `.github/workflows/ci.yml` (frozen install, `pnpm verify`, Playwright report artifact on failure); `docs/PLAN.md`, `docs/OPEN_QUESTIONS.md`, `docs/decisions/0001-locked-stack.md`, `docs/CHANGELOG.md`.
   - Acceptance: CI is green on the default branch.
 
@@ -45,6 +43,9 @@ _(none)_
   - Acceptance: `tsc -b` passes; TypeScript resolves to 6.0.x (`pnpm why typescript`); package dependencies follow `data` ← `engine` ← `sim` and `engine` ← `render`; `data` and `engine` get no DOM types.
   - Result: `tsc -b` ✅ · `pnpm why typescript` → 6.0.3 only · probes (removed): `data` importing `@inazria/engine` fails TS2307, `document` in `engine` fails TS2584, `engine` importing `@inazria/data` resolves · branch `chore/p0-02-typescript-packages`
   - Notes: packages export `./src/index.ts` and emit declarations only (`dist/`, ignored); Vite and Vitest consume source. Added `erasableSyntaxOnly` on top of the locked flags (stricter, not looser): it rejects `enum`, namespaces and parameter properties at compile time and matches what Node 24 type stripping can run.
+- [x] P0-07 Install the agent kit (`AGENTS.md`, `CLAUDE.md`, `.claude/rules/`, `.cursor/`, `.mcp.json`, `scripts/sync-agent-rules.ts`, `docs/`) at the repo root. Pulled ahead of P0-03 so the Svelte MCP server is available for it.
+  - Acceptance: `pnpm rules:check` passes; hand-editing a `.cursor/rules/*.mdc` file makes it fail; editing a `.claude/rules/*.md` file without syncing makes it fail; `pnpm rules:sync` repairs both.
+  - Result: `rules:check` ✅ in sync · hand-edited `engine.mdc` → exit 1 ("out of date") · unsynced `testing.md` → exit 1 · orphan `.mdc` → exit 1 ("orphaned") · `rules:sync` repaired all, then `rules:check` ✅ · moved with `git mv` (history kept); kit README removed per its own instructions · branch `chore/p0-07-agent-kit`
 
 ## Phase reports
 
