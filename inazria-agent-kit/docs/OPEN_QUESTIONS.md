@@ -28,4 +28,11 @@ Rules gaps and decisions waiting on Erick. The agent adds entries; Erick answers
 - Source: plan, "Rules data pipeline → Licensing"
 - Readings: (a) MIT for code, Inazria content all rights reserved; (b) MIT for code, Inazria content CC BY-NC 4.0; (c) other
 - Blocks: P0-01 `LICENSE` file, P6-01 Legal page
+- Status: answered (2026-10-08, applied in P0-01 `LICENSE`)
+- Answer: (a) MIT for code, Inazria content all rights reserved.
+
+## Q-003: Should the deploy base path follow the repo name `Windblast`?
+- Source: plan, "Hosting and deployment" (`BASE_PATH=/inazria-simulator`, `erickrj.tech/inazria-simulator/`)
+- Readings: (a) deploy at `erickrj.tech/Windblast/` (GitHub Pages uses the repo name; the path is case-sensitive); (b) rename the repo to `inazria-simulator` before Phase 9; (c) keep `Windblast` and serve the simulator from a custom path or subdomain
+- Blocks: P9-01 `deploy.yml`
 - Status: open

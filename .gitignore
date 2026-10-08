@@ -1,0 +1,10 @@
+node_modules/
+build/
+dist/
+.svelte-kit/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+.env
+.env.*
