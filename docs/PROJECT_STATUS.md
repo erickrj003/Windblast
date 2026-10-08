@@ -15,12 +15,12 @@ Notes:
 
 ## In progress
 
-_(none)_
+- [ ] P0-08 `.github/workflows/ci.yml` (frozen install, `pnpm verify`, Playwright report artifact on failure); `docs/PLAN.md`, `docs/OPEN_QUESTIONS.md`, `docs/decisions/0001-locked-stack.md`, `docs/CHANGELOG.md`.
+  - Acceptance: CI is green on the default branch.
 
 ## Next up
 
-- [ ] P0-08 `.github/workflows/ci.yml` (frozen install, `pnpm verify`, Playwright report artifact on failure); `docs/PLAN.md`, `docs/OPEN_QUESTIONS.md`, `docs/decisions/0001-locked-stack.md`, `docs/CHANGELOG.md`.
-  - Acceptance: CI is green on the default branch.
+_(Phase 0 report, then Phase 1 after Erick approves)_
 
 ## Blocked
 
