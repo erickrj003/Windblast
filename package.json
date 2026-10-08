@@ -7,7 +7,7 @@
     "node": "^24"
   },
   "scripts": {
-    "typecheck": "tsc -b",
+    "typecheck": "tsc -b && pnpm --filter web typecheck",
     "check": "node -e \"console.info('check: placeholder until P0-04 (lint) and P0-05 (tests)')\"",
     "verify": "node -e \"console.info('verify: placeholder until P0-05 (build and e2e)')\"",
     "bench": "node -e \"console.info('bench: placeholder until P5-04')\"",

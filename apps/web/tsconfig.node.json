@@ -1,0 +1,13 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"target": "es2025",
+		"lib": ["es2025"],
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"types": ["node"],
+		"noEmit": true,
+		"skipLibCheck": true
+	},
+	"include": ["vite.config.ts"]
+}

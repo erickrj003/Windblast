@@ -1,11 +1,5 @@
 {
   "compilerOptions": {
-    "target": "es2025",
-    "lib": ["es2025"],
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "types": [],
-
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
@@ -14,12 +8,6 @@
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "erasableSyntaxOnly": true,
-    "forceConsistentCasingInFileNames": true,
-
-    "composite": true,
-    "emitDeclarationOnly": true,
-    "declarationMap": true,
-    "allowImportingTsExtensions": true,
-    "skipLibCheck": true
+    "forceConsistentCasingInFileNames": true
   }
 }
