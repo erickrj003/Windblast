@@ -7,6 +7,7 @@
     "node": "^24"
   },
   "scripts": {
+    "typecheck": "tsc -b",
     "check": "node -e \"console.info('check: placeholder until P0-04 (lint) and P0-05 (tests)')\"",
     "verify": "node -e \"console.info('verify: placeholder until P0-05 (build and e2e)')\"",
     "bench": "node -e \"console.info('bench: placeholder until P5-04')\"",
@@ -14,5 +15,8 @@
     "data:check": "node -e \"console.info('data:check: placeholder until P1-01')\"",
     "rules:sync": "node -e \"console.info('rules:sync: placeholder until P0-07')\"",
     "rules:check": "node -e \"console.info('rules:check: placeholder until P0-07')\""
+  },
+  "devDependencies": {
+    "typescript": "~6.0.3"
   }
 }

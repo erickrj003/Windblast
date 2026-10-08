@@ -19,8 +19,6 @@ _(none)_
 
 ## Next up
 
-- [ ] P0-02 `tsconfig.base.json` with the locked compiler options; project references; empty `packages/data`, `packages/engine`, `packages/sim`, `packages/render`, each with `package.json` `exports` and a `src/index.ts`.
-  - Acceptance: `tsc -b` passes; TypeScript resolves to 6.0.x (`pnpm why typescript`).
 - [ ] P0-03 Create `apps/web` with the official Svelte CLI, after checking its current SvelteKit 3 options via the Svelte MCP server; add adapter-static; root layout `prerender = true`; one placeholder page.
   - Acceptance: `pnpm --filter web build` emits static files; no `svelte.config.js`; `#lib` import alias configured.
 - [ ] P0-04 ESLint 10 flat config (typescript-eslint strict-type-checked + stylistic-type-checked, eslint-plugin-svelte recommended) with project bans; Prettier + prettier-plugin-svelte.
@@ -43,6 +41,10 @@ _(none)_
 - [x] P0-01 Create the pnpm workspace: `.nvmrc` (24), `packageManager` (pnpm 12), root scripts `check`, `verify`, `bench`, `data:pull`, `data:check`, `rules:sync`, `rules:check`; `LICENSE` (Q-002: MIT for code, Inazria content all rights reserved).
   - Acceptance: `pnpm install` works on Node 24; scripts exist (they may be placeholders that exit 0 until their phase); `LICENSE` present; LF line endings enforced by `.gitattributes`.
   - Result: `pnpm install` ✅ · `pnpm install --frozen-lockfile` ✅ · all 7 scripts exit 0 (placeholders) · Node 24.21.0, pnpm 12.10.1 · branch `chore/p0-01-pnpm-workspace`
+- [x] P0-02 `tsconfig.base.json` with the locked compiler options; project references; empty `packages/data`, `packages/engine`, `packages/sim`, `packages/render`, each with `package.json` `exports` and a `src/index.ts`.
+  - Acceptance: `tsc -b` passes; TypeScript resolves to 6.0.x (`pnpm why typescript`); package dependencies follow `data` ← `engine` ← `sim` and `engine` ← `render`; `data` and `engine` get no DOM types.
+  - Result: `tsc -b` ✅ · `pnpm why typescript` → 6.0.3 only · probes (removed): `data` importing `@inazria/engine` fails TS2307, `document` in `engine` fails TS2584, `engine` importing `@inazria/data` resolves · branch `chore/p0-02-typescript-packages`
+  - Notes: packages export `./src/index.ts` and emit declarations only (`dist/`, ignored); Vite and Vitest consume source. Added `erasableSyntaxOnly` on top of the locked flags (stricter, not looser): it rejects `enum`, namespaces and parameter properties at compile time and matches what Node 24 type stripping can run.
 
 ## Phase reports
 
