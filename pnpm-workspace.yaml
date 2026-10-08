@@ -2,4 +2,7 @@ packages:
   - 'packages/*'
   - 'apps/*'
 
+allowBuilds:
+  lefthook: false
+
 engineStrict: true

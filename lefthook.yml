@@ -1,0 +1,16 @@
+# Fast subset of `pnpm check`, run on staged files before each commit. CI runs the full set.
+glob_matcher: doublestar
+
+pre-commit:
+  parallel: true
+  jobs:
+    - name: format
+      run: pnpm exec prettier --check --ignore-unknown --no-error-on-unmatched-pattern {staged_files}
+
+    - name: lint
+      glob: '**/*.{js,ts,svelte}'
+      run: pnpm exec eslint --no-warn-ignored --max-warnings 0 {staged_files}
+
+    - name: unit tests
+      glob: 'packages/**/*.ts'
+      run: pnpm exec vitest related --run --passWithNoTests {staged_files}
