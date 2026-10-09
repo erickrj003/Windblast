@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { extractSection } from './provenance.ts';
+import { collectInazriaSources, extractSection } from './provenance.ts';
 
 const PAGE = [
 	'## Fighter',
@@ -109,5 +109,31 @@ describe('extractSection', () => {
 			ok: false,
 			error: 'Section "Rally": "Rally" matches 2 items; add a parent heading'
 		});
+	});
+});
+
+describe('collectInazriaSources', () => {
+	it('returns nested lineage sources and skips SRD citations', () => {
+		const inazria = {
+			kind: 'inazria' as const,
+			page: 'races/elves',
+			section: 'Traits',
+			commit: '0'.repeat(40),
+			contentHash: 'a'.repeat(64)
+		};
+		const lineage = {
+			...inazria,
+			section: 'Veldtwin'
+		};
+		expect(
+			collectInazriaSources({
+				source: inazria,
+				lineages: [{ source: lineage }],
+				other: { kind: 'srd51', page: 'combat', section: 'Cover' }
+			})
+		).toEqual([inazria, lineage]);
+		expect(
+			collectInazriaSources({ source: { kind: 'srd51', page: 'combat', section: 'Cover' } })
+		).toEqual([]);
 	});
 });

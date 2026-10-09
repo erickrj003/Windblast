@@ -1,11 +1,12 @@
 import { Creature } from './creature.ts';
 import { Armor, Weapon } from './equipment.ts';
 import { Feature, ResourcePool } from './feature.ts';
+import { Race } from './race.ts';
 import { Condition, DamageType } from './rules.ts';
 
 /**
  * Content folders and the schema every record in them must satisfy. Records live at
- * `content/<srd|inazria>/<kind>/<id>.json`; later tasks add kinds (races, classes, contexts)
+ * `content/<srd|inazria>/<kind>/<id>.json`; later tasks add kinds (classes, contexts)
  * here as they encode them.
  */
 export const CONTENT_SCHEMAS = {
@@ -14,6 +15,7 @@ export const CONTENT_SCHEMAS = {
 	'damage-types': DamageType,
 	features: Feature,
 	monsters: Creature,
+	races: Race,
 	resources: ResourcePool,
 	weapons: Weapon
 } as const;
@@ -36,5 +38,15 @@ export {
 	TriggerEvent
 } from './effect.ts';
 export { Armor, Weapon } from './equipment.ts';
-export { ActionCost, Feature, InlineFeature, ResourcePool } from './feature.ts';
+export { ActionCost, Feature, InlineFeature, InlinePool, ResourcePool } from './feature.ts';
+export {
+	AbilityBonus,
+	Grant,
+	LanguageGrant,
+	Lineage,
+	Race,
+	SAVE_AGAINST,
+	grantProblem,
+	raceProblem
+} from './race.ts';
 export { Condition, DamageType } from './rules.ts';

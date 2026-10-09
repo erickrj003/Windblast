@@ -6,6 +6,25 @@ import { Effect, Predicate, Trigger } from './effect.ts';
 export const ActionCost = v.picklist(['none', 'action', 'bonusAction', 'reaction']);
 export type ActionCost = v.InferOutput<typeof ActionCost>;
 
+const PoolRecharge = v.array(
+	v.strictObject({
+		on: v.picklist(['initiative', 'turnStart', 'shortRest', 'longRest']),
+		regain: FormulaText
+	})
+);
+
+/**
+ * A pool defined inside another record, such as a race trait's limited uses. Pools start full;
+ * `regain: "pool-max"` restores all of it.
+ */
+export const InlinePool = v.strictObject({
+	id: Id,
+	name: v.pipe(v.string(), v.trim(), v.nonEmpty()),
+	max: FormulaText,
+	recharge: PoolRecharge
+});
+export type InlinePool = v.InferOutput<typeof InlinePool>;
+
 /**
  * A pool that fuels features: Exertion, Devotion, Focus Points, Guile, spell slots, or a
  * feature's own limited uses. Pools start full; `regain: "pool-max"` restores all of it.
@@ -13,12 +32,7 @@ export type ActionCost = v.InferOutput<typeof ActionCost>;
 export const ResourcePool = v.strictObject({
 	...recordFields,
 	max: FormulaText,
-	recharge: v.array(
-		v.strictObject({
-			on: v.picklist(['initiative', 'turnStart', 'shortRest', 'longRest']),
-			regain: FormulaText
-		})
-	)
+	recharge: PoolRecharge
 });
 export type ResourcePool = v.InferOutput<typeof ResourcePool>;
 

@@ -12,19 +12,11 @@ import { existsSync } from 'node:fs';
 import { readdir, readFile } from 'node:fs/promises';
 import { join, relative, sep } from 'node:path';
 import { parseArgs } from 'node:util';
-import { extractSection, type Result } from '../packages/data/src/index.ts';
+import { collectInazriaSources, extractSection, type Result } from '../packages/data/src/index.ts';
 
 const DATA_DIR = join('packages', 'data');
 const VENDOR_DIR = join(DATA_DIR, 'vendor', 'inazria');
 const RECORDS_DIR = join(DATA_DIR, 'content', 'inazria');
-
-interface Citation {
-	readonly kind: string;
-	readonly page: string;
-	readonly section: string;
-	readonly commit?: string;
-	readonly contentHash?: string;
-}
 
 const sha256 = (text: string): string => createHash('sha256').update(text, 'utf8').digest('hex');
 
@@ -77,15 +69,15 @@ async function checkAll(): Promise<void> {
 
 	for (const file of files) {
 		const name = relative(DATA_DIR, file).split(sep).join('/');
-		const record = JSON.parse(await readFile(file, 'utf8')) as { readonly source?: Citation };
-		const source = record.source;
-		if (source?.kind !== 'inazria') continue;
-		const cited = `${source.page}#${source.section}`;
-		const hash = await hashSection(source.page, source.section);
-		if (!hash.ok) reverify.push(`${name}: ${cited}: ${hash.error}`);
-		else if (hash.value !== source.contentHash) {
-			reverify.push(`${name}: ${cited}: text changed (now ${hash.value})`);
-		} else if (source.commit !== commit) stalePins += 1;
+		const record: unknown = JSON.parse(await readFile(file, 'utf8'));
+		for (const source of collectInazriaSources(record)) {
+			const cited = `${source.page}#${source.section}`;
+			const hash = await hashSection(source.page, source.section);
+			if (!hash.ok) reverify.push(`${name}: ${cited}: ${hash.error}`);
+			else if (hash.value !== source.contentHash) {
+				reverify.push(`${name}: ${cited}: text changed (now ${hash.value})`);
+			} else if (source.commit !== commit) stalePins += 1;
+		}
 	}
 
 	console.info(

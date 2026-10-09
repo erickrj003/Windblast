@@ -181,6 +181,71 @@ describe('checkContent', () => {
 		]);
 	});
 
+	it('reports missing weapons, damage types and conditions on a race', () => {
+		const race = JSON.stringify({
+			id: 'elf',
+			name: 'Elf',
+			source: {
+				kind: 'inazria',
+				page: 'races/elves',
+				section: 'Traits',
+				commit: '0'.repeat(40),
+				contentHash: '0'.repeat(64)
+			},
+			status: 'final',
+			size: 'medium',
+			speed: { walk: 30 },
+			abilityBonuses: [{ kind: 'fixed', ability: 'dex', amount: 2 }],
+			languages: [{ kind: 'known', name: 'Common' }],
+			tags: ['elf'],
+			grants: [
+				{ kind: 'weaponProficiency', weapons: ['spear'] },
+				{ kind: 'saveAdvantage', against: 'charmed' },
+				{ kind: 'damageResistance', type: 'poison' },
+				{ kind: 'saveAdvantage', against: 'disease' }
+			],
+			traits: [
+				{
+					id: 'sundering-cry',
+					name: 'Sundering Cry',
+					summary: 'Thunder blast.',
+					cost: 'action',
+					effects: [
+						{
+							kind: 'save',
+							ability: 'con',
+							dc: '8 + pb + mod(cha)',
+							target: { kind: 'creatures', side: 'any', within: 15, of: 'self', count: 'all' },
+							onFail: [
+								{
+									kind: 'damage',
+									amount: '1d8 + mod(cha)',
+									damageType: 'thunder',
+									target: 'target'
+								},
+								{
+									kind: 'applyCondition',
+									condition: 'deafened',
+									target: 'target',
+									duration: { kind: 'untilTurn', edge: 'end', whose: 'self', which: 'next' }
+								}
+							],
+							halfOnSuccess: true
+						}
+					]
+				}
+			]
+		});
+		const { problems } = checkContent([file('inazria/races/elf.json', race)]);
+		expect(problems.map((problem) => `${problem.path}: ${problem.message}`)).toEqual([
+			'inazria/races/elf.json: grants.0.weapons.0: no weapons record "spear"',
+			'inazria/races/elf.json: grants.1.against: no conditions record "charmed"',
+			'inazria/races/elf.json: grants.2.type: no damage-types record "poison"',
+			'inazria/races/elf.json: traits.0.effects.0.onFail.0.damageType: no damage-types record "thunder"',
+			'inazria/races/elf.json: traits.0.effects.0.onFail.1.condition: no conditions record "deafened"'
+		]);
+	});
+
 	it('rejects the same id in one kind across both roots', () => {
 		const { problems } = checkContent([
 			file('srd/resources/shared.json', pool('shared', 'srd51')),

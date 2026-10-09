@@ -3,8 +3,9 @@ import { assertNever } from './assert-never.ts';
 import type { Effect, Predicate } from './schemas/effect.ts';
 import type { Weapon } from './schemas/equipment.ts';
 import type { Creature } from './schemas/creature.ts';
-import type { Feature } from './schemas/feature.ts';
+import type { Feature, InlineFeature } from './schemas/feature.ts';
 import { CONTENT_ROOTS, CONTENT_SCHEMAS, type ContentKind } from './schemas/index.ts';
+import type { Grant, Race } from './schemas/race.ts';
 import type { Condition } from './schemas/rules.ts';
 
 /** One content file, with its path relative to `packages/data/content/` using `/` separators. */
@@ -157,6 +158,8 @@ function collectRefs(kind: ContentKind, record: unknown): ReadonlyArray<Ref> {
 			return collectCreatureRefs(record as Creature);
 		case 'features':
 			return collectFeatureRefs(record as Feature);
+		case 'races':
+			return collectRaceRefs(record as Race);
 		case 'armor':
 		case 'damage-types':
 		case 'resources':
@@ -227,6 +230,66 @@ function collectCreatureRefs(creature: Creature): ReadonlyArray<Ref> {
 		}
 	});
 	return refs;
+}
+
+function collectRaceRefs(race: Race): ReadonlyArray<Ref> {
+	const refs = [
+		...collectGrantList(race.grants, 'grants'),
+		...collectTraitList(race.traits, 'traits')
+	];
+	(race.lineages ?? []).forEach((lineage, index) => {
+		const at = `lineages.${String(index)}`;
+		refs.push(...collectGrantList(lineage.grants, `${at}.grants`));
+		refs.push(...collectTraitList(lineage.traits, `${at}.traits`));
+	});
+	return refs;
+}
+
+function collectGrantList(
+	grants: ReadonlyArray<Grant> | undefined,
+	at: string
+): ReadonlyArray<Ref> {
+	return (grants ?? []).flatMap((grant, index) => collectGrant(grant, `${at}.${String(index)}`));
+}
+
+function collectTraitList(
+	traits: ReadonlyArray<InlineFeature> | undefined,
+	at: string
+): ReadonlyArray<Ref> {
+	return (traits ?? []).flatMap((trait, index) => {
+		const path = `${at}.${String(index)}`;
+		const refs = [...collectEffects(trait.effects, `${path}.effects`)];
+		if (trait.condition !== undefined) {
+			refs.push(...collectPredicate(trait.condition, `${path}.condition`));
+		}
+		return refs;
+	});
+}
+
+function collectGrant(grant: Grant, at: string): ReadonlyArray<Ref> {
+	switch (grant.kind) {
+		case 'weaponProficiency':
+			return grant.weapons.map((id, index) => ({
+				at: `${at}.weapons.${String(index)}`,
+				kind: 'weapons',
+				id
+			}));
+		case 'damageResistance':
+			return [{ at: `${at}.type`, kind: 'damage-types', id: grant.type }];
+		case 'saveAdvantage':
+			return grant.against === 'disease'
+				? []
+				: [{ at: `${at}.against`, kind: 'conditions', id: grant.against }];
+		case 'skillProficiency':
+		case 'skillAbility':
+		case 'toolProficiency':
+		case 'magicSleepImmunity':
+		case 'ignoreHeavyArmorSpeed':
+		case 'amphibious':
+			return [];
+		default:
+			return assertNever(grant);
+	}
 }
 
 function collectFeatureRefs(feature: Feature): ReadonlyArray<Ref> {

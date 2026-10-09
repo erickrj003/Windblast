@@ -1,0 +1,59 @@
+{
+	"id": "hyzalian",
+	"name": "Hyzalian",
+	"source": {
+		"kind": "inazria",
+		"page": "races/hyzalians",
+		"section": "Traits",
+		"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+		"contentHash": "943844fb56885b1005a291726b3f16a03cc9c1be262ac4274b04a090da4575e7"
+	},
+	"status": "final",
+	"size": "medium",
+	"speed": { "walk": 30 },
+	"abilityBonuses": [
+		{ "kind": "fixed", "ability": "wis", "amount": 2 },
+		{ "kind": "fixed", "ability": "con", "amount": 1 }
+	],
+	"languages": [
+		{ "kind": "known", "name": "Common" },
+		{ "kind": "known", "name": "Hyzalian" }
+	],
+	"tags": ["hyzalian"],
+	"senses": { "darkvision": 60 },
+	"grants": [
+		{ "kind": "skillProficiency", "skill": "athletics" },
+		{ "kind": "saveAdvantage", "against": "blinded" }
+	],
+	"traits": [
+		{
+			"id": "marram-fortitude",
+			"name": "Marram Fortitude",
+			"summary": "Acclimated to high altitude and extreme cold.",
+			"cost": "none",
+			"effects": [],
+			"noEffect": "Altitude and climate are not simulated."
+		},
+		{
+			"id": "thick-skin",
+			"name": "Thick Skin",
+			"summary": "When you take slashing or piercing damage, use your reaction to reduce it by your proficiency bonus, once per short or long rest.",
+			"cost": "reaction",
+			"trigger": { "on": "damaged", "as": "target" },
+			"spend": [{ "resource": "hyzalian-thick-skin", "amount": "1" }],
+			"effects": [],
+			"scriptId": "thick-skin"
+		}
+	],
+	"resources": [
+		{
+			"id": "hyzalian-thick-skin",
+			"name": "Thick Skin",
+			"max": "1",
+			"recharge": [
+				{ "on": "shortRest", "regain": "pool-max" },
+				{ "on": "longRest", "regain": "pool-max" }
+			]
+		}
+	]
+}

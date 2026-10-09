@@ -22,7 +22,6 @@ _(none)_
 
 ## Next up
 
-- [ ] P1-05 Inazria races.
 - [ ] P1-06 Fighter, levels 1–5, with its contexts and Exertion (and Devotion for Paladins).
 - [ ] P1-07 Savant, levels 1–5, with its contexts and Focus Points.
 - [ ] P1-08 Vagabond, levels 1–5, with its contexts and Guile.
@@ -50,6 +49,10 @@ _(none)_
   - Acceptance: records for Kobold, Goblin, Bandit, Wolf, Skeleton, Zombie, Orc, Gnoll, Hobgoblin, Ghoul, Bugbear, Dire Wolf, Brown Bear, Giant Spider, Bandit Captain, Ogre, Owlbear, Veteran, Wight and Troll; each cites its SRD 5.1 section and matches the SRD text; the guide is checked for overrides first; `data:check` fails on a damage type, condition or `scriptId` reference with no matching record (script ids are listed for the engine; the missing-module check waits until `data` can see `engine`); `pnpm data:check` and `pnpm verify` pass.
   - Result: `pnpm verify` ✅ · 20 monsters · 11 `scriptId`s listed · 93 data tests · `data` coverage stays above 85% lines · probe: missing `bludgeoning`/`poisoned` on a zombie fixture fails `data:check` with field paths · branch `feat/p1-04-srd-monsters`
   - Notes: the guide does not override these; numbers taken from the CC BY SRD 5.1. Vocabulary covers Pack Tactics, Martial Advantage, Aggressive, wolf/dire-wolf knockdown and ghoul paralysis. Scripts (engine later): `sunlight-sensitivity`, `nimble-escape`, `undead-fortitude`, `rampage`, `surprise-attack`, `giant-spider-venom`, `giant-spider-web`, `parry`, `life-drain`, `regeneration`. Perception-only traits, Brute (already in the dice) and the spider's web-map traits use `noEffect`. Added `speed` as a formula ref, `meleeOrRangedWeapon`, attack `recharge`/`atRange`/`versatile`, and `unless` as an array so the wight's nonmagical non-silvered resistances encode without guessing. `data:check` also fails if any of the twenty starter ids is missing.
+- [x] P1-05 Inazria races.
+  - Acceptance: records for every published player race (Humans, Elves, Dwarves, Halflings, Orcs, Dalvas, Kelanari, Hyzalians) and their player lineages; Te-Hyzalians omitted (not a player option); each cites the vendored guide with `commit` and `contentHash`; static modifiers (speed, ASI, darkvision, proficiencies, resistances, save advantage) live on the race schema; combat traits use effects or `scriptId`; exploration and social traits use `noEffect`; ambiguities in `OPEN_QUESTIONS.md` rather than guessed; `pnpm data:check` and `pnpm verify` pass.
+  - Result: `pnpm verify` ✅ · 8 races, 25 lineages · 10 new tests (103 total) · `data` coverage stays above 85% lines · 19 `scriptId`s listed (8 new: `determined`, `thick-skin`, `halfling-nimbleness`, `lucky`, `relentless-endurance`, `eyes-of-the-deep-veldt`, `natural-swimmer`, `salt-strain`) · branch `feat/p1-05-inazria-races`
+  - Notes: one JSON file per race with nested lineages, each lineage citing its heading so lore edits fail provenance. Grants cover character-build modifiers (P1-01's deferred static speed/ASI). Palcha *mage hand* is `noEffect` (spells after v1). Q-004: Human 10th-level +1 "another ability score". Te-Hyzalians are not encoded.
 
 ## Phase reports
 

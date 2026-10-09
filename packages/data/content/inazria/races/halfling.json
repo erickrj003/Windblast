@@ -1,0 +1,190 @@
+{
+	"id": "halfling",
+	"name": "Halfling",
+	"source": {
+		"kind": "inazria",
+		"page": "races/halflings",
+		"section": "Traits",
+		"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+		"contentHash": "7501c7ffb909700d50a1b94914c5edaf6b88ae3c32d8f66fa1fc735cb1fdef45"
+	},
+	"status": "final",
+	"size": "small",
+	"speed": { "walk": 25 },
+	"abilityBonuses": [{ "kind": "fixed", "ability": "dex", "amount": 2 }],
+	"languages": [
+		{ "kind": "known", "name": "Common" },
+		{ "kind": "known", "name": "Halfling" }
+	],
+	"tags": ["halfling"],
+	"grants": [{ "kind": "saveAdvantage", "against": "frightened" }],
+	"traits": [
+		{
+			"id": "halfling-nimbleness",
+			"name": "Halfling Nimbleness",
+			"summary": "Move through the space of any creature that is of a size larger than yours.",
+			"cost": "none",
+			"effects": [],
+			"scriptId": "halfling-nimbleness"
+		},
+		{
+			"id": "lucky",
+			"name": "Lucky",
+			"summary": "When you roll a 1 on an attack roll, ability check, or saving throw, reroll the die and use the new result.",
+			"cost": "none",
+			"effects": [],
+			"scriptId": "lucky"
+		}
+	],
+	"lineages": [
+		{
+			"id": "yorokai",
+			"name": "Yorokai",
+			"source": {
+				"kind": "inazria",
+				"page": "races/halflings",
+				"section": "Yorokai",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "00af36e9aa712202bd429224f6c623b128a7695a6c59c91370d070c50811f33b"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "int", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Yorokai" }],
+			"speed": { "climb": 25 },
+			"traits": [
+				{
+					"id": "yorokai-tree-stride",
+					"name": "Tree Stride",
+					"summary": "Advantage on ability checks and saving throws made to avoid falling from a tree.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Falling from a tree is not simulated separately from climb speed."
+				},
+				{
+					"id": "yorokai-forest-friend",
+					"name": "Forest Friend",
+					"summary": "As an action, communicate simple ideas to beasts and plants within 30 feet for 10 minutes, once per long rest.",
+					"cost": "action",
+					"spend": [{ "resource": "yorokai-forest-friend-uses", "amount": "1" }],
+					"effects": [],
+					"noEffect": "Beast and plant communication is not simulated."
+				},
+				{
+					"id": "yorokai-fennveldt-lore",
+					"name": "Fennveldt Lore",
+					"summary": "Treat Nature as proficient with double PB on checks about plants, beasts, or primal magic of forests and wetlands.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Knowledge checks are not simulated."
+				}
+			],
+			"resources": [
+				{
+					"id": "yorokai-forest-friend-uses",
+					"name": "Forest Friend",
+					"max": "1",
+					"recharge": [{ "on": "longRest", "regain": "pool-max" }]
+				}
+			]
+		},
+		{
+			"id": "aaldegar",
+			"name": "Aaldegar",
+			"source": {
+				"kind": "inazria",
+				"page": "races/halflings",
+				"section": "Aaldegar",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "c167a4fd71bf932f8ccb0c5b8e7f29f094bec7be23f85f40172e527b714d434e"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "cha", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Aaldegar" }],
+			"grants": [{ "kind": "toolProficiency", "tools": ["cook's utensils"] }],
+			"traits": [
+				{
+					"id": "aaldegar-tunnel-network",
+					"name": "Tunnel Network",
+					"summary": "In boggy terrain, dig simple tunnels at a quarter walking speed; while underground, know the direction to the nearest Aaldegar settlement.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Burrowing and settlement direction are not simulated."
+				},
+				{
+					"id": "aaldegar-bayou-studies",
+					"name": "Bayou Studies",
+					"summary": "Ignore difficult terrain of swamps, marshes, or other wetlands; always add PB when checking dikes, drains, cellars, canals, and similar works.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Wetland terrain kinds and engineering checks are not simulated yet."
+				}
+			]
+		},
+		{
+			"id": "wendric",
+			"name": "Wendric",
+			"source": {
+				"kind": "inazria",
+				"page": "races/halflings",
+				"section": "Wendric",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "627f2f46c301bf8a52266e360e67f7f7ad6cd9fa2a71057e197436d5aaf68ef9"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "wis", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Wendric" }],
+			"grants": [
+				{ "kind": "skillProficiency", "skill": "survival" },
+				{ "kind": "skillProficiency", "skill": "insight" },
+				{ "kind": "toolProficiency", "tools": ["herbalism kit"] }
+			],
+			"traits": [
+				{
+					"id": "wendric-cross-country-traveller",
+					"name": "Cross-Country Traveller",
+					"summary": "While traveling on foot for an hour or more, ignore difficult terrain.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Overland travel is not simulated."
+				},
+				{
+					"id": "wendric-news-of-the-road",
+					"name": "News of the Road",
+					"summary": "After 10 minutes exchanging news in a settlement or roadside camp, judge which local stories seem factual and which are rumor.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Rumor gathering is not simulated."
+				}
+			]
+		},
+		{
+			"id": "keldale",
+			"name": "Keldale",
+			"source": {
+				"kind": "inazria",
+				"page": "races/halflings",
+				"section": "Keldale",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "50f07403a0ef58576babb32be4a9e03c3b1a4b3a6d8e49506c68dee79d896a3f"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "con", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Keldalic" }],
+			"grants": [{ "kind": "toolProficiency", "tools": ["smith's tools"] }],
+			"traits": [
+				{
+					"id": "keldale-ashlung",
+					"name": "Ashlung",
+					"summary": "Acclimated to extreme heat; smoke, ash, and sulfurous fumes do not harm you; advantage on saves against those effects; ignore difficult terrain from ash, cinders, and broken volcanic rock.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Heat, fumes, and volcanic terrain are not simulated yet."
+				},
+				{
+					"id": "keldale-landscape-memory",
+					"name": "Landscape Memory",
+					"summary": "After 1 minute surveying an area you have visited before, learn what has changed since the last crossing.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Terrain change detection is not simulated."
+				}
+			]
+		}
+	]
+}

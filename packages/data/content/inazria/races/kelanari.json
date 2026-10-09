@@ -1,0 +1,179 @@
+{
+	"id": "kelanari",
+	"name": "Kelanari",
+	"source": {
+		"kind": "inazria",
+		"page": "races/kelanari",
+		"section": "Traits",
+		"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+		"contentHash": "2b4e67ec5c52eef955cc87ebe0cefb40030d80ac416c3e29d9e8361f7ce4caf4"
+	},
+	"status": "final",
+	"size": "medium",
+	"speed": { "walk": 25, "swim": 40 },
+	"abilityBonuses": [{ "kind": "fixed", "ability": "con", "amount": 2 }],
+	"languages": [
+		{ "kind": "known", "name": "Common" },
+		{ "kind": "known", "name": "Kelanari" }
+	],
+	"tags": ["kelanari"],
+	"senses": { "darkvision": 60, "darkvisionHue": "blue-green" },
+	"grants": [{ "kind": "amphibious" }],
+	"traits": [
+		{
+			"id": "natural-swimmer",
+			"name": "Natural Swimmer",
+			"summary": "Always add your proficiency bonus on Strength (Athletics) checks to swim, dive, or stay afloat.",
+			"cost": "none",
+			"effects": [],
+			"scriptId": "natural-swimmer"
+		},
+		{
+			"id": "storm-sense",
+			"name": "Storm Sense",
+			"summary": "Always know whether a storm will strike your location before the next dawn; advantage on Wisdom (Survival) checks made to predict the weather.",
+			"cost": "none",
+			"effects": [],
+			"noEffect": "Weather prediction is not simulated."
+		}
+	],
+	"lineages": [
+		{
+			"id": "kaduran",
+			"name": "Kaduran",
+			"source": {
+				"kind": "inazria",
+				"page": "races/kelanari",
+				"section": "Kaduran",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "f85da8d7d1cc51a1861164a3c836c0eb47f795473ea7276b3229196ea0f9a33a"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "cha", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Kadurani" }],
+			"grants": [{ "kind": "toolProficiency", "tools": ["jeweler's tools"] }],
+			"traits": [
+				{
+					"id": "kaduran-coral-crafting",
+					"name": "Coral Crafting",
+					"summary": "Double PB on checks to craft, repair, or appraise items made of coral, pearl, shell, or other sea-grown materials.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Crafting checks are not simulated."
+				},
+				{
+					"id": "kaduran-tidal-attunement",
+					"name": "Tidal Attunement",
+					"summary": "Always know the tide and the next high and low tides; after 1 minute studying a coastline, identify safe landing, anchoring, shelter, and hazards beneath the waterline.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Tides and coastal hazards are not simulated."
+				}
+			]
+		},
+		{
+			"id": "pelagoran",
+			"name": "Pelagoran",
+			"source": {
+				"kind": "inazria",
+				"page": "races/kelanari",
+				"section": "Pelagoran",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "40f3d3dad1dc8b7ea4306eef5fdd69635baa13629ccf4a81bd112c28b253e0f8"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "wis", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Pelagorani" }],
+			"grants": [{ "kind": "toolProficiency", "tools": ["navigator's tools"] }],
+			"traits": [
+				{
+					"id": "pelagoran-guiding-song",
+					"name": "Guiding Song",
+					"summary": "Sing with a power that carries for miles over open water; any creature that hears the song can unerringly find its way to you.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Long-range song is not simulated."
+				},
+				{
+					"id": "pelagoran-master-navigator",
+					"name": "Master Navigator",
+					"summary": "Never become lost at sea except by magic; advantage on Survival checks made at sea.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Sea navigation is not simulated."
+				}
+			]
+		},
+		{
+			"id": "khemazi",
+			"name": "Khemazi",
+			"source": {
+				"kind": "inazria",
+				"page": "races/kelanari",
+				"section": "Khemazi",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "2179145fa5c37e8516e8ef0f6c7d76b8a48cfc965ab7b19f5b9a3afff9dc44b3"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "int", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Khemazi" }],
+			"senses": { "darkvision": 90, "darkvisionHue": "blue-green" },
+			"dropTraits": ["storm-sense"],
+			"traits": [
+				{
+					"id": "khemazi-abyssal-adaptation",
+					"name": "Abyssal Adaptation",
+					"summary": "Take no damage from water pressure and survive at any depth.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Water pressure is not simulated."
+				},
+				{
+					"id": "khemazi-deep-sight",
+					"name": "Deep Sight",
+					"summary": "See normally in complete darkness underwater.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Underwater darkness beyond darkvision is not simulated separately."
+				}
+			]
+		},
+		{
+			"id": "limnari",
+			"name": "Limnari",
+			"source": {
+				"kind": "inazria",
+				"page": "races/kelanari",
+				"section": "Limnari",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "a6c43ab74da1c4c1143dc1c3d5729970b20bf799d4113441c132e04cec4e8df8"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "str", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Limnari" }],
+			"grants": [{ "kind": "skillProficiency", "skill": "nature" }],
+			"traits": [
+				{
+					"id": "limnari-delver-of-the-underlakes",
+					"name": "Delver of the Underlakes",
+					"summary": "While underwater or in flooded caves, always know depth below the surface and the direction to open air; cannot become lost in freshwater cave systems except by magic.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Underlake navigation is not simulated."
+				},
+				{
+					"id": "limnari-freshwater-dweller",
+					"name": "Freshwater Dweller",
+					"summary": "Double PB on Intelligence (Nature) checks concerning freshwater plants, creatures, or waters, including whether water is safe to drink.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Knowledge checks are not simulated."
+				},
+				{
+					"id": "salt-strain",
+					"name": "Salt Strain",
+					"summary": "While swimming in salt water, swimming speed is reduced by 10 feet.",
+					"cost": "none",
+					"effects": [],
+					"scriptId": "salt-strain"
+				}
+			]
+		}
+	]
+}

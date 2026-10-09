@@ -10,7 +10,8 @@ export type { BinaryOperator, Formula, FormulaFunction, FormulaRef } from './for
 export { FORMULA_FUNCTIONS, FORMULA_REFS } from './formula/ast.ts';
 export { formatFormula, isSelfContained } from './formula/format.ts';
 export { parseFormula } from './formula/parse.ts';
-export { extractSection } from './provenance.ts';
+export { INAZRIA_RACE_IDS, missingInazriaRaces } from './inazria-races.ts';
+export { collectInazriaSources, extractSection } from './provenance.ts';
 export { err, ok, type Result } from './result.ts';
 export { STARTER_MONSTER_IDS, missingStarterMonsters } from './srd-starter.ts';
 export * from './schemas/index.ts';

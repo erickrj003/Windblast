@@ -1,0 +1,213 @@
+{
+	"id": "dalvas",
+	"name": "Dalvas",
+	"source": {
+		"kind": "inazria",
+		"page": "races/dalvas",
+		"section": "Traits",
+		"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+		"contentHash": "b032068b7aaee858121eb3e6a9dbe1df4cd5b94d58d129b2943a61afe158093f"
+	},
+	"status": "final",
+	"size": "medium",
+	"speed": { "walk": 35 },
+	"abilityBonuses": [{ "kind": "fixed", "ability": "cha", "amount": 2 }],
+	"languages": [
+		{ "kind": "known", "name": "Common" },
+		{ "kind": "any", "count": 1 }
+	],
+	"tags": ["dalvas"],
+	"grants": [{ "kind": "skillProficiency", "skill": "perception" }],
+	"traits": [
+		{
+			"id": "keen-ears",
+			"name": "Keen Ears",
+			"summary": "Advantage on Wisdom (Perception) checks that rely on hearing; pinpoint any sound you can hear within 60 feet.",
+			"cost": "none",
+			"effects": [],
+			"noEffect": "Hearing-only Perception and sound pinpointing are not simulated."
+		},
+		{
+			"id": "the-carrying-voice",
+			"name": "The Carrying Voice",
+			"summary": "Raise your voice to be heard clearly up to a mile away; two Dalvas can hold a full conversation across that range.",
+			"cost": "none",
+			"effects": [],
+			"noEffect": "Mile-range speech is not simulated."
+		},
+		{
+			"id": "sundering-cry",
+			"name": "Sundering Cry",
+			"summary": "Action, once per long rest: chosen creatures you can see within 15 feet that can hear you make a Constitution save (DC 8 + PB + Cha); fail 1d8 + Cha thunder and deafened until the end of your next turn, success half damage.",
+			"cost": "action",
+			"spend": [{ "resource": "dalvas-sundering-cry", "amount": "1" }],
+			"effects": [
+				{
+					"kind": "save",
+					"ability": "con",
+					"dc": "8 + pb + mod(cha)",
+					"target": {
+						"kind": "creatures",
+						"side": "any",
+						"within": 15,
+						"of": "self",
+						"count": "all"
+					},
+					"onFail": [
+						{
+							"kind": "damage",
+							"amount": "1d8 + mod(cha)",
+							"damageType": "thunder",
+							"target": "target"
+						},
+						{
+							"kind": "applyCondition",
+							"condition": "deafened",
+							"target": "target",
+							"duration": { "kind": "untilTurn", "edge": "end", "whose": "self", "which": "next" }
+						}
+					],
+					"halfOnSuccess": true
+				}
+			]
+		},
+		{
+			"id": "windborn",
+			"name": "Windborn",
+			"summary": "Ignore the effects of strong wind, including its penalties to ranged weapon attacks and to Wisdom (Perception) checks.",
+			"cost": "none",
+			"effects": [],
+			"noEffect": "Wind is not a grid effect yet."
+		}
+	],
+	"resources": [
+		{
+			"id": "dalvas-sundering-cry",
+			"name": "Sundering Cry",
+			"max": "1",
+			"recharge": [{ "on": "longRest", "regain": "pool-max" }]
+		}
+	],
+	"lineages": [
+		{
+			"id": "jaziko",
+			"name": "Jaziko",
+			"source": {
+				"kind": "inazria",
+				"page": "races/dalvas",
+				"section": "Jaziko",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "dbaab55be13bfca1b50a1e0bff3f71c3b950ba1596a25c77c5c950eac7a1b36a"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "dex", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Jaziko" }],
+			"grants": [
+				{ "kind": "skillProficiency", "skill": "persuasion" },
+				{ "kind": "skillProficiency", "skill": "performance" },
+				{ "kind": "toolProficiency", "tools": ["one musical instrument of your choice"] }
+			],
+			"traits": [
+				{
+					"id": "jaziko-criers-carry",
+					"name": "Crier's Carry",
+					"summary": "When addressing a gathering, be heard and understood by every creature that can hear you within 300 feet; advantage on Charisma checks to sway a crowd of ten or more.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Crowds and 300-foot address are not simulated."
+				}
+			]
+		},
+		{
+			"id": "lendolo",
+			"name": "Lendolo",
+			"source": {
+				"kind": "inazria",
+				"page": "races/dalvas",
+				"section": "Lendolo",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "697ea585b3e0475b0089ee07adeac3f4ddd10f3b0e0718853a77f1bbc7e48c6a"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "wis", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Lendolo" }],
+			"speed": { "swim": 20 },
+			"grants": [
+				{ "kind": "skillProficiency", "skill": "insight" },
+				{ "kind": "toolProficiency", "tools": ["one type of artisan's tools of your choice"] }
+			],
+			"traits": [
+				{
+					"id": "lendolo-fenstrider",
+					"name": "Fenstrider",
+					"summary": "Move across mud, bog, and other soft ground without sinking, and ignore difficult terrain created by marshland and shallow water.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Marsh terrain kinds are not simulated yet."
+				}
+			]
+		},
+		{
+			"id": "borshai",
+			"name": "Borshai",
+			"source": {
+				"kind": "inazria",
+				"page": "races/dalvas",
+				"section": "Borshai",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "7b3e0b50d0c547233fbb2e2810491514be013c936fe72cac01e72fa4daf7f35a"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "con", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Borshai" }],
+			"grants": [{ "kind": "skillProficiency", "skill": "history" }],
+			"traits": [
+				{
+					"id": "borshai-keeper-of-memory",
+					"name": "Keeper of Memory",
+					"summary": "Double PB on History checks about events, peoples, or songs of the last three centuries; recall verbatim anything you have personally heard spoken, sung, or recited.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Knowledge checks and verbatim recall are not simulated."
+				},
+				{
+					"id": "borshai-highland-drover",
+					"name": "Highland Drover",
+					"summary": "Acclimated to high altitude; advantage on Constitution saves against exhaustion from forced marches and extreme weather.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Forced-march and weather exhaustion are not simulated yet."
+				}
+			]
+		},
+		{
+			"id": "shava",
+			"name": "Shava",
+			"source": {
+				"kind": "inazria",
+				"page": "races/dalvas",
+				"section": "Shava",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "d9bce56530172bc0c1f92772a3bcec2f437db4dde85aaa8a52fe22361b9d234d"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "str", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Shavan" }],
+			"grants": [{ "kind": "skillProficiency", "skill": "survival" }],
+			"traits": [
+				{
+					"id": "shava-canopy-carry",
+					"name": "Canopy Carry",
+					"summary": "Carrying Voice is not stopped by wood, leaves, vines, or other biological forest materials; voice carries clearly 600 feet in any direction, including between forest layers.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Forest-layer speech is not simulated."
+				},
+				{
+					"id": "shava-layer-guide",
+					"name": "Layer Guide",
+					"summary": "By studying a forest path for 1 minute, determine which layer it runs through, obvious hazards, and whether travelers, beasts, or storms passed recently.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Forest-layer navigation is not simulated."
+				}
+			]
+		}
+	]
+}

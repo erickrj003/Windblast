@@ -10,6 +10,7 @@ import { readdir, readFile } from 'node:fs/promises';
 import { join, relative, resolve, sep } from 'node:path';
 import {
 	checkContent,
+	missingInazriaRaces,
 	missingStarterMonsters,
 	type ContentFile
 } from '../packages/data/src/index.ts';
@@ -41,14 +42,23 @@ async function main(): Promise<void> {
 
 	const { problems, counts, scripts } = checkContent(files);
 	for (const problem of problems) console.error(`${problem.path}: ${problem.message}`);
-	const present = new Set(
+	const presentMonsters = new Set(
 		files
 			.filter((file) => /^srd\/monsters\/[^/]+\.json$/.test(file.path))
 			.map((file) => file.path.slice('srd/monsters/'.length, -'.json'.length))
 	);
-	const missing = missingStarterMonsters(present);
+	const missing = missingStarterMonsters(presentMonsters);
 	for (const id of missing) {
 		console.error(`srd/monsters/${id}.json: missing starter monster`);
+	}
+	const presentRaces = new Set(
+		files
+			.filter((file) => /^inazria\/races\/[^/]+\.json$/.test(file.path))
+			.map((file) => file.path.slice('inazria/races/'.length, -'.json'.length))
+	);
+	const missingRaces = missingInazriaRaces(presentRaces);
+	for (const id of missingRaces) {
+		console.error(`inazria/races/${id}.json: missing published Inazria race`);
 	}
 	const summary = counts.map(([kind, count]) => `${String(count)} ${kind}`).join(', ');
 	const scriptNote =
@@ -56,8 +66,10 @@ async function main(): Promise<void> {
 	console.info(
 		`data:check: ${String(files.length)} files${summary === '' ? '' : ` (${summary})`}${scriptNote}.`
 	);
-	if (problems.length > 0 || missing.length > 0) {
-		console.error(`data:check: ${String(problems.length + missing.length)} problem(s).`);
+	if (problems.length > 0 || missing.length > 0 || missingRaces.length > 0) {
+		console.error(
+			`data:check: ${String(problems.length + missing.length + missingRaces.length)} problem(s).`
+		);
 		process.exit(1);
 	}
 }

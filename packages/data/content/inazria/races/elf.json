@@ -1,0 +1,170 @@
+{
+	"id": "elf",
+	"name": "Elf",
+	"source": {
+		"kind": "inazria",
+		"page": "races/elves",
+		"section": "Traits",
+		"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+		"contentHash": "3a939edf03cffed0a44e5269bcecadef8979d54420c6b3e141b9f47ff4ea2400"
+	},
+	"status": "final",
+	"size": "medium",
+	"speed": { "walk": 30 },
+	"abilityBonuses": [{ "kind": "fixed", "ability": "dex", "amount": 2 }],
+	"languages": [
+		{ "kind": "known", "name": "Common" },
+		{ "kind": "known", "name": "Elvish" }
+	],
+	"tags": ["elf"],
+	"senses": { "darkvision": 60 },
+	"grants": [
+		{ "kind": "saveAdvantage", "against": "charmed" },
+		{ "kind": "magicSleepImmunity" },
+		{
+			"kind": "weaponProficiency",
+			"weapons": ["spear", "shortsword", "shortbow", "longbow"]
+		}
+	],
+	"traits": [
+		{
+			"id": "trance",
+			"name": "Trance",
+			"summary": "Meditate 4 hours instead of sleeping 8 hours.",
+			"cost": "none",
+			"effects": [],
+			"noEffect": "Rest length is not simulated beyond short and long rests."
+		}
+	],
+	"lineages": [
+		{
+			"id": "veldtwin",
+			"name": "Veldtwin",
+			"source": {
+				"kind": "inazria",
+				"page": "races/elves",
+				"section": "Veldtwin",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "ff83aa9c3e19ba004cfc51f76ebba4c322b888f999cc465de4c1ecfbbbf4a14d"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "cha", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Veldtwin" }],
+			"speed": { "walk": 35 },
+			"traits": [
+				{
+					"id": "veldtwin-mask-of-the-wild",
+					"name": "Mask of the Wild",
+					"summary": "Hide when only lightly obscured by foliage, rain, snow, mist, or other natural phenomena.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Natural concealment is not a grid layer yet."
+				},
+				{
+					"id": "veldtwin-verdant-passage",
+					"name": "Verdant Passage",
+					"summary": "Move through nonmagical undergrowth without being slowed or taking damage from thorns.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Undergrowth is not a distinct terrain kind yet."
+				}
+			]
+		},
+		{
+			"id": "sarukhwin",
+			"name": "Sarukhwin",
+			"source": {
+				"kind": "inazria",
+				"page": "races/elves",
+				"section": "Sarukhwin",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "b0500461c29b9cd7a048fcb1dae68d21815b1e968068446b4d4f3fa2d5cafcc7"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "int", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Sarukhwin" }],
+			"traits": [
+				{
+					"id": "sarukhwin-astrological-attunement",
+					"name": "Astrological Attunement",
+					"summary": "Treat Arcana as proficient with double PB on checks about celestial phenomena, astrology, or magical history.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Knowledge checks are not simulated."
+				},
+				{
+					"id": "sarukhwin-star-omens",
+					"name": "Star Omens",
+					"summary": "Once per long rest under a night sky, consult the stars for a truthful omen about a plan for the next day.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Omens are not simulated."
+				}
+			]
+		},
+		{
+			"id": "sythiaq",
+			"name": "Sythiaq",
+			"source": {
+				"kind": "inazria",
+				"page": "races/elves",
+				"section": "Sythiaq",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "d4f02e9af8e7cdf14dddb95d6c3027163f0550f17439a0463f923c6f27500593"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "wis", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Sythiaq" }],
+			"traits": [
+				{
+					"id": "sythiaq-snowstrider",
+					"name": "Snowstrider",
+					"summary": "Acclimated to cold; ignore difficult terrain from snow and ice; leave no tracks in snow.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Climate and snow terrain are not simulated yet."
+				},
+				{
+					"id": "sythiaq-whiteout-sight",
+					"name": "Whiteout Sight",
+					"summary": "Vision unimpeded by snowfall, fog, and blizzards; immune to snow blindness.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Weather vision is not simulated."
+				},
+				{
+					"id": "sythiaq-detect-empathy",
+					"name": "Detect Empathy",
+					"summary": "Creatures have disadvantage on Deception checks made against you.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Deception checks against a creature are not simulated."
+				}
+			]
+		},
+		{
+			"id": "cahokari",
+			"name": "Cahokari",
+			"source": {
+				"kind": "inazria",
+				"page": "races/elves",
+				"section": "Cahokari",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "8a7be6c68f8d9953e4a167cb948263caa09ae5fab4dfb2b68fecafbe5b84c46e"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "str", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Modern Cahokari" }],
+			"grants": [
+				{ "kind": "skillProficiency", "skill": "insight" },
+				{ "kind": "skillProficiency", "skill": "persuasion" }
+			],
+			"traits": [
+				{
+					"id": "cahokari-eye-for-intent",
+					"name": "Eye for Intent",
+					"summary": "After observing a creature or armed company for one minute, judge its martial skill, discipline, morale, and whether its arms are functional.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Out-of-combat appraisal is not simulated."
+				}
+			]
+		}
+	]
+}

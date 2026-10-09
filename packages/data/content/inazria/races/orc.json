@@ -1,0 +1,223 @@
+{
+	"id": "orc",
+	"name": "Orc",
+	"source": {
+		"kind": "inazria",
+		"page": "races/orcs",
+		"section": "Traits",
+		"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+		"contentHash": "83ab673e1a9d22bd7a8ee660cfc7d0f3765a5282ac0736a59a2a3d34c77f07ec"
+	},
+	"status": "final",
+	"size": "medium",
+	"speed": { "walk": 30 },
+	"abilityBonuses": [{ "kind": "fixed", "ability": "str", "amount": 2 }],
+	"languages": [
+		{ "kind": "known", "name": "Common" },
+		{ "kind": "known", "name": "Orcish" }
+	],
+	"tags": ["orc"],
+	"senses": { "darkvision": 60 },
+	"traits": [
+		{
+			"id": "relentless-endurance",
+			"name": "Relentless Endurance",
+			"summary": "When reduced to 0 hit points but not killed outright, drop to 1 hit point instead, once per long rest.",
+			"cost": "none",
+			"trigger": { "on": "reducedToZero", "as": "target" },
+			"spend": [{ "resource": "orc-relentless-endurance", "amount": "1" }],
+			"effects": [],
+			"scriptId": "relentless-endurance"
+		},
+		{
+			"id": "tempered-strength",
+			"name": "Tempered Strength",
+			"summary": "Once per short or long rest, extra PB damage on a melee weapon hit, or 2 × PB if you are below half hit points.",
+			"cost": "none",
+			"trigger": { "on": "hit", "as": "actor" },
+			"condition": { "kind": "attack", "range": "melee", "with": "weapon" },
+			"spend": [{ "resource": "orc-tempered-strength", "amount": "1" }],
+			"effects": [
+				{ "kind": "damage", "amount": "pb", "damageType": "weapon", "target": "target" },
+				{
+					"kind": "conditional",
+					"when": { "kind": "hpBelowHalf", "who": "self" },
+					"then": [{ "kind": "damage", "amount": "pb", "damageType": "weapon", "target": "target" }]
+				}
+			]
+		},
+		{
+			"id": "powerful-build",
+			"name": "Powerful Build",
+			"summary": "Count as one size larger when determining carrying capacity and the weight you can push, drag, or lift.",
+			"cost": "none",
+			"effects": [],
+			"noEffect": "Carrying capacity is not simulated."
+		}
+	],
+	"resources": [
+		{
+			"id": "orc-relentless-endurance",
+			"name": "Relentless Endurance",
+			"max": "1",
+			"recharge": [{ "on": "longRest", "regain": "pool-max" }]
+		},
+		{
+			"id": "orc-tempered-strength",
+			"name": "Tempered Strength",
+			"max": "1",
+			"recharge": [
+				{ "on": "shortRest", "regain": "pool-max" },
+				{ "on": "longRest", "regain": "pool-max" }
+			]
+		}
+	],
+	"lineages": [
+		{
+			"id": "dramkhani",
+			"name": "Dramkhani",
+			"source": {
+				"kind": "inazria",
+				"page": "races/orcs",
+				"section": "Dramkhani",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "45d1cec56f6a303a858f2b03cefeb3f71104c7914130f976cda4048cfa033dc6"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "con", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Targun" }],
+			"grants": [
+				{ "kind": "skillProficiency", "skill": "intimidation" },
+				{ "kind": "skillAbility", "skill": "intimidation", "ability": "str" },
+				{ "kind": "skillProficiency", "skill": "survival" },
+				{ "kind": "saveAdvantage", "against": "exhaustion" }
+			]
+		},
+		{
+			"id": "gushbek",
+			"name": "Gushbek",
+			"source": {
+				"kind": "inazria",
+				"page": "races/orcs",
+				"section": "Gushbek",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "01d95361288dce676159e9970cb3c111f2c9d09e9cbc1491bb51cb2c265385b3"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "dex", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Gushbek" }],
+			"grants": [{ "kind": "skillProficiency", "skill": "survival" }],
+			"traits": [
+				{
+					"id": "gushbek-desert-adaptation",
+					"name": "Desert Adaptation",
+					"summary": "Acclimated to extreme heat and freezing nights; five days without drinking before thirst exhaustion; ignore difficult terrain from sand, dust, and loose rock.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Climate, thirst, and desert terrain kinds are not simulated yet."
+				},
+				{
+					"id": "gushbek-mirage-runner",
+					"name": "Mirage Runner",
+					"summary": "Ignore difficult terrain when you Dash through sand or open desert, and leave no tracks on sand or dust.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Desert Dash terrain is not simulated yet."
+				},
+				{
+					"id": "gushbek-horizon-sense",
+					"name": "Horizon Sense",
+					"summary": "After 1 minute observing open terrain, know cardinal directions, hours until nightfall, and whether a sandstorm is likely; cannot become lost in desert, steppe, or badland except by magic.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Overland navigation is not simulated."
+				}
+			]
+		},
+		{
+			"id": "barithani",
+			"name": "Barithani",
+			"source": {
+				"kind": "inazria",
+				"page": "races/orcs",
+				"section": "Barithani",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "202a0a25120c780053d720924a31812d0f92f4684da63c935b8b59ea7e2ca404"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "cha", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Barithani" }],
+			"senses": { "darkvision": 90 },
+			"grants": [
+				{ "kind": "skillProficiency", "skill": "stealth" },
+				{ "kind": "skillProficiency", "skill": "survival" }
+			],
+			"traits": [
+				{
+					"id": "barithani-forest-camouflage",
+					"name": "Forest Camouflage",
+					"summary": "In forest terrain, hide even when only lightly obscured by foliage.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Forest concealment is not a grid layer yet."
+				},
+				{
+					"id": "barithani-trackers-sense",
+					"name": "Tracker's Sense",
+					"summary": "Track creatures that passed through an area up to 7 days ago, and identify approximate size and direction of travel.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Tracking is not simulated."
+				},
+				{
+					"id": "eyes-of-the-deep-veldt",
+					"name": "Eyes of the Deep Veldt",
+					"summary": "While in bright light such as direct sunlight, disadvantage on Wisdom (Perception) checks that rely on sight.",
+					"cost": "none",
+					"effects": [],
+					"scriptId": "eyes-of-the-deep-veldt"
+				}
+			]
+		},
+		{
+			"id": "yaz-togal",
+			"name": "Yaz'togal",
+			"source": {
+				"kind": "inazria",
+				"page": "races/orcs",
+				"section": "Yaz'togal",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "67da24ba09bbf33570d5950ae95ccb729f11f8d15ca0973538f526e0d4b446b4"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "int", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Yaz'togal" }],
+			"grants": [
+				{ "kind": "skillProficiency", "skill": "perception" },
+				{ "kind": "toolProficiency", "tools": ["mason's tools", "carpenter's tools"] }
+			],
+			"traits": [
+				{
+					"id": "yaz-togal-sentinels-eye",
+					"name": "Sentinel's Eye",
+					"summary": "When you observe a group of creatures from afar, accurately judge its distance, numbers, and direction of travel.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Long-range group appraisal is not simulated."
+				},
+				{
+					"id": "yaz-togal-tower-code",
+					"name": "Tower Code",
+					"summary": "Send and understand simple horn-and-banner messages to anyone in line of sight who knows the code, no matter the distance.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Long-range signaling is not simulated."
+				},
+				{
+					"id": "yaz-togal-built-to-last",
+					"name": "Built to Last",
+					"summary": "With a glance, tell whether a structure is sound, sabotaged, or recently altered; 10 minutes reinforcing a structure gives foes disadvantage to break it.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Structures and barricades are not simulated yet."
+				}
+			]
+		}
+	]
+}

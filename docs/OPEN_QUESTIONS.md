@@ -37,3 +37,12 @@ Rules gaps and decisions waiting on Erick. The agent adds entries; Erick answers
 - Readings: (a) deploy at `erickrj.tech/Windblast/` (GitHub Pages uses the repo name; the path is case-sensitive); (b) rename the repo to `inazria-simulator` before Phase 9; (c) keep `Windblast` and serve the simulator from a custom path or subdomain
 - Blocks: P9-01 `deploy.yml`
 - Status: open
+
+## Q-004: Does the Human 10th-level +1 have to be a third ability score?
+- Source: inazria:races/humans#Traits @ 23a5f30fff291f77e01939feea769ecedad57446
+- Quote: "+1 to two different ability scores of your choice. At 10th level, you may add +1 to another ability score."
+- Readings:
+  - (a) the 10th-level +1 must be a score that is not one of the two chosen at 1st level
+  - (b) "another" means one additional +1, which may go on a score already increased
+- Blocks: character-build UI for Humans at level 10 (v1 is levels 1–5, so this does not affect play yet). Encoded as a second choice grant of +1 at level 10 with `distinct: false` (reading b) in `content/inazria/races/human.json`.
+- Status: open

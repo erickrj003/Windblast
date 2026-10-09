@@ -1,0 +1,57 @@
+{
+	"id": "human",
+	"name": "Human",
+	"source": {
+		"kind": "inazria",
+		"page": "races/humans",
+		"section": "Traits",
+		"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+		"contentHash": "b09bf80aab7a3a3bd65213de552b5d92dc8557b126acf9662d049aebea2037dd"
+	},
+	"status": "final",
+	"size": "medium",
+	"speed": { "walk": 30 },
+	"abilityBonuses": [
+		{ "kind": "choice", "amount": 1, "count": 2, "distinct": true },
+		{ "kind": "choice", "amount": 1, "count": 1, "distinct": false, "atLevel": 10 }
+	],
+	"languages": [
+		{ "kind": "known", "name": "Common" },
+		{ "kind": "choice", "of": ["Kystri", "Veldtwin", "Wendric"], "count": 1 }
+	],
+	"tags": ["human"],
+	"grants": [
+		{ "kind": "skillProficiency", "skill": "choice" },
+		{
+			"kind": "toolProficiency",
+			"tools": ["one tool, gaming set, or musical instrument of your choice"]
+		}
+	],
+	"traits": [
+		{
+			"id": "market-pidgin",
+			"name": "Crossroads Upbringing",
+			"summary": "Convey and understand simple ideas with any creature that speaks a language, using trade-city pidgin.",
+			"cost": "none",
+			"effects": [],
+			"noEffect": "Pidgin communication is not simulated."
+		},
+		{
+			"id": "determined",
+			"name": "Determined",
+			"summary": "Once per long rest, add your proficiency bonus to an ability check that does not already include it.",
+			"cost": "none",
+			"spend": [{ "resource": "human-determined", "amount": "1" }],
+			"effects": [],
+			"scriptId": "determined"
+		}
+	],
+	"resources": [
+		{
+			"id": "human-determined",
+			"name": "Determined",
+			"max": "1",
+			"recharge": [{ "on": "longRest", "regain": "pool-max" }]
+		}
+	]
+}

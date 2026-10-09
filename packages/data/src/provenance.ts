@@ -1,5 +1,47 @@
 import { err, ok, type Result } from './result.ts';
 
+/** The Inazria fields `check-provenance` re-hashes, including nested lineage sources. */
+export interface InazriaCitation {
+	readonly page: string;
+	readonly section: string;
+	readonly commit: string;
+	readonly contentHash: string;
+}
+
+const isInazriaCitation = (value: unknown): value is InazriaCitation => {
+	if (value === null || typeof value !== 'object') return false;
+	const record = value as Record<string, unknown>;
+	return (
+		record.kind === 'inazria' &&
+		typeof record.page === 'string' &&
+		typeof record.section === 'string' &&
+		typeof record.commit === 'string' &&
+		typeof record.contentHash === 'string'
+	);
+};
+
+/**
+ * Walks a JSON record and returns every Inazria `source` block, including those nested on
+ * lineages, so a lore edit on a lineage heading fails provenance even when Traits is unchanged.
+ */
+export function collectInazriaSources(value: unknown): ReadonlyArray<InazriaCitation> {
+	const citations: InazriaCitation[] = [];
+	const walk = (node: unknown): void => {
+		if (Array.isArray(node)) {
+			node.forEach(walk);
+			return;
+		}
+		if (node === null || typeof node !== 'object') return;
+		if (isInazriaCitation(node)) {
+			citations.push(node);
+			return;
+		}
+		Object.values(node).forEach(walk);
+	};
+	walk(value);
+	return citations;
+}
+
 interface Range {
 	readonly start: number;
 	readonly end: number;

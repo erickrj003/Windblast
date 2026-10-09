@@ -1,0 +1,218 @@
+{
+	"id": "dwarf",
+	"name": "Dwarf",
+	"source": {
+		"kind": "inazria",
+		"page": "races/dwarves",
+		"section": "Traits",
+		"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+		"contentHash": "a81133d738d77eb04fa83d3857d9991760e96245c8d25fb96dd72281b8883fc8"
+	},
+	"status": "final",
+	"size": "medium",
+	"speed": { "walk": 25 },
+	"abilityBonuses": [{ "kind": "fixed", "ability": "con", "amount": 2 }],
+	"languages": [
+		{ "kind": "known", "name": "Common" },
+		{ "kind": "known", "name": "Kystri" }
+	],
+	"tags": ["dwarf"],
+	"senses": { "darkvision": 60 },
+	"grants": [
+		{ "kind": "ignoreHeavyArmorSpeed" },
+		{ "kind": "saveAdvantage", "against": "poisoned" },
+		{ "kind": "damageResistance", "type": "poison" },
+		{
+			"kind": "weaponProficiency",
+			"weapons": ["handaxe", "light-hammer", "warhammer", "spear"]
+		},
+		{
+			"kind": "toolProficiency",
+			"tools": ["smith's tools", "carpenter's tools", "brewer's supplies", "mason's tools"],
+			"pick": 1
+		}
+	],
+	"traits": [
+		{
+			"id": "stonecunning",
+			"name": "Stonecunning",
+			"summary": "Treat History as proficient with double PB on checks about the origin of stonework or metalwork.",
+			"cost": "none",
+			"effects": [],
+			"noEffect": "Knowledge checks are not simulated."
+		}
+	],
+	"lineages": [
+		{
+			"id": "guphati",
+			"name": "Guphati",
+			"source": {
+				"kind": "inazria",
+				"page": "races/dwarves",
+				"section": "Guphati",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "67344d67b4170f90a12e84899ba77146953c5d8f1519c86a4510b12f69461b4e"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "str", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Guphati" }],
+			"grants": [{ "kind": "skillProficiency", "skill": "athletics" }],
+			"traits": [
+				{
+					"id": "guphati-summit-lore",
+					"name": "Summit Lore",
+					"summary": "Always add PB on Nature checks recalling underground or mountainous terrain.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Knowledge checks are not simulated."
+				},
+				{
+					"id": "guphati-athletic",
+					"name": "Athletic",
+					"summary": "Advantage on checks made to climb rocky surfaces.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Climb checks are not simulated separately from climb speed."
+				}
+			]
+		},
+		{
+			"id": "kaikone",
+			"name": "Kaikone",
+			"source": {
+				"kind": "inazria",
+				"page": "races/dwarves",
+				"section": "Kaikone",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "4afe30d10a9dfed96bb804fac533f6f37721a4a78c66f8d3164c40b440ff4bcf"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "cha", "amount": 1 }],
+			"languages": [
+				{ "kind": "known", "name": "Kaikone" },
+				{ "kind": "any", "count": 1 }
+			],
+			"grants": [
+				{ "kind": "skillProficiency", "skill": "athletics" },
+				{ "kind": "skillProficiency", "skill": "persuasion" }
+			],
+			"traits": [
+				{
+					"id": "kaikone-life-on-water",
+					"name": "Life on Water",
+					"summary": "Advantage on Athletics checks made to swim or stay afloat.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Swim checks are not simulated separately from swim speed."
+				}
+			]
+		},
+		{
+			"id": "solkota",
+			"name": "Solkota",
+			"source": {
+				"kind": "inazria",
+				"page": "races/dwarves",
+				"section": "Solkota",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "6f0aede5a1096c4d4749081843e085a8ad87cb7f1186430aa4860d00a171d69e"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "wis", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Solkota" }],
+			"grants": [
+				{ "kind": "saveAdvantage", "against": "disease" },
+				{
+					"kind": "toolProficiency",
+					"tools": ["poisoner's kit", "herbalism kit"]
+				}
+			],
+			"traits": [
+				{
+					"id": "solkota-botanical-knowledge",
+					"name": "Botanical Knowledge",
+					"summary": "Identify nearly any plant of tropical origin and know its general properties.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Plant identification is not simulated."
+				},
+				{
+					"id": "solkota-canopy-dweller",
+					"name": "Canopy Dweller",
+					"summary": "Climbing speed of 25 feet when climbing trees.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "A climb speed that applies only to trees is not a general climb speed."
+				}
+			]
+		},
+		{
+			"id": "palcha",
+			"name": "Palcha",
+			"source": {
+				"kind": "inazria",
+				"page": "races/dwarves",
+				"section": "Palcha",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "f19c234e63ef4a1061050922349bf3b8c121eeab4cccb40d963d931c555d6693"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "int", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Palcha" }],
+			"grants": [
+				{
+					"kind": "skillProficiency",
+					"skill": "choice",
+					"of": ["arcana", "history", "investigation", "insight"]
+				}
+			],
+			"traits": [
+				{
+					"id": "palcha-telekinetic-legacy",
+					"name": "Telekinetic Legacy",
+					"summary": "Know mage hand; the hand is invisible and lifts 10 × PB pounds; Intelligence is the spellcasting ability.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Spells are deferred until after v1."
+				}
+			]
+		},
+		{
+			"id": "vailoko",
+			"name": "Vailoko",
+			"source": {
+				"kind": "inazria",
+				"page": "races/dwarves",
+				"section": "Vailoko",
+				"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+				"contentHash": "d50b8234864f597bcb7f31c886f7458f21dc2b0677979a0697da4f89acb8c17d"
+			},
+			"abilityBonuses": [{ "kind": "fixed", "ability": "dex", "amount": 1 }],
+			"languages": [{ "kind": "known", "name": "Vailoko" }],
+			"speed": { "climb": 25 },
+			"dropLanguages": ["Kystri"],
+			"traits": [
+				{
+					"id": "vailoko-falls-climber",
+					"name": "Falls Climber",
+					"summary": "Climbing on wet, icy, or slippery surfaces does not cost extra movement.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Surface-specific climb costs are not simulated yet."
+				},
+				{
+					"id": "vailoko-call-of-waterfalls",
+					"name": "Call of Waterfalls",
+					"summary": "Whistled Vailoko carries simple messages 600 feet through thunder, wind, and storm.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Long-range signaling is not simulated."
+				},
+				{
+					"id": "vailoko-snow-delver",
+					"name": "Snow Delver",
+					"summary": "Dig simple tunnels through snow at half walking speed and always know depth beneath snow.",
+					"cost": "none",
+					"effects": [],
+					"noEffect": "Snow tunneling is not simulated."
+				}
+			]
+		}
+	]
+}
