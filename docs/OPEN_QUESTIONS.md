@@ -46,3 +46,13 @@ Rules gaps and decisions waiting on Erick. The agent adds entries; Erick answers
   - (b) "another" means one additional +1, which may go on a score already increased
 - Blocks: character-build UI for Humans at level 10 (v1 is levels 1–5, so this does not affect play yet). Encoded as a second choice grant of +1 at level 10 with `distinct: false` (reading b) in `content/inazria/races/human.json`.
 - Status: open
+
+## Q-005: What does Veteran's Focus add when Exertion already refills on a short rest?
+- Source: inazria:classes/civil/fighter#Fighter @ 23a5f30fff291f77e01939feea769ecedad57446
+- Quote: "You regain all expended Exertion when you finish a short or long rest." and "When you finish a short rest, you regain 1 expended Exertion (in addition to the Exertion you normally regain)."
+- Readings:
+  - (a) Exertion still refills completely on a short rest, so Veteran's Focus adds a point only if something left the pool short of full; it never raises the pool above its maximum
+  - (b) a short rest was meant to regain only 1 Exertion (Veteran's Focus), and "all expended" applies to a long rest
+  - (c) Veteran's Focus grants 1 Exertion even above the maximum
+- Blocks: nothing yet. Encoded as reading (a): Exertion's recharge is `pool-max` on a short or long rest, and `veterans-focus` is a script for the extra point. `content/inazria/classes/fighter.json`
+- Status: open

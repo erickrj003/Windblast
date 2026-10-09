@@ -164,7 +164,8 @@ export const Predicate: v.GenericSchema<Predicate> = v.variant('kind', [
  *
  * A `save` with `halfOnSuccess` deals half (rounded down) of the damage its `onFail` effects
  * rolled when the target succeeds. A condition with `repeatSave` ends when its target succeeds on
- * that save at the start or end of each of its turns.
+ * that save at the start or end of each of its turns. `modifyArmorClass` applies while the
+ * feature's condition holds.
  */
 export type Effect =
 	| {
@@ -238,6 +239,11 @@ export type Effect =
 			readonly kind: 'grantAction';
 			readonly action: 'action' | 'bonusAction' | 'reaction' | 'attack';
 			readonly count?: number;
+	  }
+	| {
+			readonly kind: 'modifyArmorClass';
+			readonly amount: string;
+			readonly target: TargetSpec;
 	  };
 
 const Effects = v.array(v.lazy(() => Effect));
@@ -316,6 +322,11 @@ const effectVariant = v.variant('kind', [
 		kind: v.literal('grantAction'),
 		action: v.picklist(['action', 'bonusAction', 'reaction', 'attack']),
 		count: v.exactOptional(v.pipe(v.number(), v.integer(), v.minValue(1)))
+	}),
+	v.strictObject({
+		kind: v.literal('modifyArmorClass'),
+		amount: FormulaText,
+		target: TargetSpec
 	})
 ]);
 

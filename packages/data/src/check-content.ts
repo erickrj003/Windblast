@@ -3,6 +3,7 @@ import { assertNever } from './assert-never.ts';
 import type { Effect, Predicate } from './schemas/effect.ts';
 import type { Weapon } from './schemas/equipment.ts';
 import type { Creature } from './schemas/creature.ts';
+import type { Class } from './schemas/class.ts';
 import type { Feature, InlineFeature } from './schemas/feature.ts';
 import { CONTENT_ROOTS, CONTENT_SCHEMAS, type ContentKind } from './schemas/index.ts';
 import type { Grant, Race } from './schemas/race.ts';
@@ -160,6 +161,8 @@ function collectRefs(kind: ContentKind, record: unknown): ReadonlyArray<Ref> {
 			return collectFeatureRefs(record as Feature);
 		case 'races':
 			return collectRaceRefs(record as Race);
+		case 'classes':
+			return collectClassRefs(record as Class);
 		case 'armor':
 		case 'damage-types':
 		case 'resources':
@@ -228,6 +231,43 @@ function collectCreatureRefs(creature: Creature): ReadonlyArray<Ref> {
 		if (reaction.condition !== undefined) {
 			refs.push(...collectPredicate(reaction.condition, `reactions.${String(index)}.condition`));
 		}
+	});
+	return refs;
+}
+
+function collectClassRefs(record: Class): ReadonlyArray<Ref> {
+	const refs: Ref[] = [];
+	record.startingEquipment.forEach((choice, choiceIndex) => {
+		choice.options.forEach((option, optionIndex) => {
+			option.items.forEach((item, itemIndex) => {
+				if (item.kind === 'note') return;
+				refs.push({
+					at: `startingEquipment.${String(choiceIndex)}.options.${String(optionIndex)}.items.${String(itemIndex)}.id`,
+					kind: item.kind === 'weapon' ? 'weapons' : 'armor',
+					id: item.id
+				});
+			});
+		});
+	});
+	const features = (list: Class['features'], at: string): void => {
+		list.forEach((feature, index) => {
+			const path = `${at}.${String(index)}`;
+			refs.push(...collectEffects(feature.effects, `${path}.effects`));
+			if (feature.condition !== undefined) {
+				refs.push(...collectPredicate(feature.condition, `${path}.condition`));
+			}
+		});
+	};
+	features(record.features, 'features');
+	(record.fightingStyles?.options ?? []).forEach((option, index) => {
+		const path = `fightingStyles.options.${String(index)}`;
+		refs.push(...collectEffects(option.effects, `${path}.effects`));
+		if (option.condition !== undefined) {
+			refs.push(...collectPredicate(option.condition, `${path}.condition`));
+		}
+	});
+	(record.contexts ?? []).forEach((context, index) => {
+		features(context.features, `contexts.${String(index)}.features`);
 	});
 	return refs;
 }
@@ -330,6 +370,7 @@ function collectEffect(effect: Effect, at: string): ReadonlyArray<Ref> {
 		case 'gainResource':
 		case 'move':
 		case 'grantAction':
+		case 'modifyArmorClass':
 			return [];
 		default:
 			return assertNever(effect);

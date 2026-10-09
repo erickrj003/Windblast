@@ -557,7 +557,10 @@ The build runs in ten phases, each ending with a phase report and Erick's approv
 - [ ] P1-03 SRD core: conditions, damage types, starting weapons and armor.
 - [ ] P1-04 SRD monsters: the 20 starter stat blocks.
 - [ ] P1-05 Inazria races.
-- [ ] P1-06 Fighter, levels 1–5: contexts Champion, Paladin, Varnic Knight and Tarvanin; Exertion, and Devotion for Paladins; technique ranks Untrained, Familiar, Practiced and Mastered.
+- [ ] P1-06a Fighter base, levels 1–5: class schema, Exertion, core features through Extra Attack, and fighting styles.
+- [ ] P1-06b Fighter technique catalog and ranks (Untrained, Familiar, Practiced, Mastered).
+- [ ] P1-06c Contexts Champion, Varnic Knight and Tarvanin through level 5, including their techniques.
+- [ ] P1-06d Paladin through level 5: Devotion, shared features, and the seven orders.
 - [ ] P1-07 Savant, levels 1–5: contexts Koboda, Hari-Yudha, Loremaster and Ranger; Focus Points and the Focus die.
 - [ ] P1-08 Vagabond, levels 1–5: contexts Slayer, Cusgarn, Silakar and Purple Mage; Guile; trick ranks matching Fighter techniques. Purple Mage spells are cited and marked not simulated.
 - [ ] P1-09 Compile step: frozen typed lookups and the `dataVersion` hash.

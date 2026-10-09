@@ -1,0 +1,331 @@
+{
+	"id": "fighter",
+	"name": "Fighter",
+	"source": {
+		"kind": "inazria",
+		"page": "classes/civil/fighter",
+		"section": "Fighter",
+		"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+		"contentHash": "54bfdceb325071ce1455c55768a9cd8420375c38b67c9703a12a12019ec99f77"
+	},
+	"status": "final",
+	"archetype": "civil",
+	"tags": ["fighter"],
+	"encodedLevels": { "from": 1, "through": 5 },
+	"hitDie": 10,
+	"hitPoints": {
+		"atFirst": "10 + mod(con)",
+		"perLevel": "1d10 + mod(con)",
+		"average": "6 + mod(con)"
+	},
+	"proficiencies": {
+		"armor": ["light", "medium", "heavy", "shield"],
+		"weapons": "simple-and-martial",
+		"tools": [],
+		"savingThrows": ["str", "con"],
+		"skills": {
+			"count": 2,
+			"of": [
+				"acrobatics",
+				"animal-handling",
+				"athletics",
+				"history",
+				"intimidation",
+				"perception",
+				"medicine",
+				"survival"
+			]
+		}
+	},
+	"startingEquipment": [
+		{
+			"choose": 1,
+			"options": [
+				{
+					"id": "chain-mail",
+					"label": "chain mail",
+					"items": [{ "kind": "armor", "id": "chain-mail" }]
+				},
+				{
+					"id": "leather-and-longbow",
+					"label": "leather armor, longbow, and 20 arrows",
+					"items": [
+						{ "kind": "armor", "id": "leather" },
+						{ "kind": "weapon", "id": "longbow" },
+						{ "kind": "note", "text": "20 arrows" }
+					]
+				}
+			]
+		},
+		{
+			"choose": 1,
+			"options": [
+				{
+					"id": "martial-weapon-and-shield",
+					"label": "a martial weapon and a shield",
+					"items": [
+						{ "kind": "note", "text": "one martial weapon" },
+						{ "kind": "armor", "id": "shield" }
+					]
+				},
+				{
+					"id": "two-martial-weapons",
+					"label": "two martial weapons",
+					"items": [{ "kind": "note", "text": "two martial weapons" }]
+				}
+			]
+		},
+		{
+			"choose": 1,
+			"options": [
+				{
+					"id": "light-crossbow",
+					"label": "a light crossbow and 20 bolts",
+					"items": [
+						{ "kind": "weapon", "id": "light-crossbow" },
+						{ "kind": "note", "text": "20 bolts" }
+					]
+				},
+				{
+					"id": "two-handaxes",
+					"label": "two handaxes",
+					"items": [{ "kind": "weapon", "id": "handaxe", "count": 2 }]
+				}
+			]
+		},
+		{
+			"choose": 1,
+			"options": [
+				{
+					"id": "dungeoneers-pack",
+					"label": "a dungeoneer's pack",
+					"items": [{ "kind": "note", "text": "a dungeoneer's pack" }]
+				},
+				{
+					"id": "explorers-pack",
+					"label": "an explorer's pack",
+					"items": [{ "kind": "note", "text": "an explorer's pack" }]
+				}
+			]
+		}
+	],
+	"classRules": {
+		"concentration": "asSpell",
+		"oncePerTurnUnlessStated": true,
+		"limitedUses": { "max": "pb", "recharge": "longRest" },
+		"masteryBudget": "mastery-damage",
+		"notSimulated": ["Multiclassing is deferred until after v1."]
+	},
+	"resources": [
+		{
+			"id": "exertion",
+			"name": "Exertion",
+			"max": "pb",
+			"recharge": [
+				{ "on": "shortRest", "regain": "pool-max" },
+				{ "on": "longRest", "regain": "pool-max" }
+			]
+		},
+		{
+			"id": "fighter-tactical-assessment",
+			"name": "Tactical Assessment",
+			"max": "pb",
+			"recharge": [{ "on": "longRest", "regain": "pool-max" }]
+		}
+	],
+	"techniqueTraining": {
+		"pointsAtFirst": 2,
+		"pointsPerLevelAfterFirst": 1,
+		"ranks": [
+			{ "rank": "untrained", "points": 0 },
+			{ "rank": "familiar", "points": 1 },
+			{ "rank": "practiced", "points": 3 },
+			{ "rank": "mastered", "points": 6 }
+		],
+		"improvisedSpend": { "resource": "exertion", "amount": "1" },
+		"oncePerTurn": true,
+		"saveDc": {
+			"base": "8 + pb",
+			"ability": { "kind": "choice", "of": ["str", "dex"], "when": "gainTechnique" }
+		}
+	},
+	"fightingStyles": {
+		"source": {
+			"kind": "inazria",
+			"page": "classes/civil/fighter",
+			"section": "Fighting Styles",
+			"commit": "23a5f30fff291f77e01939feea769ecedad57446",
+			"contentHash": "72fe0c779fe45e8f2ea95ad883f2224dcba86c63ef7de50f44aa5241a41073fd"
+		},
+		"choose": 1,
+		"replaceOn": "longRest",
+		"anotherAtLevel": 10,
+		"options": [
+			{
+				"id": "archery",
+				"name": "Archery",
+				"summary": "+2 bonus to attack rolls you make with ranged weapons.",
+				"cost": "none",
+				"effects": [],
+				"scriptId": "archery"
+			},
+			{
+				"id": "blind-fighting",
+				"name": "Blind Fighting",
+				"summary": "Blindsight out to 10 feet. Within that radius you can perceive creatures that are invisible or hidden.",
+				"cost": "none",
+				"effects": [],
+				"scriptId": "blind-fighting"
+			},
+			{
+				"id": "defense",
+				"name": "Defense",
+				"summary": "While wearing armor, +1 AC.",
+				"cost": "none",
+				"condition": {
+					"kind": "any",
+					"of": [
+						{ "kind": "wearingArmor", "who": "self", "category": "light" },
+						{ "kind": "wearingArmor", "who": "self", "category": "medium" },
+						{ "kind": "wearingArmor", "who": "self", "category": "heavy" }
+					]
+				},
+				"effects": [{ "kind": "modifyArmorClass", "amount": "1", "target": "self" }]
+			},
+			{
+				"id": "dueling",
+				"name": "Dueling",
+				"summary": "While wielding a melee weapon in one hand and no other weapons, +2 damage with that weapon.",
+				"cost": "none",
+				"effects": [],
+				"scriptId": "dueling"
+			},
+			{
+				"id": "great-weapon-fighting",
+				"name": "Great Weapon Fighting",
+				"summary": "When you roll a 1 or 2 on a damage die for a melee weapon wielded with two hands, reroll it and use the new roll.",
+				"cost": "none",
+				"effects": [],
+				"scriptId": "great-weapon-fighting"
+			},
+			{
+				"id": "interception",
+				"name": "Interception",
+				"summary": "When a creature you can see hits another creature within 5 feet, use your reaction to reduce the damage by 1d10 + PB. You must be wielding a shield or a simple or martial weapon.",
+				"cost": "reaction",
+				"trigger": { "on": "damaged", "as": "observer" },
+				"effects": [],
+				"scriptId": "interception"
+			},
+			{
+				"id": "protection",
+				"name": "Protection",
+				"summary": "When a creature you can see attacks a target other than you within 5 feet, use your reaction to impose disadvantage. You must be wielding a shield.",
+				"cost": "reaction",
+				"trigger": { "on": "attackRoll", "as": "observer" },
+				"effects": [],
+				"scriptId": "protection"
+			},
+			{
+				"id": "thrown-weapon-fighting",
+				"name": "Thrown Weapon Fighting",
+				"summary": "+2 damage with thrown weapons. A thrown weapon's normal range increases by 10 feet.",
+				"cost": "none",
+				"effects": [],
+				"scriptId": "thrown-weapon-fighting"
+			},
+			{
+				"id": "two-weapon-fighting",
+				"name": "Two-Weapon Fighting",
+				"summary": "Add your ability modifier to the damage of the second attack when you fight with two weapons.",
+				"cost": "none",
+				"effects": [],
+				"scriptId": "two-weapon-fighting"
+			},
+			{
+				"id": "unarmed-fighting",
+				"name": "Unarmed Fighting",
+				"summary": "Unarmed strikes deal 1d6 bludgeoning (1d8 if you aren't wielding weapons or a shield). At the start of each of your turns, deal 1d4 bludgeoning to one creature you are grappling.",
+				"cost": "none",
+				"effects": [],
+				"scriptId": "unarmed-fighting"
+			}
+		]
+	},
+	"features": [
+		{
+			"id": "martial-proficiency",
+			"name": "Martial Proficiency",
+			"summary": "Ignore the Strength requirement of armor you are proficient with. With a weapon you are proficient with, use Strength or Dexterity for the attack and damage rolls.",
+			"level": 1,
+			"cost": "none",
+			"effects": [],
+			"scriptId": "martial-proficiency"
+		},
+		{
+			"id": "second-wind",
+			"name": "Second Wind",
+			"summary": "Spend 1 Exertion as a bonus action to regain 1d10 + your fighter level hit points.",
+			"level": 1,
+			"cost": "bonusAction",
+			"spend": [{ "resource": "exertion", "amount": "1" }],
+			"effects": [{ "kind": "heal", "amount": "1d10 + level(fighter)", "target": "self" }]
+		},
+		{
+			"id": "action-surge",
+			"name": "Action Surge",
+			"summary": "Spend 2 Exertion on your turn to take one additional action.",
+			"level": 1,
+			"cost": "none",
+			"spend": [{ "resource": "exertion", "amount": "2" }],
+			"effects": [{ "kind": "grantAction", "action": "action" }]
+		},
+		{
+			"id": "weapon-group-mastery",
+			"name": "Weapon Group Mastery",
+			"summary": "Choose two weapon groups (axes, blades, bludgeons, bows, crossbows, polearms, or thrown weapons). A hit with a mastered group deals extra damage equal to your proficiency bonus, using the Mastery Damage budget. At 6th level choose a third group; at 13th level choose a fourth.",
+			"level": 2,
+			"cost": "none",
+			"effects": [],
+			"scriptId": "weapon-group-mastery"
+		},
+		{
+			"id": "veterans-focus",
+			"name": "Veteran's Focus",
+			"summary": "When you finish a short rest, regain 1 expended Exertion in addition to the Exertion you normally regain.",
+			"level": 2,
+			"cost": "none",
+			"effects": [],
+			"scriptId": "veterans-focus"
+		},
+		{
+			"id": "tactical-assessment",
+			"name": "Tactical Assessment",
+			"summary": "As a bonus action, study one creature you can see within 30 feet. Until the end of your next turn, you have advantage on attack rolls against it, and the first weapon hit on your turn deals extra damage equal to your proficiency bonus. Uses equal your proficiency bonus, regained on a long rest.",
+			"level": 3,
+			"cost": "bonusAction",
+			"spend": [{ "resource": "fighter-tactical-assessment", "amount": "1" }],
+			"effects": [],
+			"scriptId": "tactical-assessment"
+		},
+		{
+			"id": "ability-score-improvement",
+			"name": "Ability Score Improvement",
+			"summary": "Increase one ability score by 2, or two ability scores by 1, to a maximum of 20. Also at 8th, 12th, 16th, and 19th level.",
+			"level": 4,
+			"alsoAtLevels": [8, 12, 16, 19],
+			"cost": "none",
+			"effects": [],
+			"noEffect": "Ability score choices are character build, not a combat action."
+		},
+		{
+			"id": "extra-attack",
+			"name": "Extra Attack",
+			"summary": "When you take the Attack action on your turn, you can attack twice instead of once.",
+			"level": 5,
+			"cost": "none",
+			"effects": [],
+			"scriptId": "extra-attack"
+		}
+	]
+}

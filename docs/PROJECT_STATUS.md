@@ -21,7 +21,9 @@ _(none)_
 
 ## Next up
 
-- [ ] P1-06 Fighter, levels 1–5: contexts Champion, Paladin, Varnic Knight and Tarvanin; Exertion, and Devotion for Paladins; technique ranks Untrained, Familiar, Practiced and Mastered.
+- [ ] P1-06b Fighter technique catalog and ranks (Untrained, Familiar, Practiced, Mastered).
+- [ ] P1-06c Contexts Champion, Varnic Knight and Tarvanin through level 5, including their techniques.
+- [ ] P1-06d Paladin through level 5: Devotion, shared features, and the seven orders.
 - [ ] P1-07 Savant, levels 1–5: contexts Koboda, Hari-Yudha, Loremaster and Ranger; Focus Points and the Focus die.
 - [ ] P1-08 Vagabond, levels 1–5: contexts Slayer, Cusgarn, Silakar and Purple Mage; Guile; trick ranks matching Fighter techniques. Purple Mage spells are cited and marked not simulated.
 - [ ] P1-09 Compile step: frozen typed lookups and the `dataVersion` hash.
@@ -52,6 +54,10 @@ _(none)_
   - Acceptance: records for every published player race (Humans, Elves, Dwarves, Halflings, Orcs, Dalvas, Kelanari, Hyzalians) and their player lineages; Te-Hyzalians omitted (not a player option); each cites the vendored guide with `commit` and `contentHash`; static modifiers (speed, ASI, darkvision, proficiencies, resistances, save advantage) live on the race schema; combat traits use effects or `scriptId`; exploration and social traits use `noEffect`; ambiguities in `OPEN_QUESTIONS.md` rather than guessed; `pnpm data:check` and `pnpm verify` pass.
   - Result: `pnpm verify` ✅ · 8 races, 25 lineages · 10 new tests (103 total) · `data` coverage stays above 85% lines · 19 `scriptId`s listed (8 new: `determined`, `thick-skin`, `halfling-nimbleness`, `lucky`, `relentless-endurance`, `eyes-of-the-deep-veldt`, `natural-swimmer`, `salt-strain`) · branch `feat/p1-05-inazria-races`
   - Notes: one JSON file per race with nested lineages, each lineage citing its heading so lore edits fail provenance. Grants cover character-build modifiers (P1-01's deferred static speed/ASI). Palcha *mage hand* is `noEffect` (spells after v1). Q-004: Human 10th-level +1 "another ability score". Te-Hyzalians are not encoded.
+- [x] P1-06a Fighter base, levels 1–5.
+  - Acceptance: a Class schema (archetype, hit die, hit point formulas, proficiencies, starting equipment, resources, level-gated features, an optional fighting-style choice, optional contexts); `fighter.json` encodes Hit Points through Extra Attack and all ten fighting styles, with Exertion recharging on a short or long rest; technique rows and contexts are later slices; higher-level sentences that share a level 1–5 bullet stay in that feature's summary; ambiguities go in `OPEN_QUESTIONS.md`; `pnpm data:check` and `pnpm verify` pass.
+  - Result: `pnpm verify` ✅ · 1 class · 3 new tests (106 total) · 14 new `scriptId`s (33 total) · `modifyArmorClass` for the Defense style · branch `feat/p1-06a-fighter-base`
+  - Notes: technique ranks and the martial save DC are on the class; the technique rows are P1-06b. Contexts are P1-06c and P1-06d. Q-005: Veteran's Focus versus a full short-rest Exertion refill, encoded as a full refill plus a script for the extra point. Multiclassing is listed under `notSimulated`.
 
 ## Phase reports
 

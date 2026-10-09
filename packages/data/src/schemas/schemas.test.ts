@@ -200,6 +200,7 @@ describe('Effect and Predicate', () => {
 			{ kind: 'spendResource', resource: 'guile', amount: '1' },
 			{ kind: 'gainResource', resource: 'exertion', amount: '1' },
 			{ kind: 'grantAction', action: 'action', count: 1 },
+			{ kind: 'modifyArmorClass', amount: '1', target: 'self' },
 			{
 				kind: 'applyCondition',
 				condition: 'marked',
