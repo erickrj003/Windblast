@@ -29,11 +29,11 @@ Do **not** guess, pick the "most balanced" reading, or borrow from official D&D 
 1. Set the record's `status` to `blocked`.
 2. Add an entry to `docs/OPEN_QUESTIONS.md`:
    ```markdown
-   ## Q-012: Do Resolve Points recharge on a short rest?
-   - Source: inazria:classes/fighter#resolve-points @ <commit>
+   ## Q-012: Does Veteran's Focus stack with the short-rest Exertion regain?
+   - Source: inazria:classes/civil/fighter#Core Class Features > Veteran's Focus (2nd Level) @ <commit>
    - Quote: "…exact text…"
    - Readings: (a) … (b) …
-   - Blocks: content/features/fighter-resolve-points.json
+   - Blocks: content/inazria/features/veterans-focus.json
    - Status: open
    ```
 3. Continue with other tasks.

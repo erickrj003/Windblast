@@ -30,7 +30,7 @@ Your training data probably predates SvelteKit 3 (released October 2026), Vite 8
 1. **Orient:** read this file and `docs/PROJECT_STATUS.md`. Take the first unblocked task in the current phase. None unblocked → stop and report.
 2. **Restate** the acceptance criteria in the status file; mark the task `in progress`.
 3. **Look up** current docs for every library the task touches.
-4. **Test first** for engine, data and sim work. Rules tests carry a source tag, e.g. `[inazria:classes/fighter#resolve-points]` or `[srd51:combat#opportunity-attacks]`.
+4. **Test first** for engine, data and sim work. Rules tests carry a source tag, e.g. `[inazria:classes/civil/fighter#Core Class Features > Exertion (1st Level)]` or `[srd51:combat#opportunity-attacks]`.
 5. **Implement** only the task. Log unrelated findings as new tasks.
 6. **Verify:** `pnpm verify`. For `.svelte` files, run the Svelte MCP `svelte-autofixer` until clean. For engine/sim changes, also `pnpm bench`.
 7. **Self-review** (checklist below).

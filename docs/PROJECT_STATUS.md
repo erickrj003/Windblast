@@ -8,8 +8,7 @@ Task board for the Inazria Encounter Simulator. The agent keeps this file curren
 
 Notes:
 - The guide is `erickrj003/inazria-players-guide` (Q-001), default branch `v5`; pages live under `content/`, and class pages are at `classes/civil/<class>.md` (not `classes/<class>` as the plan's example shows).
-- The guide is the source of truth where the plan's examples differ: the Fighter's resource is **Exertion** (Paladins add **Devotion**), not "Resolve Points"; Vagabond's is **Guile**; Fighter contexts are Champion, Paladin, Varnic Knight and Tarvanin; Savant contexts are Koboda, Hari-Yudha, Loremaster and Ranger. Fighter techniques and Vagabond tricks use ranks (Familiar, Practiced, Mastered).
-- The Purple Mage context (Vagabond) casts spells from 1st level, but the plan defers spells until after v1. To raise in P1-08.
+- `docs/PLAN.md` was aligned with the guide on 2026-10-09 (vendored commit `23a5f30`, which is also the tip of `v5`). Class pages are `classes/civil/<class>.md` and `classes/primal/<class>.md`. v1 classes: Fighter (Exertion; Paladin Devotion; Champion, Paladin, Varnic Knight, Tarvanin), Savant (Focus Points; Koboda, Hari-Yudha, Loremaster, Ranger), Vagabond (Guile; Slayer, Cusgarn, Silakar, Purple Mage). Technique and trick ranks are Untrained, Familiar, Practiced, Mastered. Purple Mage casts from 1st level; v1 cites those spells and does not simulate them. The other five published classes wait until after v1.
 
 - The GitHub repo is `erickrj003/Windblast`, not `erickrj003/inazria-simulator` as the plan says. The local checkout root is `blaster`. See Q-003 for the effect on the Pages base path (Phase 9).
 - `pnpm-workspace.yaml` must only contain settings pnpm 12 recognizes: with `packageManager` pinned, an unknown key fails every command (`ERR_PNPM_UNRECOGNIZED_WORKSPACE_SETTINGS`).
@@ -22,9 +21,9 @@ _(none)_
 
 ## Next up
 
-- [ ] P1-06 Fighter, levels 1–5, with its contexts and Exertion (and Devotion for Paladins).
-- [ ] P1-07 Savant, levels 1–5, with its contexts and Focus Points.
-- [ ] P1-08 Vagabond, levels 1–5, with its contexts and Guile.
+- [ ] P1-06 Fighter, levels 1–5: contexts Champion, Paladin, Varnic Knight and Tarvanin; Exertion, and Devotion for Paladins; technique ranks Untrained, Familiar, Practiced and Mastered.
+- [ ] P1-07 Savant, levels 1–5: contexts Koboda, Hari-Yudha, Loremaster and Ranger; Focus Points and the Focus die.
+- [ ] P1-08 Vagabond, levels 1–5: contexts Slayer, Cusgarn, Silakar and Purple Mage; Guile; trick ranks matching Fighter techniques. Purple Mage spells are cited and marked not simulated.
 - [ ] P1-09 Compile step: frozen typed lookups and the `dataVersion` hash.
 
 ## Blocked

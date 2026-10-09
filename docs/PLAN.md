@@ -126,8 +126,8 @@ Game rules enter the engine only as validated data with a recorded source. The a
 ```json
 "source": {
   "kind": "inazria",
-  "page": "classes/fighter",
-  "section": "Resolve Points",
+  "page": "classes/civil/fighter",
+  "section": "Core Class Features > Exertion (1st Level)",
   "commit": "<40-char SHA>",
   "contentHash": "<sha256 of the section text>"
 }
@@ -137,8 +137,12 @@ Game rules enter the engine only as validated data with a recorded source. The a
 
 - **Core:** ability scores, skills, damage types, conditions, dice expressions (`2d6+3` parsed into a typed form at build time, never at runtime).
 - **Creatures:** monster stat blocks; character templates built from race, class, context and level.
-- **Inazria character options:** races; classes with per-level tables; contexts (for example Fighter's Champion, Paladin and Arcaknight, or Savant's Combat Medic, Weapon Master, Loremaster and Ranger); class resources such as Focus Points and Resolve Points.
-- **Resources:** a generic pool type (`max`, `current`, `recharge`: turn, round, short rest or long rest) used for Focus Points, Resolve Points, spell slots and limited uses.
+- **Inazria character options:** races; classes with per-level tables; one context per character. The guide publishes eight classes, four civil and four primal, each with four contexts. v1 encodes the three civil classes below; the other five wait until after v1.
+  - **Fighter** (civil): Champion, Paladin, Varnic Knight, Tarvanin. Resource: **Exertion** (short or long rest). Paladins also have **Devotion** (half on a short rest, all on a long rest). Techniques have ranks Untrained, Familiar, Practiced and Mastered.
+  - **Vagabond** (civil): Slayer, Cusgarn, Silakar, Purple Mage. Resource: **Guile** (short or long rest). Tricks use the same ranks. Purple Mage casts spells from 1st level; v1 records that and does not simulate spells.
+  - **Savant** (civil): Koboda, Hari-Yudha, Loremaster, Ranger. Resource: **Focus Points**, plus a **Focus die** (both on the Savant table; points return on a short or long rest).
+  - **After v1:** Magi (Wizard, Alchemist, Nafazi, Bek'Tan); Berserker (Damiir, Bashani, Asurani, Orashkans); Druid (Channeler (Magi of Old), Spiritcaller, Beastmaster, Astralist); Invoker (Rekupuledo, Duendekoko, Xolturasus, Sammaelon); Ascetic (Acolytes of Tammuzia, Nityamar, Nehushtani, Khalseth).
+- **Resources:** a generic pool type (`max`, `current`, `recharge`: turn, round, short rest or long rest) used for Exertion, Devotion, Guile, Focus Points, spell slots and limited uses.
 - **Features and actions:** described with a small declarative effect vocabulary: `attack`, `save`, `damage`, `heal`, `applyCondition`, `removeCondition`, `modifyRoll`, `spendResource`, `gainResource`, `move`, `grantAction`. Each has a trigger (`onTurnStart`, `onAttackRoll`, `onHit`, `onDamaged` and similar) and a condition.
 - **Escape hatch:** a feature too unusual for the vocabulary names a `scriptId`, implemented as a tested TypeScript module in `packages/engine/src/features/`. The validator fails if a `scriptId` has no matching module.
 
@@ -149,11 +153,11 @@ Every record has `status`: `final`, `draft` or `blocked`. The simulator uses onl
 ### Starter content
 
 - **SRD:** all conditions and damage types; the weapons and armor characters can start with; 20 monsters from CR 1/8 to 5 (Kobold, Goblin, Bandit, Wolf, Skeleton, Zombie, Orc, Gnoll, Hobgoblin, Ghoul, Bugbear, Dire Wolf, Brown Bear, Giant Spider, Bandit Captain, Ogre, Owlbear, Veteran, Wight, Troll).
-- **Inazria:** every published race; Fighter, Savant and Vagabond at levels 1–5 with all their published contexts. Spells and multiclassing come after v1, once those guide sections are finished.
+- **Inazria:** every published player race (Human, Elf, Dwarf, Halfling, Orc, Dalvas, Kelanari, Hyzalian, with the lineages on those pages [Te-Hyzalians are not a player option]); Fighter, Savant and Vagabond at levels 1–5 with all four contexts each. The spell compendium and the multiclassing rules are already in the guide. v1 still does not simulate spells or multiclassing. Purple Mage spellcasting is recorded as not simulated until spells are in scope.
 
 ### Licensing
 
-The app shows the SRD 5.1 CC BY 4.0 attribution on a Legal page, mirroring the guide's own. The repo license (for example MIT for code, with Inazria content reserved) is an open question for Erick.
+The app shows the SRD 5.1 CC BY 4.0 attribution on a Legal page, mirroring the guide's own. The repo license is MIT for code, with Inazria content all rights reserved (Q-002).
 
 ## Rules engine design
 
@@ -197,7 +201,7 @@ Each creature has a controller: `ai` (with a tactics profile) or `human`. Batch 
 5. Grid movement, reach, opportunity attacks, difficult terrain and simple obstacles.
 6. Area templates (sphere, cube, cone, line) on a 5-foot grid, using the SRD 5.1 rule for which squares are affected.
 7. Concentration.
-8. Inazria resources and features: Focus Points, Resolve Points and context features, each cited to its guide page.
+8. Inazria resources and features: Exertion, Devotion, Guile, Focus Points and context features, each cited to its guide page.
 
 ### Effects and triggers
 
@@ -209,13 +213,13 @@ Each creature has a tactics profile chosen per side in the encounter builder.
 
 - **Scoring:** for each legal option (action, target, position), estimate expected value: expected damage, the chance to drop a target, healing on allies below half HP, condition value and resource cost. Each score is a sum of named terms (profile weight × raw value), computed by one function in every mode, so the breakdown below costs nothing to keep honest. Pick the highest; break ties by a stable order, never by object iteration order.
 - **Profiles:** `focus-fire` (lowest-HP target in reach), `nearest`, `threat` (highest damage dealer), `support` (heal and buff first) and `cautious` (avoids opportunity attacks and keeps resources).
-- **Spend policy:** a per-profile threshold for when to spend Focus Points, Resolve Points or slots, so balance tests can compare "spend freely" against "hoard".
+- **Spend policy:** a per-profile threshold for when to spend Exertion, Devotion, Guile, Focus Points or slots, so balance tests can compare "spend freely" against "hoard".
 - **Budget:** decisions consider one turn ahead only. Deeper search is a post-v1 decision record.
 
 **Decision breakdown ("Show AI reasoning", off by default).** Inazria's rules are still changing, so Erick needs to see why the AI picked what it picked, not just the result. When the setting is on, every AI turn can be opened to show what it chose between:
 
 - `rankChoices(trial, opts)` is a read-only engine function that scores the active creature's `legalActions()` and returns them ranked, each with its total score and its terms: hit chance, expected damage, chance to drop the target, healing value, condition value, opportunity-attack risk and resource cost, each shown as raw value, profile weight and weighted result. Every term lists the rule `sourceId`s that fed it (the attack's feature, the target's AC source, a resistance, a resource rule), so a strange number leads straight to the rule that caused it.
-- Each candidate also shows the spend-policy check ("Resolve Points 1 of 3, cautious threshold 2: not spent") and, when the top scores tie, which stable tie-break decided it.
+- Each candidate also shows the spend-policy check ("Exertion 1 of 2, cautious threshold 2: not spent") and, when the top scores tie, which stable tie-break decided it.
 - With `TrialOptions.explain = { topN }` (default 5), `step()` emits an `AiDecision` event before the chosen action's events: the creature, its profile, the top N candidates, the chosen one and how many options were scored. Explain mode is only allowed with `events: 'full'`; batch runs (`events: 'none'`) never build a decision record.
 - Scoring uses expected values and never draws from the PRNG, so explain mode cannot change a fight: the same seed gives the same choices, rolls and outcome with explain on or off. A test enforces this on every golden replay.
 - Batch-simulated trials can still be explained, because Review rebuilds any trial with `replay()`; turning the setting on just replays it with explain mode.
@@ -414,7 +418,7 @@ One command, `pnpm check`, runs every fast gate, and a task is not done until it
 
 ### Tests
 
-- **Unit tests:** every engine module and every rules effect. Each rules test names the source it checks, for example `it('Resolve Points recharge on a short rest [inazria:classes/fighter#resolve-points]')`.
+- **Unit tests:** every engine module and every rules effect. Each rules test names the source it checks, for example `it('Exertion recharges on a short rest [inazria:classes/civil/fighter#Core Class Features > Exertion (1st Level)]')`.
 - **Property tests (fast-check):** HP stays between 0 and max (plus temporary HP); resources never go negative; a creature never acts twice in one turn; every trial ends within the round cap; results are independent of creature list order once IDs are fixed.
 - **Statistical checks:** hit chance against AC, advantage odds and average damage match the closed-form math within tolerance over 100,000 seeded rolls.
 - **Golden replays:** 12 seeded fights saved as event streams under `packages/engine/test/golden/`. Any change to them must be explained in the commit and approved, because it means fight outcomes changed.
@@ -553,9 +557,9 @@ The build runs in ten phases, each ending with a phase report and Erick's approv
 - [ ] P1-03 SRD core: conditions, damage types, starting weapons and armor.
 - [ ] P1-04 SRD monsters: the 20 starter stat blocks.
 - [ ] P1-05 Inazria races.
-- [ ] P1-06 Fighter, levels 1–5, with its contexts and Resolve Points.
-- [ ] P1-07 Savant, levels 1–5, with its contexts and Focus Points.
-- [ ] P1-08 Vagabond, levels 1–5, with its contexts.
+- [ ] P1-06 Fighter, levels 1–5: contexts Champion, Paladin, Varnic Knight and Tarvanin; Exertion, and Devotion for Paladins; technique ranks Untrained, Familiar, Practiced and Mastered.
+- [ ] P1-07 Savant, levels 1–5: contexts Koboda, Hari-Yudha, Loremaster and Ranger; Focus Points and the Focus die.
+- [ ] P1-08 Vagabond, levels 1–5: contexts Slayer, Cusgarn, Silakar and Purple Mage; Guile; trick ranks matching Fighter techniques. Purple Mage spells are cited and marked not simulated.
 - [ ] P1-09 Compile step: frozen typed lookups and the `dataVersion` hash.
 
 **Accept when:** `data:check` passes; every record has a `source`; every ambiguity is in `OPEN_QUESTIONS.md` rather than guessed; Erick has reviewed the encoded classes against his guide.
@@ -588,7 +592,7 @@ The build runs in ten phases, each ending with a phase report and Erick's approv
 
 ### Phase 4: Inazria features
 
-- [ ] P4-01 Resource pools wired to rests and triggers (Focus Points, Resolve Points).
+- [ ] P4-01 Resource pools wired to rests and triggers (Exertion, Devotion, Guile, Focus Points).
 - [ ] P4-02 Context features, one task per class.
 - [ ] P4-03 Script modules for any feature the effect vocabulary cannot express.
 - [ ] P4-04 Concentration, if any encoded feature needs it.
@@ -646,7 +650,8 @@ The build runs in ten phases, each ending with a phase report and Erick's approv
 
 ### After v1
 
-- Spells, multiclassing, levels 6–20 and the celestial caster once those guide sections are published.
+- The other published classes and their contexts: Magi, Berserker, Druid, Invoker and Ascetic.
+- Spellcasting (the compendium is already published, including Purple Mage from 1st level), multiclassing, and levels 6–20.
 - An encounter difficulty estimator built on simulation results.
 - **RPG track:** a Phaser 4 evaluation spike against the PixiJS renderer; an asset pipeline with art packs on Cloudflare R2; scenes and exploration reusing `@inazria/engine` unchanged.
 
