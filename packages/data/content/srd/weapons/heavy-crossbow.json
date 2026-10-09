@@ -1,0 +1,21 @@
+{
+	"id": "heavy-crossbow",
+	"name": "Heavy crossbow",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "martial",
+	"type": "ranged",
+	"damage": {
+		"dice": "1d10",
+		"type": "piercing"
+	},
+	"range": {
+		"normal": 100,
+		"long": 400
+	},
+	"properties": ["ammunition", "heavy", "loading", "two-handed"]
+}

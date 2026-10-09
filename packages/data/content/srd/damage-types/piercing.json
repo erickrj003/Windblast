@@ -1,0 +1,11 @@
+{
+	"id": "piercing",
+	"name": "Piercing",
+	"source": {
+		"kind": "srd51",
+		"page": "combat",
+		"section": "Damage Types"
+	},
+	"status": "final",
+	"description": "Puncturing and impaling attacks, including spears and monsters’ bites, deal piercing damage."
+}

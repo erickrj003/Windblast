@@ -1,0 +1,16 @@
+{
+	"id": "stunned",
+	"name": "Stunned",
+	"source": {
+		"kind": "srd51",
+		"page": "conditions",
+		"section": "Stunned"
+	},
+	"status": "final",
+	"rules": [
+		"A stunned creature is incapacitated (see the condition), can’t move, and can speak only falteringly.",
+		"The creature automatically fails Strength and Dexterity saving throws.",
+		"Attack rolls against the creature have advantage."
+	],
+	"implies": ["incapacitated"]
+}

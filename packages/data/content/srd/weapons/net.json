@@ -1,0 +1,17 @@
+{
+	"id": "net",
+	"name": "Net",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "martial",
+	"type": "ranged",
+	"range": {
+		"normal": 5,
+		"long": 15
+	},
+	"properties": ["special", "thrown"]
+}

@@ -1,0 +1,13 @@
+{
+	"id": "deafened",
+	"name": "Deafened",
+	"source": {
+		"kind": "srd51",
+		"page": "conditions",
+		"section": "Deafened"
+	},
+	"status": "final",
+	"rules": [
+		"A deafened creature can’t hear and automatically fails any ability check that requires hearing."
+	]
+}

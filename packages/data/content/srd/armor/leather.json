@@ -1,0 +1,14 @@
+{
+	"id": "leather",
+	"name": "Leather",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Armor"
+	},
+	"status": "final",
+	"category": "light",
+	"armorClass": 11,
+	"dexterity": "full",
+	"stealthDisadvantage": false
+}

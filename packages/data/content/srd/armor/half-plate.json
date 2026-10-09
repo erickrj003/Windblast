@@ -1,0 +1,16 @@
+{
+	"id": "half-plate",
+	"name": "Half plate",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Armor"
+	},
+	"status": "final",
+	"category": "medium",
+	"armorClass": 15,
+	"dexterity": {
+		"max": 2
+	},
+	"stealthDisadvantage": true
+}

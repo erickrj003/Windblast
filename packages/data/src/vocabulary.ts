@@ -66,7 +66,8 @@ export const CREATURE_TYPES = [
 export type CreatureType = (typeof CREATURE_TYPES)[number];
 
 /**
- * Weapon properties.
+ * Weapon properties as listed in the Weapons table. The Range property is a weapon's `range`
+ * field rather than an entry here, because the table only gives it inside ammunition and thrown.
  * @rule srd51:equipment#weapon-properties
  */
 export const WEAPON_PROPERTIES = [
@@ -75,7 +76,6 @@ export const WEAPON_PROPERTIES = [
 	'heavy',
 	'light',
 	'loading',
-	'range',
 	'reach',
 	'special',
 	'thrown',

@@ -79,6 +79,12 @@ describe('parseFormula', () => {
 		for (const name of FORMULA_REFS) expect(parsed(name)).toEqual({ kind: 'ref', name });
 	});
 
+	it('reads dice-shaped ids where only a name fits (fast-check seed 1803929684)', () => {
+		expect(parsed('table(d0)')).toEqual({ kind: 'table', column: 'd0' });
+		expect(parsed('level(d20)')).toEqual({ kind: 'classLevel', classId: 'd20' });
+		expect(parseFormula('table(2d6)').ok).toBe(false);
+	});
+
 	it.each([
 		['', 'expected a number'],
 		['2d6 +', 'expected a number'],

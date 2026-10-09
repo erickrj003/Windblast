@@ -1,0 +1,17 @@
+{
+	"id": "war-pick",
+	"name": "War pick",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "martial",
+	"type": "melee",
+	"damage": {
+		"dice": "1d8",
+		"type": "piercing"
+	},
+	"properties": []
+}

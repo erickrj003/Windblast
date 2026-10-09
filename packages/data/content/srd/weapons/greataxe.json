@@ -1,0 +1,17 @@
+{
+	"id": "greataxe",
+	"name": "Greataxe",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "martial",
+	"type": "melee",
+	"damage": {
+		"dice": "1d12",
+		"type": "slashing"
+	},
+	"properties": ["heavy", "two-handed"]
+}

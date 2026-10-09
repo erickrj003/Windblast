@@ -1,0 +1,11 @@
+{
+	"id": "lightning",
+	"name": "Lightning",
+	"source": {
+		"kind": "srd51",
+		"page": "combat",
+		"section": "Damage Types"
+	},
+	"status": "final",
+	"description": "A lightning bolt spell and a blue dragon’s breath deal lightning damage."
+}

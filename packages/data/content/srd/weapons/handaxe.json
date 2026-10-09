@@ -1,0 +1,21 @@
+{
+	"id": "handaxe",
+	"name": "Handaxe",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "simple",
+	"type": "melee",
+	"damage": {
+		"dice": "1d6",
+		"type": "slashing"
+	},
+	"range": {
+		"normal": 20,
+		"long": 60
+	},
+	"properties": ["light", "thrown"]
+}

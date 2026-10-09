@@ -1,0 +1,21 @@
+{
+	"id": "hand-crossbow",
+	"name": "Hand crossbow",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "martial",
+	"type": "ranged",
+	"damage": {
+		"dice": "1d6",
+		"type": "piercing"
+	},
+	"range": {
+		"normal": 30,
+		"long": 120
+	},
+	"properties": ["ammunition", "light", "loading"]
+}

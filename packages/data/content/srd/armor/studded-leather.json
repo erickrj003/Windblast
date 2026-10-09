@@ -1,0 +1,14 @@
+{
+	"id": "studded-leather",
+	"name": "Studded leather",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Armor"
+	},
+	"status": "final",
+	"category": "light",
+	"armorClass": 12,
+	"dexterity": "full",
+	"stealthDisadvantage": false
+}

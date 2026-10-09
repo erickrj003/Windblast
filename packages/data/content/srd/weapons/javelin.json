@@ -1,0 +1,21 @@
+{
+	"id": "javelin",
+	"name": "Javelin",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "simple",
+	"type": "melee",
+	"damage": {
+		"dice": "1d6",
+		"type": "piercing"
+	},
+	"range": {
+		"normal": 30,
+		"long": 120
+	},
+	"properties": ["thrown"]
+}

@@ -6,7 +6,13 @@ type Punct = '(' | ')' | ',' | '+' | '-' | '*' | '/';
 
 type Token =
 	| { readonly kind: 'number'; readonly value: number; readonly at: number }
-	| { readonly kind: 'dice'; readonly count: number; readonly sides: number; readonly at: number }
+	| {
+			readonly kind: 'dice';
+			readonly count: number;
+			readonly sides: number;
+			readonly text: string;
+			readonly at: number;
+	  }
 	| { readonly kind: 'ident'; readonly name: string; readonly at: number }
 	| { readonly kind: 'punct'; readonly char: Punct; readonly at: number }
 	| { readonly kind: 'end'; readonly at: number };
@@ -36,7 +42,7 @@ function tokenize(text: string): ReadonlyArray<Token> {
 		const at = index + whole.length - whole.trimStart().length;
 		if (diceSides !== undefined) {
 			const count = diceCount === undefined || diceCount === '' ? 1 : Number(diceCount);
-			tokens.push({ kind: 'dice', count, sides: Number(diceSides), at });
+			tokens.push({ kind: 'dice', count, sides: Number(diceSides), text: whole.trimStart(), at });
 		} else if (number !== undefined) {
 			tokens.push({ kind: 'number', value: Number(number), at });
 		} else if (ident !== undefined) {
@@ -97,6 +103,8 @@ class Parser {
 
 	private expectIdent(what: string): string {
 		const token = this.advance();
+		// An id such as `d20` lexes as dice; where only a name can appear, read it back as one.
+		if (token.kind === 'dice' && token.text.startsWith('d')) return token.text;
 		if (token.kind !== 'ident') this.fail(token, what);
 		return token.name;
 	}

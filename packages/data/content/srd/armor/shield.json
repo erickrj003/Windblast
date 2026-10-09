@@ -1,0 +1,12 @@
+{
+	"id": "shield",
+	"name": "Shield",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Armor"
+	},
+	"status": "final",
+	"category": "shield",
+	"armorClassBonus": 2
+}

@@ -1,0 +1,21 @@
+{
+	"id": "light-hammer",
+	"name": "Light hammer",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "simple",
+	"type": "melee",
+	"damage": {
+		"dice": "1d4",
+		"type": "bludgeoning"
+	},
+	"range": {
+		"normal": 20,
+		"long": 60
+	},
+	"properties": ["light", "thrown"]
+}

@@ -1,0 +1,11 @@
+{
+	"id": "poisoned",
+	"name": "Poisoned",
+	"source": {
+		"kind": "srd51",
+		"page": "conditions",
+		"section": "Poisoned"
+	},
+	"status": "final",
+	"rules": ["A poisoned creature has disadvantage on attack rolls and ability checks."]
+}

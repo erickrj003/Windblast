@@ -1,0 +1,16 @@
+{
+	"id": "breastplate",
+	"name": "Breastplate",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Armor"
+	},
+	"status": "final",
+	"category": "medium",
+	"armorClass": 14,
+	"dexterity": {
+		"max": 2
+	},
+	"stealthDisadvantage": false
+}

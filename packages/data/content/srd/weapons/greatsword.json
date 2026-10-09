@@ -1,0 +1,17 @@
+{
+	"id": "greatsword",
+	"name": "Greatsword",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "martial",
+	"type": "melee",
+	"damage": {
+		"dice": "2d6",
+		"type": "slashing"
+	},
+	"properties": ["heavy", "two-handed"]
+}

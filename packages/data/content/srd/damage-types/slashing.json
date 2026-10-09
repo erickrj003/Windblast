@@ -1,0 +1,11 @@
+{
+	"id": "slashing",
+	"name": "Slashing",
+	"source": {
+		"kind": "srd51",
+		"page": "combat",
+		"section": "Damage Types"
+	},
+	"status": "final",
+	"description": "Swords, axes, and monsters’ claws deal slashing damage."
+}

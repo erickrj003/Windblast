@@ -1,0 +1,18 @@
+{
+	"id": "quarterstaff",
+	"name": "Quarterstaff",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "simple",
+	"type": "melee",
+	"damage": {
+		"dice": "1d6",
+		"type": "bludgeoning"
+	},
+	"versatile": "1d8",
+	"properties": ["versatile"]
+}

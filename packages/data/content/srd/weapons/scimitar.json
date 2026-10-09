@@ -1,0 +1,17 @@
+{
+	"id": "scimitar",
+	"name": "Scimitar",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "martial",
+	"type": "melee",
+	"damage": {
+		"dice": "1d6",
+		"type": "slashing"
+	},
+	"properties": ["finesse", "light"]
+}

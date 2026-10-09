@@ -1,0 +1,11 @@
+{
+	"id": "necrotic",
+	"name": "Necrotic",
+	"source": {
+		"kind": "srd51",
+		"page": "combat",
+		"section": "Damage Types"
+	},
+	"status": "final",
+	"description": "Necrotic damage, dealt by certain undead and a spell such as chill touch, withers matter and even the soul."
+}

@@ -1,0 +1,11 @@
+{
+	"id": "radiant",
+	"name": "Radiant",
+	"source": {
+		"kind": "srd51",
+		"page": "combat",
+		"section": "Damage Types"
+	},
+	"status": "final",
+	"description": "Radiant damage, dealt by a cleric’s flame strike spell or an angel’s smiting weapon, sears the flesh like fire and overloads the spirit with power."
+}

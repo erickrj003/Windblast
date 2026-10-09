@@ -1,0 +1,14 @@
+{
+	"id": "padded",
+	"name": "Padded",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Armor"
+	},
+	"status": "final",
+	"category": "light",
+	"armorClass": 11,
+	"dexterity": "full",
+	"stealthDisadvantage": true
+}

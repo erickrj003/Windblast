@@ -1,0 +1,21 @@
+{
+	"id": "shortbow",
+	"name": "Shortbow",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "simple",
+	"type": "ranged",
+	"damage": {
+		"dice": "1d6",
+		"type": "piercing"
+	},
+	"range": {
+		"normal": 80,
+		"long": 320
+	},
+	"properties": ["ammunition", "two-handed"]
+}

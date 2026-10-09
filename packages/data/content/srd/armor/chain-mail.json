@@ -1,0 +1,15 @@
+{
+	"id": "chain-mail",
+	"name": "Chain mail",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Armor"
+	},
+	"status": "final",
+	"category": "heavy",
+	"armorClass": 16,
+	"dexterity": "none",
+	"strength": 13,
+	"stealthDisadvantage": true
+}

@@ -1,0 +1,14 @@
+{
+	"id": "ring-mail",
+	"name": "Ring mail",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Armor"
+	},
+	"status": "final",
+	"category": "heavy",
+	"armorClass": 14,
+	"dexterity": "none",
+	"stealthDisadvantage": true
+}

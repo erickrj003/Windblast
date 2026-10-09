@@ -1,0 +1,17 @@
+{
+	"id": "whip",
+	"name": "Whip",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "martial",
+	"type": "melee",
+	"damage": {
+		"dice": "1d4",
+		"type": "slashing"
+	},
+	"properties": ["finesse", "reach"]
+}

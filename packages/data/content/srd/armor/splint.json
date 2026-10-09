@@ -1,0 +1,15 @@
+{
+	"id": "splint",
+	"name": "Splint",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Armor"
+	},
+	"status": "final",
+	"category": "heavy",
+	"armorClass": 17,
+	"dexterity": "none",
+	"strength": 15,
+	"stealthDisadvantage": true
+}

@@ -1,0 +1,21 @@
+{
+	"id": "longbow",
+	"name": "Longbow",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "martial",
+	"type": "ranged",
+	"damage": {
+		"dice": "1d8",
+		"type": "piercing"
+	},
+	"range": {
+		"normal": 150,
+		"long": 600
+	},
+	"properties": ["ammunition", "heavy", "two-handed"]
+}

@@ -1,0 +1,17 @@
+{
+	"id": "flail",
+	"name": "Flail",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "martial",
+	"type": "melee",
+	"damage": {
+		"dice": "1d8",
+		"type": "bludgeoning"
+	},
+	"properties": []
+}

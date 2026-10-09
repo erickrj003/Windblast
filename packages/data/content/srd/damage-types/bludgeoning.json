@@ -1,0 +1,11 @@
+{
+	"id": "bludgeoning",
+	"name": "Bludgeoning",
+	"source": {
+		"kind": "srd51",
+		"page": "combat",
+		"section": "Damage Types"
+	},
+	"status": "final",
+	"description": "Blunt force attacks—hammers, falling, constriction, and the like—deal bludgeoning damage."
+}

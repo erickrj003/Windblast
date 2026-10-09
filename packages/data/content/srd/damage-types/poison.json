@@ -1,0 +1,11 @@
+{
+	"id": "poison",
+	"name": "Poison",
+	"source": {
+		"kind": "srd51",
+		"page": "combat",
+		"section": "Damage Types"
+	},
+	"status": "final",
+	"description": "Venomous stings and the toxic gas of a green dragon’s breath deal poison damage."
+}

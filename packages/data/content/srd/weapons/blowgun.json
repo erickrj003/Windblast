@@ -1,0 +1,21 @@
+{
+	"id": "blowgun",
+	"name": "Blowgun",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "martial",
+	"type": "ranged",
+	"damage": {
+		"dice": "1",
+		"type": "piercing"
+	},
+	"range": {
+		"normal": 25,
+		"long": 100
+	},
+	"properties": ["ammunition", "loading"]
+}

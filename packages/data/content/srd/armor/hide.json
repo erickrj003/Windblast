@@ -1,0 +1,16 @@
+{
+	"id": "hide",
+	"name": "Hide",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Armor"
+	},
+	"status": "final",
+	"category": "medium",
+	"armorClass": 12,
+	"dexterity": {
+		"max": 2
+	},
+	"stealthDisadvantage": false
+}

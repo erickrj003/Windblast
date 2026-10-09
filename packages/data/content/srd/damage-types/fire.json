@@ -1,0 +1,11 @@
+{
+	"id": "fire",
+	"name": "Fire",
+	"source": {
+		"kind": "srd51",
+		"page": "combat",
+		"section": "Damage Types"
+	},
+	"status": "final",
+	"description": "Red dragons breathe fire, and many spells conjure flames to deal fire damage."
+}

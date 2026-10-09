@@ -1,0 +1,22 @@
+{
+	"id": "spear",
+	"name": "Spear",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "simple",
+	"type": "melee",
+	"damage": {
+		"dice": "1d6",
+		"type": "piercing"
+	},
+	"versatile": "1d8",
+	"range": {
+		"normal": 20,
+		"long": 60
+	},
+	"properties": ["thrown", "versatile"]
+}

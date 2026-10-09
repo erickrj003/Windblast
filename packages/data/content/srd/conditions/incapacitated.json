@@ -1,0 +1,11 @@
+{
+	"id": "incapacitated",
+	"name": "Incapacitated",
+	"source": {
+		"kind": "srd51",
+		"page": "conditions",
+		"section": "Incapacitated"
+	},
+	"status": "final",
+	"rules": ["An incapacitated creature can’t take actions or reactions."]
+}

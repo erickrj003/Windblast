@@ -1,0 +1,15 @@
+{
+	"id": "plate",
+	"name": "Plate",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Armor"
+	},
+	"status": "final",
+	"category": "heavy",
+	"armorClass": 18,
+	"dexterity": "none",
+	"strength": 15,
+	"stealthDisadvantage": true
+}

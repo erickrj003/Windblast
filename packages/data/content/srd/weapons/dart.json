@@ -1,0 +1,21 @@
+{
+	"id": "dart",
+	"name": "Dart",
+	"source": {
+		"kind": "srd51",
+		"page": "equipment",
+		"section": "Weapons"
+	},
+	"status": "final",
+	"category": "simple",
+	"type": "ranged",
+	"damage": {
+		"dice": "1d4",
+		"type": "piercing"
+	},
+	"range": {
+		"normal": 20,
+		"long": 60
+	},
+	"properties": ["finesse", "thrown"]
+}
