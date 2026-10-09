@@ -33,7 +33,7 @@ describe('checkContent', () => {
 	});
 
 	it('passes an empty content folder', () => {
-		expect(checkContent([])).toEqual({ problems: [], counts: [] });
+		expect(checkContent([])).toEqual({ problems: [], counts: [], scripts: [] });
 	});
 
 	it.each([
@@ -65,6 +65,120 @@ describe('checkContent', () => {
 	it('reports a non-object record without a field path', () => {
 		const { problems } = checkContent([file('srd/resources/x.json', '42')]);
 		expect(problems[0]?.message).toMatch(/^Invalid type/);
+	});
+
+	const srdRecord = (fields: object): string =>
+		JSON.stringify({
+			source: { kind: 'srd51', page: 'conditions', section: 'Any' },
+			status: 'final',
+			...fields
+		});
+	const condition = (id: string, implies?: ReadonlyArray<string>): string =>
+		srdRecord({ id, name: id, rules: ['Some rule.'], ...(implies ? { implies } : {}) });
+	const damageType = (id: string): string => srdRecord({ id, name: id, description: 'Hurts.' });
+	const zombie = srdRecord({
+		id: 'zombie',
+		name: 'Zombie',
+		size: 'medium',
+		type: 'undead',
+		alignment: 'neutral evil',
+		armorClass: { value: 8 },
+		hitPoints: { average: 22, dice: '3d8 + 9' },
+		speed: { walk: 20 },
+		abilityScores: { str: 13, dex: 6, con: 16, int: 3, wis: 6, cha: 5 },
+		damageImmunities: [{ type: 'poison' }],
+		conditionImmunities: ['poisoned'],
+		senses: { darkvision: 60, passivePerception: 8 },
+		languages: [],
+		challenge: '1/4',
+		xp: 50,
+		traits: [
+			{
+				id: 'undead-fortitude',
+				name: 'Undead Fortitude',
+				summary: 'A Constitution save can leave it at 1 hit point instead of 0.',
+				cost: 'none',
+				effects: [],
+				scriptId: 'undead-fortitude'
+			}
+		],
+		actions: [
+			{
+				kind: 'attack',
+				id: 'slam',
+				name: 'Slam',
+				attack: 'meleeWeapon',
+				toHit: 3,
+				reach: 5,
+				targets: 1,
+				damage: [{ dice: '1d6 + 1', type: 'bludgeoning' }]
+			}
+		]
+	});
+
+	it('reports references to damage types and conditions that have no record', () => {
+		const { problems } = checkContent([
+			file('srd/conditions/paralyzed.json', condition('paralyzed', ['incapacitated'])),
+			file('srd/monsters/zombie.json', zombie)
+		]);
+		expect(problems.map((problem) => `${problem.path}: ${problem.message}`)).toEqual([
+			'srd/conditions/paralyzed.json: implies.0: no conditions record "incapacitated"',
+			'srd/monsters/zombie.json: actions.0.damage.0.type: no damage-types record "bludgeoning"',
+			'srd/monsters/zombie.json: conditionImmunities.0: no conditions record "poisoned"',
+			'srd/monsters/zombie.json: damageImmunities.0.type: no damage-types record "poison"'
+		]);
+	});
+
+	it('passes once every referenced record exists, and lists script ids by record', () => {
+		const report = checkContent([
+			file('srd/conditions/incapacitated.json', condition('incapacitated')),
+			file('srd/conditions/paralyzed.json', condition('paralyzed', ['incapacitated'])),
+			file('srd/conditions/poisoned.json', condition('poisoned')),
+			file('srd/damage-types/bludgeoning.json', damageType('bludgeoning')),
+			file('srd/damage-types/poison.json', damageType('poison')),
+			file('srd/monsters/zombie.json', zombie)
+		]);
+		expect(report.problems).toEqual([]);
+		expect(report.scripts).toEqual([
+			{ path: 'srd/monsters/zombie.json', at: 'traits.0', scriptId: 'undead-fortitude' }
+		]);
+	});
+
+	it('reports missing damage types and conditions on weapons and features', () => {
+		const weapon = srdRecord({
+			id: 'club',
+			name: 'Club',
+			category: 'simple',
+			type: 'melee',
+			damage: { dice: '1d4', type: 'bludgeoning' },
+			properties: ['light']
+		});
+		const feature = srdRecord({
+			id: 'second-wind',
+			name: 'Second Wind',
+			summary: 'Heal a little.',
+			cost: 'bonusAction',
+			condition: { kind: 'hasCondition', who: 'self', condition: 'poisoned' },
+			effects: [
+				{ kind: 'heal', amount: '1d10', target: 'self' },
+				{ kind: 'removeCondition', condition: 'frightened', target: 'self' },
+				{
+					kind: 'conditional',
+					when: { kind: 'hpBelowHalf', who: 'self' },
+					then: [{ kind: 'damage', amount: '1', damageType: 'fire', target: 'target' }]
+				}
+			]
+		});
+		const { problems } = checkContent([
+			file('srd/weapons/club.json', weapon),
+			file('srd/features/second-wind.json', feature)
+		]);
+		expect(problems.map((problem) => `${problem.path}: ${problem.message}`)).toEqual([
+			'srd/features/second-wind.json: condition.condition: no conditions record "poisoned"',
+			'srd/features/second-wind.json: effects.1.condition: no conditions record "frightened"',
+			'srd/features/second-wind.json: effects.2.then.0.damageType: no damage-types record "fire"',
+			'srd/weapons/club.json: damage.type: no damage-types record "bludgeoning"'
+		]);
 	});
 
 	it('rejects the same id in one kind across both roots', () => {

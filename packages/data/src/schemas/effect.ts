@@ -1,6 +1,6 @@
 import * as v from 'valibot';
-import type { AbilityId, ArmorCategory, WeaponProperty } from '../vocabulary.ts';
-import { ARMOR_CATEGORIES, WEAPON_PROPERTIES } from '../vocabulary.ts';
+import type { AbilityId, ArmorCategory, CreatureType, WeaponProperty } from '../vocabulary.ts';
+import { ARMOR_CATEGORIES, CREATURE_TYPES, WEAPON_PROPERTIES } from '../vocabulary.ts';
 import { Ability, Feet, FormulaText, Id } from './common.ts';
 
 /**
@@ -44,9 +44,13 @@ export const Trigger = v.strictObject({
 });
 export type Trigger = v.InferOutput<typeof Trigger>;
 
-/** How long an applied effect lasts. One minute is 10 rounds. */
+/**
+ * How long an applied effect lasts. One minute is 10 rounds. `untilRemoved` lasts until something
+ * ends it, such as standing up from prone or escaping a web.
+ */
 export const Duration = v.variant('kind', [
 	v.strictObject({ kind: v.literal('instant') }),
+	v.strictObject({ kind: v.literal('untilRemoved') }),
 	v.strictObject({
 		kind: v.literal('untilTurn'),
 		edge: v.picklist(['start', 'end']),
@@ -87,6 +91,11 @@ export const RollKind = v.picklist([
 /**
  * A condition under which a feature applies. Recursive through `all`, `any` and `not`, so its
  * type is written out once here and the schema is checked against it.
+ *
+ * `creatureNear` holds when a creature on `side` of the `of` creature (its allies or its
+ * enemies) is within `within` feet of it, not counting `excluding`, and, with
+ * `excludeIncapacitated`, not counting incapacitated creatures. `hasTag` matches a creature's
+ * tags, such as a monster's `goblinoid` or a race's `elf`.
  */
 export type Predicate =
 	| { readonly kind: 'all'; readonly of: ReadonlyArray<Predicate> }
@@ -102,12 +111,15 @@ export type Predicate =
 	| { readonly kind: 'hasCondition'; readonly who: Role; readonly condition: string }
 	| { readonly kind: 'rollMode'; readonly mode: 'advantage' | 'disadvantage' }
 	| { readonly kind: 'hpBelowHalf'; readonly who: Role }
+	| { readonly kind: 'creatureType'; readonly who: Role; readonly type: CreatureType }
+	| { readonly kind: 'hasTag'; readonly who: Role; readonly tag: string }
 	| {
 			readonly kind: 'creatureNear';
 			readonly of: Role;
 			readonly within: number;
 			readonly side: 'ally' | 'enemy';
 			readonly excluding?: Role;
+			readonly excludeIncapacitated?: boolean;
 	  };
 
 export const Predicate: v.GenericSchema<Predicate> = v.variant('kind', [
@@ -134,18 +146,25 @@ export const Predicate: v.GenericSchema<Predicate> = v.variant('kind', [
 	v.strictObject({ kind: v.literal('hasCondition'), who: Role, condition: Id }),
 	v.strictObject({ kind: v.literal('rollMode'), mode: v.picklist(['advantage', 'disadvantage']) }),
 	v.strictObject({ kind: v.literal('hpBelowHalf'), who: Role }),
+	v.strictObject({ kind: v.literal('creatureType'), who: Role, type: v.picklist(CREATURE_TYPES) }),
+	v.strictObject({ kind: v.literal('hasTag'), who: Role, tag: Id }),
 	v.strictObject({
 		kind: v.literal('creatureNear'),
 		of: Role,
 		within: Feet,
 		side: v.picklist(['ally', 'enemy']),
-		excluding: v.exactOptional(Role)
+		excluding: v.exactOptional(Role),
+		excludeIncapacitated: v.exactOptional(v.boolean())
 	})
 ]);
 
 /**
- * One step of a feature's behavior, from the plan's declarative vocabulary. Recursive because a
- * `save` carries the effects of failing or succeeding.
+ * One step of a feature's behavior, from the plan's declarative vocabulary plus `conditional`.
+ * Recursive because a `save` carries the effects of failing or succeeding.
+ *
+ * A `save` with `halfOnSuccess` deals half (rounded down) of the damage its `onFail` effects
+ * rolled when the target succeeds. A condition with `repeatSave` ends when its target succeeds on
+ * that save at the start or end of each of its turns.
  */
 export type Effect =
 	| {
@@ -161,6 +180,12 @@ export type Effect =
 			readonly target: TargetSpec;
 			readonly onFail: ReadonlyArray<Effect>;
 			readonly onSuccess?: ReadonlyArray<Effect>;
+			readonly halfOnSuccess?: boolean;
+	  }
+	| {
+			readonly kind: 'conditional';
+			readonly when: Predicate;
+			readonly then: ReadonlyArray<Effect>;
 	  }
 	| {
 			readonly kind: 'damage';
@@ -180,6 +205,11 @@ export type Effect =
 			readonly condition: string;
 			readonly target: TargetSpec;
 			readonly duration: Duration;
+			readonly repeatSave?: {
+				readonly ability: AbilityId;
+				readonly dc: string;
+				readonly at: 'turnStart' | 'turnEnd';
+			};
 	  }
 	| { readonly kind: 'removeCondition'; readonly condition: string; readonly target: TargetSpec }
 	| {
@@ -225,7 +255,13 @@ const effectVariant = v.variant('kind', [
 		dc: FormulaText,
 		target: TargetSpec,
 		onFail: v.pipe(Effects, v.minLength(1)),
-		onSuccess: v.exactOptional(v.pipe(Effects, v.minLength(1)))
+		onSuccess: v.exactOptional(v.pipe(Effects, v.minLength(1))),
+		halfOnSuccess: v.exactOptional(v.boolean())
+	}),
+	v.strictObject({
+		kind: v.literal('conditional'),
+		when: Predicate,
+		then: v.pipe(Effects, v.minLength(1))
 	}),
 	v.strictObject({
 		kind: v.literal('damage'),
@@ -244,7 +280,14 @@ const effectVariant = v.variant('kind', [
 		kind: v.literal('applyCondition'),
 		condition: Id,
 		target: TargetSpec,
-		duration: Duration
+		duration: Duration,
+		repeatSave: v.exactOptional(
+			v.strictObject({
+				ability: Ability,
+				dc: FormulaText,
+				at: v.picklist(['turnStart', 'turnEnd'])
+			})
+		)
 	}),
 	v.strictObject({ kind: v.literal('removeCondition'), condition: Id, target: TargetSpec }),
 	v.strictObject({

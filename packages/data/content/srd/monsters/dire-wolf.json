@@ -1,0 +1,76 @@
+{
+	"id": "dire-wolf",
+	"name": "Dire Wolf",
+	"source": {
+		"kind": "srd51",
+		"page": "monsters/dire-wolf",
+		"section": "Dire Wolf"
+	},
+	"status": "final",
+	"size": "large",
+	"type": "beast",
+	"alignment": "unaligned",
+	"armorClass": { "value": 14, "note": "natural armor" },
+	"hitPoints": { "average": 37, "dice": "5d10 + 10" },
+	"speed": { "walk": 50 },
+	"abilityScores": { "str": 17, "dex": 15, "con": 15, "int": 3, "wis": 12, "cha": 7 },
+	"skills": { "perception": 3, "stealth": 4 },
+	"senses": { "passivePerception": 13 },
+	"languages": [],
+	"challenge": "1",
+	"xp": 200,
+	"traits": [
+		{
+			"id": "keen-hearing-and-smell",
+			"name": "Keen Hearing and Smell",
+			"summary": "Advantage on Wisdom (Perception) checks that rely on hearing or smell.",
+			"cost": "none",
+			"effects": [],
+			"noEffect": "Perception checks are not simulated."
+		},
+		{
+			"id": "pack-tactics",
+			"name": "Pack Tactics",
+			"summary": "Advantage on an attack roll against a creature if an ally is within 5 feet of it and isn't incapacitated.",
+			"cost": "none",
+			"trigger": { "on": "attackRoll", "as": "actor" },
+			"condition": {
+				"kind": "creatureNear",
+				"of": "target",
+				"within": 5,
+				"side": "enemy",
+				"excluding": "self",
+				"excludeIncapacitated": true
+			},
+			"effects": [{ "kind": "modifyRoll", "roll": "attack", "mode": "advantage", "target": "self" }]
+		}
+	],
+	"actions": [
+		{
+			"kind": "attack",
+			"id": "bite",
+			"name": "Bite",
+			"attack": "meleeWeapon",
+			"toHit": 5,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "2d6 + 3", "type": "piercing" }],
+			"onHit": [
+				{
+					"kind": "save",
+					"ability": "str",
+					"dc": "13",
+					"target": "target",
+					"onFail": [
+						{
+							"kind": "applyCondition",
+							"condition": "prone",
+							"target": "target",
+							"duration": { "kind": "untilRemoved" }
+						}
+					]
+				}
+			]
+		}
+	]
+}

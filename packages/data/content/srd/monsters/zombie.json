@@ -1,0 +1,47 @@
+{
+	"id": "zombie",
+	"name": "Zombie",
+	"source": {
+		"kind": "srd51",
+		"page": "monsters/zombie",
+		"section": "Zombie"
+	},
+	"status": "final",
+	"size": "medium",
+	"type": "undead",
+	"alignment": "neutral evil",
+	"armorClass": { "value": 8 },
+	"hitPoints": { "average": 22, "dice": "3d8 + 9" },
+	"speed": { "walk": 20 },
+	"abilityScores": { "str": 13, "dex": 6, "con": 16, "int": 3, "wis": 6, "cha": 5 },
+	"savingThrows": { "wis": 0 },
+	"damageImmunities": [{ "type": "poison" }],
+	"conditionImmunities": ["poisoned"],
+	"senses": { "darkvision": 60, "passivePerception": 8 },
+	"languages": ["understands the languages it knew in life but can't speak"],
+	"challenge": "1/4",
+	"xp": 50,
+	"traits": [
+		{
+			"id": "undead-fortitude",
+			"name": "Undead Fortitude",
+			"summary": "A Constitution save (DC 5 + the damage taken) can leave it at 1 hit point instead of 0, unless the damage is radiant or a critical hit.",
+			"cost": "none",
+			"trigger": { "on": "reducedToZero", "as": "target" },
+			"effects": [],
+			"scriptId": "undead-fortitude"
+		}
+	],
+	"actions": [
+		{
+			"kind": "attack",
+			"id": "slam",
+			"name": "Slam",
+			"attack": "meleeWeapon",
+			"toHit": 3,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "1d6 + 1", "type": "bludgeoning" }]
+		}
+	]
+}

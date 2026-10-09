@@ -61,7 +61,8 @@ const BARE_REFS: ReadonlyMap<string, FormulaRef> = new Map([
 	['pb', 'pb'],
 	['level', 'level'],
 	['pool-max', 'pool-max'],
-	['weapon-die', 'weapon-die']
+	['weapon-die', 'weapon-die'],
+	['speed', 'speed']
 ]);
 
 class Parser {
@@ -245,7 +246,7 @@ function assertNeverToken(token: never): never {
  * Parses a formula string such as `1d10 + level(fighter)` or `max(1, mod(cha))`.
  *
  * Grammar: `+ -` (lowest), `* /`, unary `-`, then numbers, dice (`2d6`, `d20`), names
- * (`pb`, `level`, `pool-max`, `weapon-die`), calls (`min`, `max`, `floor`, `ceil`, `dice`,
+ * (`pb`, `level`, `pool-max`, `weapon-die`, `speed`), calls (`min`, `max`, `floor`, `ceil`, `dice`,
  * `mod(<ability>)`, `level(<class>)`, `table(<column>)`) and parentheses.
  */
 export function parseFormula(text: string): Result<Formula, string> {

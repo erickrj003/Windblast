@@ -1,0 +1,44 @@
+{
+	"id": "ogre",
+	"name": "Ogre",
+	"source": {
+		"kind": "srd51",
+		"page": "monsters/ogre",
+		"section": "Ogre"
+	},
+	"status": "final",
+	"size": "large",
+	"type": "giant",
+	"alignment": "chaotic evil",
+	"armorClass": { "value": 11, "note": "hide armor" },
+	"hitPoints": { "average": 59, "dice": "7d10 + 21" },
+	"speed": { "walk": 40 },
+	"abilityScores": { "str": 19, "dex": 8, "con": 16, "int": 5, "wis": 7, "cha": 7 },
+	"senses": { "darkvision": 60, "passivePerception": 8 },
+	"languages": ["Common", "Giant"],
+	"challenge": "2",
+	"xp": 450,
+	"actions": [
+		{
+			"kind": "attack",
+			"id": "greatclub",
+			"name": "Greatclub",
+			"attack": "meleeWeapon",
+			"toHit": 6,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "2d8 + 4", "type": "bludgeoning" }]
+		},
+		{
+			"kind": "attack",
+			"id": "javelin",
+			"name": "Javelin",
+			"attack": "meleeOrRangedWeapon",
+			"toHit": 6,
+			"reach": 5,
+			"range": { "normal": 30, "long": 120 },
+			"targets": 1,
+			"damage": [{ "dice": "2d6 + 4", "type": "piercing" }]
+		}
+	]
+}

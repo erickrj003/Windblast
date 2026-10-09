@@ -6,8 +6,9 @@ import type { AbilityId } from '../vocabulary.ts';
  * - `level`: total character level
  * - `pool-max`: the maximum of the resource pool being recharged
  * - `weapon-die`: the number of sides of the wielded weapon's damage die
+ * - `speed`: the creature's current walking speed, in feet
  */
-export const FORMULA_REFS = ['pb', 'level', 'pool-max', 'weapon-die'] as const;
+export const FORMULA_REFS = ['pb', 'level', 'pool-max', 'weapon-die', 'speed'] as const;
 export type FormulaRef = (typeof FORMULA_REFS)[number];
 
 export const FORMULA_FUNCTIONS = ['min', 'max', 'floor', 'ceil'] as const;

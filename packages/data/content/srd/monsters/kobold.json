@@ -1,0 +1,71 @@
+{
+	"id": "kobold",
+	"name": "Kobold",
+	"source": {
+		"kind": "srd51",
+		"page": "monsters/kobold",
+		"section": "Kobold"
+	},
+	"status": "final",
+	"size": "small",
+	"type": "humanoid",
+	"tags": ["kobold"],
+	"alignment": "lawful evil",
+	"armorClass": { "value": 12 },
+	"hitPoints": { "average": 5, "dice": "2d6 - 2" },
+	"speed": { "walk": 30 },
+	"abilityScores": { "str": 7, "dex": 15, "con": 9, "int": 8, "wis": 7, "cha": 8 },
+	"senses": { "darkvision": 60, "passivePerception": 8 },
+	"languages": ["Common", "Draconic"],
+	"challenge": "1/8",
+	"xp": 25,
+	"traits": [
+		{
+			"id": "sunlight-sensitivity",
+			"name": "Sunlight Sensitivity",
+			"summary": "While in sunlight, disadvantage on attack rolls and on Wisdom (Perception) checks that rely on sight.",
+			"cost": "none",
+			"trigger": { "on": "attackRoll", "as": "actor" },
+			"effects": [],
+			"scriptId": "sunlight-sensitivity"
+		},
+		{
+			"id": "pack-tactics",
+			"name": "Pack Tactics",
+			"summary": "Advantage on an attack roll against a creature if an ally is within 5 feet of it and isn't incapacitated.",
+			"cost": "none",
+			"trigger": { "on": "attackRoll", "as": "actor" },
+			"condition": {
+				"kind": "creatureNear",
+				"of": "target",
+				"within": 5,
+				"side": "enemy",
+				"excluding": "self",
+				"excludeIncapacitated": true
+			},
+			"effects": [{ "kind": "modifyRoll", "roll": "attack", "mode": "advantage", "target": "self" }]
+		}
+	],
+	"actions": [
+		{
+			"kind": "attack",
+			"id": "dagger",
+			"name": "Dagger",
+			"attack": "meleeWeapon",
+			"toHit": 4,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "1d4 + 2", "type": "piercing" }]
+		},
+		{
+			"kind": "attack",
+			"id": "sling",
+			"name": "Sling",
+			"attack": "rangedWeapon",
+			"toHit": 4,
+			"range": { "normal": 30, "long": 120 },
+			"targets": 1,
+			"damage": [{ "dice": "1d4 + 2", "type": "bludgeoning" }]
+		}
+	]
+}

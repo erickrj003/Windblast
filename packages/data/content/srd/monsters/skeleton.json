@@ -1,0 +1,46 @@
+{
+	"id": "skeleton",
+	"name": "Skeleton",
+	"source": {
+		"kind": "srd51",
+		"page": "monsters/skeleton",
+		"section": "Skeleton"
+	},
+	"status": "final",
+	"size": "medium",
+	"type": "undead",
+	"alignment": "lawful evil",
+	"armorClass": { "value": 13, "note": "armor scraps" },
+	"hitPoints": { "average": 13, "dice": "2d8 + 4" },
+	"speed": { "walk": 30 },
+	"abilityScores": { "str": 10, "dex": 14, "con": 15, "int": 6, "wis": 8, "cha": 5 },
+	"damageVulnerabilities": [{ "type": "bludgeoning" }],
+	"damageImmunities": [{ "type": "poison" }],
+	"conditionImmunities": ["exhaustion", "poisoned"],
+	"senses": { "darkvision": 60, "passivePerception": 9 },
+	"languages": ["understands all languages it knew in life but can't speak"],
+	"challenge": "1/4",
+	"xp": 50,
+	"actions": [
+		{
+			"kind": "attack",
+			"id": "shortsword",
+			"name": "Shortsword",
+			"attack": "meleeWeapon",
+			"toHit": 4,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "1d6 + 2", "type": "piercing" }]
+		},
+		{
+			"kind": "attack",
+			"id": "shortbow",
+			"name": "Shortbow",
+			"attack": "rangedWeapon",
+			"toHit": 4,
+			"range": { "normal": 80, "long": 320 },
+			"targets": 1,
+			"damage": [{ "dice": "1d6 + 2", "type": "piercing" }]
+		}
+	]
+}

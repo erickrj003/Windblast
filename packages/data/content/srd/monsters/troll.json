@@ -1,0 +1,74 @@
+{
+	"id": "troll",
+	"name": "Troll",
+	"source": {
+		"kind": "srd51",
+		"page": "monsters/troll",
+		"section": "Troll"
+	},
+	"status": "final",
+	"size": "large",
+	"type": "giant",
+	"alignment": "chaotic evil",
+	"armorClass": { "value": 15, "note": "natural armor" },
+	"hitPoints": { "average": 84, "dice": "8d10 + 40" },
+	"speed": { "walk": 30 },
+	"abilityScores": { "str": 18, "dex": 13, "con": 20, "int": 7, "wis": 9, "cha": 7 },
+	"skills": { "perception": 2 },
+	"senses": { "darkvision": 60, "passivePerception": 12 },
+	"languages": ["Giant"],
+	"challenge": "5",
+	"xp": 1800,
+	"traits": [
+		{
+			"id": "keen-smell",
+			"name": "Keen Smell",
+			"summary": "Advantage on Wisdom (Perception) checks that rely on smell.",
+			"cost": "none",
+			"effects": [],
+			"noEffect": "Perception checks are not simulated."
+		},
+		{
+			"id": "regeneration",
+			"name": "Regeneration",
+			"summary": "Regains 10 hit points at the start of its turn unless it took acid or fire damage; it dies only if it starts a turn at 0 hit points and does not regenerate.",
+			"cost": "none",
+			"trigger": { "on": "turnStart", "as": "actor" },
+			"effects": [],
+			"scriptId": "regeneration"
+		}
+	],
+	"actions": [
+		{
+			"kind": "multiattack",
+			"id": "multiattack",
+			"name": "Multiattack",
+			"options": [
+				[
+					{ "action": "bite", "count": 1 },
+					{ "action": "claw", "count": 2 }
+				]
+			]
+		},
+		{
+			"kind": "attack",
+			"id": "bite",
+			"name": "Bite",
+			"attack": "meleeWeapon",
+			"toHit": 7,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "1d6 + 4", "type": "piercing" }]
+		},
+		{
+			"kind": "attack",
+			"id": "claw",
+			"name": "Claw",
+			"attack": "meleeWeapon",
+			"toHit": 7,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "2d6 + 4", "type": "slashing" }]
+		}
+	]
+}

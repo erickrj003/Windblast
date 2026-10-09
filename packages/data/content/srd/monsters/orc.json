@@ -1,0 +1,57 @@
+{
+	"id": "orc",
+	"name": "Orc",
+	"source": {
+		"kind": "srd51",
+		"page": "monsters/orc",
+		"section": "Orc"
+	},
+	"status": "final",
+	"size": "medium",
+	"type": "humanoid",
+	"tags": ["orc"],
+	"alignment": "chaotic evil",
+	"armorClass": { "value": 13, "note": "hide armor" },
+	"hitPoints": { "average": 15, "dice": "2d8 + 6" },
+	"speed": { "walk": 30 },
+	"abilityScores": { "str": 16, "dex": 12, "con": 16, "int": 7, "wis": 11, "cha": 10 },
+	"skills": { "intimidation": 2 },
+	"senses": { "darkvision": 60, "passivePerception": 10 },
+	"languages": ["Common", "Orc"],
+	"challenge": "1/2",
+	"xp": 100,
+	"traits": [
+		{
+			"id": "aggressive",
+			"name": "Aggressive",
+			"summary": "As a bonus action, the orc can move up to its speed toward a hostile creature that it can see.",
+			"cost": "bonusAction",
+			"effects": [
+				{ "kind": "move", "who": "self", "feet": "speed", "direction": "toward", "provokes": true }
+			]
+		}
+	],
+	"actions": [
+		{
+			"kind": "attack",
+			"id": "greataxe",
+			"name": "Greataxe",
+			"attack": "meleeWeapon",
+			"toHit": 5,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "1d12 + 3", "type": "slashing" }]
+		},
+		{
+			"kind": "attack",
+			"id": "javelin",
+			"name": "Javelin",
+			"attack": "meleeOrRangedWeapon",
+			"toHit": 5,
+			"reach": 5,
+			"range": { "normal": 30, "long": 120 },
+			"targets": 1,
+			"damage": [{ "dice": "1d6 + 3", "type": "piercing" }]
+		}
+	]
+}

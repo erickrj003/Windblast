@@ -1,0 +1,67 @@
+{
+	"id": "gnoll",
+	"name": "Gnoll",
+	"source": {
+		"kind": "srd51",
+		"page": "monsters/gnoll",
+		"section": "Gnoll"
+	},
+	"status": "final",
+	"size": "medium",
+	"type": "humanoid",
+	"tags": ["gnoll"],
+	"alignment": "chaotic evil",
+	"armorClass": { "value": 15, "note": "hide armor, shield" },
+	"hitPoints": { "average": 22, "dice": "5d8" },
+	"speed": { "walk": 30 },
+	"abilityScores": { "str": 14, "dex": 12, "con": 11, "int": 6, "wis": 10, "cha": 7 },
+	"senses": { "darkvision": 60, "passivePerception": 10 },
+	"languages": ["Gnoll"],
+	"challenge": "1/2",
+	"xp": 100,
+	"traits": [
+		{
+			"id": "rampage",
+			"name": "Rampage",
+			"summary": "When the gnoll reduces a creature to 0 hit points with a melee attack on its turn, it can take a bonus action to move up to half its speed and make a bite attack.",
+			"cost": "bonusAction",
+			"trigger": { "on": "reducedToZero", "as": "actor" },
+			"effects": [],
+			"scriptId": "rampage"
+		}
+	],
+	"actions": [
+		{
+			"kind": "attack",
+			"id": "bite",
+			"name": "Bite",
+			"attack": "meleeWeapon",
+			"toHit": 4,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "1d4 + 2", "type": "piercing" }]
+		},
+		{
+			"kind": "attack",
+			"id": "spear",
+			"name": "Spear",
+			"attack": "meleeOrRangedWeapon",
+			"toHit": 4,
+			"reach": 5,
+			"range": { "normal": 20, "long": 60 },
+			"targets": 1,
+			"damage": [{ "dice": "1d6 + 2", "type": "piercing" }],
+			"versatile": [{ "dice": "1d8 + 2", "type": "piercing" }]
+		},
+		{
+			"kind": "attack",
+			"id": "longbow",
+			"name": "Longbow",
+			"attack": "rangedWeapon",
+			"toHit": 3,
+			"range": { "normal": 150, "long": 600 },
+			"targets": 1,
+			"damage": [{ "dice": "1d8 + 1", "type": "piercing" }]
+		}
+	]
+}

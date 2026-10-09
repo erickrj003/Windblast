@@ -1,0 +1,65 @@
+{
+	"id": "brown-bear",
+	"name": "Brown Bear",
+	"source": {
+		"kind": "srd51",
+		"page": "monsters/brown-bear",
+		"section": "Brown Bear"
+	},
+	"status": "final",
+	"size": "large",
+	"type": "beast",
+	"alignment": "unaligned",
+	"armorClass": { "value": 11, "note": "natural armor" },
+	"hitPoints": { "average": 34, "dice": "4d10 + 12" },
+	"speed": { "walk": 40, "climb": 30 },
+	"abilityScores": { "str": 19, "dex": 10, "con": 16, "int": 2, "wis": 13, "cha": 7 },
+	"skills": { "perception": 3 },
+	"senses": { "passivePerception": 13 },
+	"languages": [],
+	"challenge": "1",
+	"xp": 200,
+	"traits": [
+		{
+			"id": "keen-smell",
+			"name": "Keen Smell",
+			"summary": "Advantage on Wisdom (Perception) checks that rely on smell.",
+			"cost": "none",
+			"effects": [],
+			"noEffect": "Perception checks are not simulated."
+		}
+	],
+	"actions": [
+		{
+			"kind": "multiattack",
+			"id": "multiattack",
+			"name": "Multiattack",
+			"options": [
+				[
+					{ "action": "bite", "count": 1 },
+					{ "action": "claws", "count": 1 }
+				]
+			]
+		},
+		{
+			"kind": "attack",
+			"id": "bite",
+			"name": "Bite",
+			"attack": "meleeWeapon",
+			"toHit": 5,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "1d8 + 4", "type": "piercing" }]
+		},
+		{
+			"kind": "attack",
+			"id": "claws",
+			"name": "Claws",
+			"attack": "meleeWeapon",
+			"toHit": 5,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "2d6 + 4", "type": "slashing" }]
+		}
+	]
+}

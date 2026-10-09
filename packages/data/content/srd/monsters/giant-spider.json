@@ -1,0 +1,93 @@
+{
+	"id": "giant-spider",
+	"name": "Giant Spider",
+	"source": {
+		"kind": "srd51",
+		"page": "monsters/giant-spider",
+		"section": "Giant Spider"
+	},
+	"status": "final",
+	"size": "large",
+	"type": "beast",
+	"alignment": "unaligned",
+	"armorClass": { "value": 14, "note": "natural armor" },
+	"hitPoints": { "average": 26, "dice": "4d10 + 4" },
+	"speed": { "walk": 30, "climb": 30 },
+	"abilityScores": { "str": 14, "dex": 16, "con": 12, "int": 2, "wis": 11, "cha": 4 },
+	"skills": { "stealth": 7 },
+	"senses": { "blindsight": 10, "darkvision": 60, "passivePerception": 10 },
+	"languages": [],
+	"challenge": "1",
+	"xp": 200,
+	"traits": [
+		{
+			"id": "spider-climb",
+			"name": "Spider Climb",
+			"summary": "The spider can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check.",
+			"cost": "none",
+			"effects": [],
+			"noEffect": "Climb speed covers ordinary climbing; ceiling and check-free climbing is not simulated separately."
+		},
+		{
+			"id": "web-sense",
+			"name": "Web Sense",
+			"summary": "While in contact with a web, the spider knows the exact location of any other creature in contact with the same web.",
+			"cost": "none",
+			"effects": [],
+			"noEffect": "Web locations are not tracked as a map layer."
+		},
+		{
+			"id": "web-walker",
+			"name": "Web Walker",
+			"summary": "The spider ignores movement restrictions caused by webbing.",
+			"cost": "none",
+			"effects": [],
+			"noEffect": "Web locations are not tracked as a map layer."
+		}
+	],
+	"actions": [
+		{
+			"kind": "attack",
+			"id": "bite",
+			"name": "Bite",
+			"attack": "meleeWeapon",
+			"toHit": 5,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "1d8 + 3", "type": "piercing" }],
+			"onHit": [
+				{
+					"kind": "save",
+					"ability": "con",
+					"dc": "11",
+					"target": "target",
+					"halfOnSuccess": true,
+					"onFail": [
+						{ "kind": "damage", "amount": "2d8", "damageType": "poison", "target": "target" }
+					]
+				}
+			],
+			"scriptId": "giant-spider-venom"
+		},
+		{
+			"kind": "attack",
+			"id": "web",
+			"name": "Web",
+			"attack": "rangedWeapon",
+			"toHit": 5,
+			"range": { "normal": 30, "long": 60 },
+			"targets": 1,
+			"recharge": 5,
+			"damage": [],
+			"onHit": [
+				{
+					"kind": "applyCondition",
+					"condition": "restrained",
+					"target": "target",
+					"duration": { "kind": "untilRemoved" }
+				}
+			],
+			"scriptId": "giant-spider-web"
+		}
+	]
+}

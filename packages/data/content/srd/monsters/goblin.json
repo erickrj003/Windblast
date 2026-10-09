@@ -1,0 +1,55 @@
+{
+	"id": "goblin",
+	"name": "Goblin",
+	"source": {
+		"kind": "srd51",
+		"page": "monsters/goblin",
+		"section": "Goblin"
+	},
+	"status": "final",
+	"size": "small",
+	"type": "humanoid",
+	"tags": ["goblinoid"],
+	"alignment": "neutral evil",
+	"armorClass": { "value": 15, "note": "leather armor, shield" },
+	"hitPoints": { "average": 7, "dice": "2d6" },
+	"speed": { "walk": 30 },
+	"abilityScores": { "str": 8, "dex": 14, "con": 10, "int": 10, "wis": 8, "cha": 8 },
+	"skills": { "stealth": 6 },
+	"senses": { "darkvision": 60, "passivePerception": 9 },
+	"languages": ["Common", "Goblin"],
+	"challenge": "1/4",
+	"xp": 50,
+	"traits": [
+		{
+			"id": "nimble-escape",
+			"name": "Nimble Escape",
+			"summary": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns.",
+			"cost": "bonusAction",
+			"effects": [],
+			"scriptId": "nimble-escape"
+		}
+	],
+	"actions": [
+		{
+			"kind": "attack",
+			"id": "scimitar",
+			"name": "Scimitar",
+			"attack": "meleeWeapon",
+			"toHit": 4,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "1d6 + 2", "type": "slashing" }]
+		},
+		{
+			"kind": "attack",
+			"id": "shortbow",
+			"name": "Shortbow",
+			"attack": "rangedWeapon",
+			"toHit": 4,
+			"range": { "normal": 80, "long": 320 },
+			"targets": 1,
+			"damage": [{ "dice": "1d6 + 2", "type": "piercing" }]
+		}
+	]
+}

@@ -1,0 +1,88 @@
+{
+	"id": "wight",
+	"name": "Wight",
+	"source": {
+		"kind": "srd51",
+		"page": "monsters/wight",
+		"section": "Wight"
+	},
+	"status": "final",
+	"size": "medium",
+	"type": "undead",
+	"alignment": "neutral evil",
+	"armorClass": { "value": 14, "note": "studded leather" },
+	"hitPoints": { "average": 45, "dice": "6d8 + 18" },
+	"speed": { "walk": 30 },
+	"abilityScores": { "str": 15, "dex": 14, "con": 16, "int": 10, "wis": 13, "cha": 15 },
+	"skills": { "perception": 3, "stealth": 4 },
+	"damageResistances": [
+		{ "type": "necrotic" },
+		{ "type": "bludgeoning", "unless": ["magical", "silvered"] },
+		{ "type": "piercing", "unless": ["magical", "silvered"] },
+		{ "type": "slashing", "unless": ["magical", "silvered"] }
+	],
+	"damageImmunities": [{ "type": "poison" }],
+	"conditionImmunities": ["exhaustion", "poisoned"],
+	"senses": { "darkvision": 60, "passivePerception": 13 },
+	"languages": ["the languages it knew in life"],
+	"challenge": "3",
+	"xp": 700,
+	"traits": [
+		{
+			"id": "sunlight-sensitivity",
+			"name": "Sunlight Sensitivity",
+			"summary": "While in sunlight, disadvantage on attack rolls and on Wisdom (Perception) checks that rely on sight.",
+			"cost": "none",
+			"trigger": { "on": "attackRoll", "as": "actor" },
+			"effects": [],
+			"scriptId": "sunlight-sensitivity"
+		}
+	],
+	"actions": [
+		{
+			"kind": "multiattack",
+			"id": "multiattack",
+			"name": "Multiattack",
+			"options": [
+				[{ "action": "longsword", "count": 2 }],
+				[
+					{ "action": "longsword", "count": 1 },
+					{ "action": "life-drain", "count": 1 }
+				],
+				[{ "action": "longbow", "count": 2 }]
+			]
+		},
+		{
+			"kind": "attack",
+			"id": "life-drain",
+			"name": "Life Drain",
+			"attack": "meleeWeapon",
+			"toHit": 4,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "1d6 + 2", "type": "necrotic" }],
+			"scriptId": "life-drain"
+		},
+		{
+			"kind": "attack",
+			"id": "longsword",
+			"name": "Longsword",
+			"attack": "meleeWeapon",
+			"toHit": 4,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "1d8 + 2", "type": "slashing" }],
+			"versatile": [{ "dice": "1d10 + 2", "type": "slashing" }]
+		},
+		{
+			"kind": "attack",
+			"id": "longbow",
+			"name": "Longbow",
+			"attack": "rangedWeapon",
+			"toHit": 4,
+			"range": { "normal": 150, "long": 600 },
+			"targets": 1,
+			"damage": [{ "dice": "1d8 + 2", "type": "piercing" }]
+		}
+	]
+}

@@ -1,0 +1,70 @@
+{
+	"id": "hobgoblin",
+	"name": "Hobgoblin",
+	"source": {
+		"kind": "srd51",
+		"page": "monsters/hobgoblin",
+		"section": "Hobgoblin"
+	},
+	"status": "final",
+	"size": "medium",
+	"type": "humanoid",
+	"tags": ["goblinoid"],
+	"alignment": "lawful evil",
+	"armorClass": { "value": 18, "note": "chain mail, shield" },
+	"hitPoints": { "average": 11, "dice": "2d8 + 2" },
+	"speed": { "walk": 30 },
+	"abilityScores": { "str": 13, "dex": 12, "con": 12, "int": 10, "wis": 10, "cha": 9 },
+	"senses": { "darkvision": 60, "passivePerception": 10 },
+	"languages": ["Common", "Goblin"],
+	"challenge": "1/2",
+	"xp": 100,
+	"traits": [
+		{
+			"id": "martial-advantage",
+			"name": "Martial Advantage",
+			"summary": "Once per turn, extra 2d6 damage when it hits with a weapon attack if an ally is within 5 feet of the target and isn't incapacitated.",
+			"cost": "none",
+			"trigger": { "on": "hit", "as": "actor" },
+			"condition": {
+				"kind": "all",
+				"of": [
+					{ "kind": "attack", "with": "weapon" },
+					{
+						"kind": "creatureNear",
+						"of": "target",
+						"within": 5,
+						"side": "enemy",
+						"excluding": "self",
+						"excludeIncapacitated": true
+					}
+				]
+			},
+			"limit": "oncePerTurn",
+			"effects": [{ "kind": "damage", "amount": "2d6", "damageType": "weapon", "target": "target" }]
+		}
+	],
+	"actions": [
+		{
+			"kind": "attack",
+			"id": "longsword",
+			"name": "Longsword",
+			"attack": "meleeWeapon",
+			"toHit": 3,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "1d8 + 1", "type": "slashing" }],
+			"versatile": [{ "dice": "1d10 + 1", "type": "slashing" }]
+		},
+		{
+			"kind": "attack",
+			"id": "longbow",
+			"name": "Longbow",
+			"attack": "rangedWeapon",
+			"toHit": 3,
+			"range": { "normal": 150, "long": 600 },
+			"targets": 1,
+			"damage": [{ "dice": "1d8 + 1", "type": "piercing" }]
+		}
+	]
+}

@@ -1,0 +1,65 @@
+{
+	"id": "owlbear",
+	"name": "Owlbear",
+	"source": {
+		"kind": "srd51",
+		"page": "monsters/owlbear",
+		"section": "Owlbear"
+	},
+	"status": "final",
+	"size": "large",
+	"type": "monstrosity",
+	"alignment": "unaligned",
+	"armorClass": { "value": 13, "note": "natural armor" },
+	"hitPoints": { "average": 59, "dice": "7d10 + 21" },
+	"speed": { "walk": 40 },
+	"abilityScores": { "str": 20, "dex": 12, "con": 17, "int": 3, "wis": 12, "cha": 7 },
+	"skills": { "perception": 3 },
+	"senses": { "darkvision": 60, "passivePerception": 13 },
+	"languages": [],
+	"challenge": "3",
+	"xp": 700,
+	"traits": [
+		{
+			"id": "keen-sight-and-smell",
+			"name": "Keen Sight and Smell",
+			"summary": "Advantage on Wisdom (Perception) checks that rely on sight or smell.",
+			"cost": "none",
+			"effects": [],
+			"noEffect": "Perception checks are not simulated."
+		}
+	],
+	"actions": [
+		{
+			"kind": "multiattack",
+			"id": "multiattack",
+			"name": "Multiattack",
+			"options": [
+				[
+					{ "action": "beak", "count": 1 },
+					{ "action": "claws", "count": 1 }
+				]
+			]
+		},
+		{
+			"kind": "attack",
+			"id": "beak",
+			"name": "Beak",
+			"attack": "meleeWeapon",
+			"toHit": 7,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "1d10 + 5", "type": "piercing" }]
+		},
+		{
+			"kind": "attack",
+			"id": "claws",
+			"name": "Claws",
+			"attack": "meleeWeapon",
+			"toHit": 7,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "2d8 + 5", "type": "slashing" }]
+		}
+	]
+}

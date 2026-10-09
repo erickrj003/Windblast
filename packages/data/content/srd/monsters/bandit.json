@@ -1,0 +1,44 @@
+{
+	"id": "bandit",
+	"name": "Bandit",
+	"source": {
+		"kind": "srd51",
+		"page": "monsters/bandit",
+		"section": "Bandit"
+	},
+	"status": "final",
+	"size": "medium",
+	"type": "humanoid",
+	"tags": ["any-race"],
+	"alignment": "any non-lawful alignment",
+	"armorClass": { "value": 12, "note": "leather armor" },
+	"hitPoints": { "average": 11, "dice": "2d8 + 2" },
+	"speed": { "walk": 30 },
+	"abilityScores": { "str": 11, "dex": 12, "con": 12, "int": 10, "wis": 10, "cha": 10 },
+	"senses": { "passivePerception": 10 },
+	"languages": ["any one language (usually Common)"],
+	"challenge": "1/8",
+	"xp": 25,
+	"actions": [
+		{
+			"kind": "attack",
+			"id": "scimitar",
+			"name": "Scimitar",
+			"attack": "meleeWeapon",
+			"toHit": 3,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "1d6 + 1", "type": "slashing" }]
+		},
+		{
+			"kind": "attack",
+			"id": "light-crossbow",
+			"name": "Light Crossbow",
+			"attack": "rangedWeapon",
+			"toHit": 3,
+			"range": { "normal": 80, "long": 320 },
+			"targets": 1,
+			"damage": [{ "dice": "1d8 + 1", "type": "piercing" }]
+		}
+	]
+}

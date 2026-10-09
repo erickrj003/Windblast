@@ -39,7 +39,10 @@ export const featureFields = {
 	),
 	limit: v.exactOptional(v.picklist(['oncePerTurn', 'oncePerRound'])),
 	effects: v.array(Effect),
-	scriptId: v.exactOptional(Id)
+	scriptId: v.exactOptional(Id),
+	noEffect: v.exactOptional(
+		v.pipe(v.string(), v.trim(), v.nonEmpty('Say why this feature is not simulated'))
+	)
 };
 
 interface FeatureShape {
@@ -47,12 +50,19 @@ interface FeatureShape {
 	readonly trigger?: Trigger;
 	readonly effects: ReadonlyArray<Effect>;
 	readonly scriptId?: string;
+	readonly noEffect?: string;
 }
 
 /** Returns why a feature is inconsistent, or `undefined` when it is fine. */
 export function featureProblem(feature: FeatureShape): string | undefined {
+	if (feature.noEffect !== undefined) {
+		if (feature.effects.length > 0 || feature.scriptId !== undefined) {
+			return 'noEffect cannot be combined with effects or a scriptId';
+		}
+		return undefined;
+	}
 	if (feature.effects.length === 0 && feature.scriptId === undefined) {
-		return 'A feature needs effects, or a scriptId naming its engine module';
+		return 'A feature needs effects, a scriptId naming its engine module, or a noEffect reason';
 	}
 	if (feature.cost === 'reaction' && feature.trigger === undefined) {
 		return 'A reaction needs a trigger';

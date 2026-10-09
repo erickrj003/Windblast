@@ -1,0 +1,66 @@
+{
+	"id": "bugbear",
+	"name": "Bugbear",
+	"source": {
+		"kind": "srd51",
+		"page": "monsters/bugbear",
+		"section": "Bugbear"
+	},
+	"status": "final",
+	"size": "medium",
+	"type": "humanoid",
+	"tags": ["goblinoid"],
+	"alignment": "chaotic evil",
+	"armorClass": { "value": 16, "note": "hide armor, shield" },
+	"hitPoints": { "average": 27, "dice": "5d8 + 5" },
+	"speed": { "walk": 30 },
+	"abilityScores": { "str": 15, "dex": 14, "con": 13, "int": 8, "wis": 11, "cha": 9 },
+	"skills": { "stealth": 6, "survival": 2 },
+	"senses": { "darkvision": 60, "passivePerception": 10 },
+	"languages": ["Common", "Goblin"],
+	"challenge": "1",
+	"xp": 200,
+	"traits": [
+		{
+			"id": "brute",
+			"name": "Brute",
+			"summary": "A melee weapon deals one extra die of its damage when the bugbear hits with it (included in the attack).",
+			"cost": "none",
+			"effects": [],
+			"noEffect": "The extra die is already included in the attack damage."
+		},
+		{
+			"id": "surprise-attack",
+			"name": "Surprise Attack",
+			"summary": "If the bugbear surprises a creature and hits it with an attack during the first round of combat, the target takes an extra 7 (2d6) damage.",
+			"cost": "none",
+			"trigger": { "on": "hit", "as": "actor" },
+			"effects": [],
+			"scriptId": "surprise-attack"
+		}
+	],
+	"actions": [
+		{
+			"kind": "attack",
+			"id": "morningstar",
+			"name": "Morningstar",
+			"attack": "meleeWeapon",
+			"toHit": 4,
+			"reach": 5,
+			"targets": 1,
+			"damage": [{ "dice": "2d8 + 2", "type": "piercing" }]
+		},
+		{
+			"kind": "attack",
+			"id": "javelin",
+			"name": "Javelin",
+			"attack": "meleeOrRangedWeapon",
+			"toHit": 4,
+			"reach": 5,
+			"range": { "normal": 30, "long": 120 },
+			"targets": 1,
+			"damage": [{ "dice": "2d6 + 2", "type": "piercing" }],
+			"atRange": [{ "dice": "1d6 + 2", "type": "piercing" }]
+		}
+	]
+}
