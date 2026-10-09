@@ -22,7 +22,8 @@ Rules gaps and decisions waiting on Erick. The agent adds entries; Erick answers
 - Source: plan, "Rules data pipeline"
 - Readings: (a) the Quartz repo that publishes erickrj.tech/inazria-players-guide; (b) a content-only repo it pulls from
 - Blocks: P1-02 `data:pull`
-- Status: open
+- Status: answered (2026-10-08, recorded at the Phase 0 review; applied in P1-02)
+- Answer: "Use this URL: https://github.com/erickrj003/inazria-players-guide"
 
 ## Q-002: What license should the simulator repo use?
 - Source: plan, "Rules data pipeline → Licensing"

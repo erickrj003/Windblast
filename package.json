@@ -19,7 +19,7 @@
 		"size": "node scripts/check-bundle-size.ts",
 		"bench": "node -e \"console.info('bench: placeholder until P5-04')\"",
 		"data:pull": "node -e \"console.info('data:pull: placeholder until P1-02')\"",
-		"data:check": "node -e \"console.info('data:check: placeholder until P1-01')\"",
+		"data:check": "node scripts/check-data.ts",
 		"rules:sync": "node scripts/sync-agent-rules.ts",
 		"rules:check": "node scripts/sync-agent-rules.ts --check"
 	},

@@ -1,6 +1,6 @@
 # 0002: `@types/node` for build and tooling files
 
-- Status: proposed
+- Status: accepted (Erick, 2026-10-08, Phase 0 review)
 - Date: 2026-10-08
 - Proposed by: agent
 
