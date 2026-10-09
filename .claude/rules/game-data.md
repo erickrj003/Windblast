@@ -17,9 +17,9 @@ The simulator is a **measuring instrument** for Erick's rules. Its value depends
 
 ## Every record
 
-- One entity per JSON file in `content/<kind>/<id>.json`; `id` is kebab-case and matches the file name.
+- One entity per JSON file in `content/<srd|inazria>/<kind>/<id>.json`; `id` is kebab-case and matches the file name.
 - Validates against its Valibot schema in `src/schemas/`.
-- Has a `source` block: `{ kind: 'inazria' | 'srd51', page, section, commit?, contentHash? }`. Inazria sources require `commit` and `contentHash`.
+- Has a `source` block: `{ kind: 'inazria' | 'srd51', page, section, commit?, contentHash? }`. Inazria sources require `commit` and `contentHash`. Generate them with `pnpm data:provenance --hash <page> "<section>"`; `section` is a heading path such as `Core Class Features > Exertion (1st Level)`, and its last part may be a bold-labelled list item or table row.
 - Has a `status`: `final`, `draft` or `blocked`. Only `final` is used unless the user enables draft rules.
 
 ## When the rules are unclear

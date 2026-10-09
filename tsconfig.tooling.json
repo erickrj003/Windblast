@@ -12,5 +12,5 @@
 		"allowImportingTsExtensions": true,
 		"skipLibCheck": true
 	},
-	"include": ["*.js", "*.config.ts", "scripts/*.ts", "apps/web/*.config.ts"]
+	"include": ["*.js", "*.config.ts", "apps/web/*.config.ts"]
 }
